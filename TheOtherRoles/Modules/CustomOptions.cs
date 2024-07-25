@@ -10,12 +10,15 @@ using System.Reflection;
 using System.Text;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using static TheOtherRoles.CustomOption;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
 
-namespace TheOtherRoles {
+namespace TheOtherRoles
+{
     public class CustomOption {
         public enum CustomOptionType {
             General,
@@ -78,6 +81,12 @@ namespace TheOtherRoles {
 
         public static CustomOption Create(int id, CustomOptionType type, string name, bool defaultValue, CustomOption parent = null, bool isHeader = false, string format = "") {
             return new CustomOption(id, type, name, new string[]{ "optionOff", "optionOn" }, defaultValue ? "optionOn" : "optionOff", parent, isHeader, format);
+        }
+        public static CustomOption Create(RoleInfo Info, int id, string name, bool defaultValue, CustomOption parent = null, string format = "")
+        {
+            var type = Info.types;
+            id = Info.roleId
+            return new CustomOption(id, type, name, new string[] { "optionOff", "optionOn" }, defaultValue ? "optionOn" : "optionOff", parent, isHeader, format);
         }
 
         // Static behaviour

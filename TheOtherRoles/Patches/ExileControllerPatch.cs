@@ -2,14 +2,17 @@ using HarmonyLib;
 using Hazel;
 using System.Collections.Generic;
 using System.Linq;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
 
-namespace TheOtherRoles.Patches {
+namespace TheOtherRoles.Patches
+{
     [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
     [HarmonyPriority(Priority.First)]
     class ExileControllerBeginPatch {
@@ -191,10 +194,10 @@ namespace TheOtherRoles.Patches {
                 Mini.triggerMiniLose = true;
             }
             // Jester win condition
-            else if (exiled != null && Jester.jester != null && Jester.jester.PlayerId == exiled.PlayerId) {
-                Jester.triggerJesterWin = true;
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                pc.GetRoleClass().OnWrapUp();
             }
-
 
             // Reset custom button timers where necessary
             CustomButton.MeetingEndedUpdate();
@@ -256,7 +259,7 @@ namespace TheOtherRoles.Patches {
                 PlagueDoctor.updateDead();
 
                 FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(PlagueDoctor.immunityTime, new Action<float>((p) =>
-                { // 5Ãëáá¤«¤é¸ÐÈ¾é_Ê¼
+                { // 5ç§’å¾Œã‹ã‚‰æ„ŸæŸ“é–‹å§‹
                     if (p == 1f)
                     {
                         PlagueDoctor.meetingFlag = false;
@@ -560,14 +563,15 @@ namespace TheOtherRoles.Patches {
                 if (ExileController.Instance != null && ExileController.Instance.exiled != null) {
                     PlayerControl player = Helpers.playerById(ExileController.Instance.exiled.Object.PlayerId);
                     if (player == null) return;
+                    foreach (var pc in PlayerControl.AllPlayerControls)
+                    {
+                        __result = pc.GetRoleClass().OverrideExileText(player, id);
+                    }
                     // Exile role text
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
                         __result = player.Data.PlayerName + " was The " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false, includeHidden: true).Select(x => x.name).ToArray());
                     }
                     // Hide number of remaining impostors on Jester win
-                    if (id == StringNames.ImpostorsRemainP || id == StringNames.ImpostorsRemainS) {
-                        if (Jester.jester != null && player.PlayerId == Jester.jester.PlayerId) __result = "";
-                    }
                     if (Yasuna.specialVoteTargetPlayerId != byte.MaxValue)
                     {
                         if (CustomOptionHolder.yasunaSpecificMessageMode.getBool()) __result += ModTranslation.getString("yasunaSpecialIndicator");

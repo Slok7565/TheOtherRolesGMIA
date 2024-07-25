@@ -5,7 +5,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 using System;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using HarmonyLib;
 using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;

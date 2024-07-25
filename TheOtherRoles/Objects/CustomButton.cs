@@ -5,9 +5,10 @@ using TheOtherRoles.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 
-namespace TheOtherRoles.Objects {
+namespace TheOtherRoles.Objects
+{
     public class CustomButton {
         public static List<CustomButton> buttons = new List<CustomButton>();
         public ActionButton actionButton;

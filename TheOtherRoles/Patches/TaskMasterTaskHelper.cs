@@ -1,12 +1,14 @@
 using HarmonyLib;
 using System;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Utilities;
+using TheOtherRoles.Role;
 
-namespace TheOtherRoles.Patches {
+namespace TheOtherRoles.Patches
+{
     class TaskMasterTaskHelper
     {
         static int taskMasterAddCommonTasks = 0;

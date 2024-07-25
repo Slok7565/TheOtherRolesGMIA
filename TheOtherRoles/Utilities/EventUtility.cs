@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using TheOtherRoles;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using System.Linq;
 using InnerNet;
 using TheOtherRoles.Modules;

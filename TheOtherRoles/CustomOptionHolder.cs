@@ -1,14 +1,17 @@
 using Epic.OnlineServices.RTCAudio;
 using System.Collections.Generic;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
 using UnityEngine;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using Types = TheOtherRoles.CustomOption.CustomOptionType;
 
-namespace TheOtherRoles {
+namespace TheOtherRoles
+{
     public class CustomOptionHolder {
-        public static string[] rates = new string[]{"0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"};
-        public static string[] ratesModifier = new string[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
-        public static string[] presets = new string[]{ "preset1", "preset2", "Random Preset Skeld", "Random Preset Mira HQ", "Random Preset Polus", "Random Preset Airship", "Random Preset Submerged" };
+        public static string[] rates = new string[] { "0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%" };
+        public static string[] ratesModifier = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
+        public static string[] presets = new string[] { "preset1", "preset2", "Random Preset Skeld", "Random Preset Mira HQ", "Random Preset Polus", "Random Preset Airship", "Random Preset Submerged" };
 
         public static CustomOption presetSelection;
         public static CustomOption activateRoles;
@@ -62,10 +65,6 @@ namespace TheOtherRoles {
         public static CustomOption watcherSeeGuesses;
         public static CustomOption watcherSpawnBothRate;
 
-        public static CustomOption jesterSpawnRate;
-        public static CustomOption jesterCanCallEmergency;
-        public static CustomOption jesterHasImpostorVision;
-        public static CustomOption jesterCanVent;
 
         public static CustomOption arsonistSpawnRate;
         public static CustomOption arsonistCooldown;
@@ -758,8 +757,8 @@ namespace TheOtherRoles {
             guesserIsImpGuesserRate = CustomOption.Create(311, Types.Neutral, "guesserIsImpGuesserRate", rates, guesserSpawnRate);
             guesserNumberOfShots = CustomOption.Create(312, Types.Neutral, "guesserNumberOfShots", 2f, 1f, 15f, 1f, guesserSpawnRate, false, "unitShots");
             guesserHasMultipleShotsPerMeeting = CustomOption.Create(313, Types.Neutral, "guesserHasMultipleShotsPerMeeting", false, guesserSpawnRate);
-            guesserKillsThroughShield  = CustomOption.Create(315, Types.Neutral, "guesserKillsThroughShield", true, guesserSpawnRate);
-            guesserEvilCanKillSpy  = CustomOption.Create(316, Types.Neutral, "guesserEvilCanKillSpy", true, guesserSpawnRate);
+            guesserKillsThroughShield = CustomOption.Create(315, Types.Neutral, "guesserKillsThroughShield", true, guesserSpawnRate);
+            guesserEvilCanKillSpy = CustomOption.Create(316, Types.Neutral, "guesserEvilCanKillSpy", true, guesserSpawnRate);
             guesserSpawnBothRate = CustomOption.Create(317, Types.Neutral, "guesserSpawnBothRate", rates, guesserSpawnRate);
             guesserCantGuessSnitchIfTaksDone = CustomOption.Create(318, Types.Neutral, "guesserCantGuessSnitchIfTaksDone", true, guesserSpawnRate);
 
@@ -781,10 +780,7 @@ namespace TheOtherRoles {
             yasunaNumberOfSpecialVotes = CustomOption.Create(6042, Types.Neutral, "yasunaNumberOfSpecialVotes", 1f, 1f, 15f, 1f, yasunaSpawnRate, false, "unitShots");
             yasunaSpecificMessageMode = CustomOption.Create(6043, Types.Neutral, "yasunaSpecificMessageMode", true, yasunaSpawnRate);
 
-            jesterSpawnRate = CustomOption.Create(60, Types.Neutral, cs(Jester.color, "jester"), rates, null, true);
-            jesterCanCallEmergency = CustomOption.Create(61, Types.Neutral, "jesterCanCallEmergency", true, jesterSpawnRate);
-            jesterHasImpostorVision = CustomOption.Create(62, Types.Neutral, "jesterHasImpostorVision", false, jesterSpawnRate);
-            jesterCanVent = CustomOption.Create(6088, Types.Neutral, "jesterCanVent", false, jesterSpawnRate);
+
 
             arsonistSpawnRate = CustomOption.Create(290, Types.Neutral, cs(Arsonist.color, "arsonist"), rates, null, true);
             arsonistCooldown = CustomOption.Create(291, Types.Neutral, "arsonistCooldown", 12.5f, 2.5f, 60f, 2.5f, arsonistSpawnRate, false, "unitSeconds");
@@ -1152,7 +1148,7 @@ namespace TheOtherRoles {
             maxNumberOfMeetings = CustomOption.Create(3, Types.General, "maxNumberOfMeetings", 10, 0, 15, 1, null, true, "unitShots");
             blockSkippingInEmergencyMeetings = CustomOption.Create(4, Types.General, "blockSkippingInEmergencyMeetings", false);
             noVoteIsSelfVote = CustomOption.Create(5, Types.General, "noVoteIsSelfVote", false, blockSkippingInEmergencyMeetings);
-            hidePlayerNames = CustomOption.Create(6, Types.General,  "hidePlayerNames", false);
+            hidePlayerNames = CustomOption.Create(6, Types.General, "hidePlayerNames", false);
             allowParallelMedBayScans = CustomOption.Create(7, Types.General, "allowParallelMedBayScans", false);
             shieldFirstKill = CustomOption.Create(8, Types.General, "shieldFirstKill", false);
             finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, "finishTasksBeforeHauntingOrZoomingOut", true);
@@ -1185,14 +1181,27 @@ namespace TheOtherRoles {
             dynamicMapEnableFungle = CustomOption.Create(506, Types.General, "Fungle", rates, dynamicMap, false);
             dynamicMapSeparateSettings = CustomOption.Create(509, Types.General, "dynamicMapSeparateSettings", false, dynamicMap, false);
 
-            blockedRolePairings.Add((byte)RoleId.Vampire, new [] { (byte)RoleId.Warlock});
-            blockedRolePairings.Add((byte)RoleId.Warlock, new [] { (byte)RoleId.Vampire});
-            blockedRolePairings.Add((byte)RoleId.Spy, new [] { (byte)RoleId.Mini});
-            blockedRolePairings.Add((byte)RoleId.Mini, new [] { (byte)RoleId.Spy});
-            blockedRolePairings.Add((byte)RoleId.Vulture, new [] { (byte)RoleId.Cleaner});
-            blockedRolePairings.Add((byte)RoleId.Cleaner, new [] { (byte)RoleId.Vulture});
+            blockedRolePairings.Add((byte)RoleId.Vampire, new[] { (byte)RoleId.Warlock });
+            blockedRolePairings.Add((byte)RoleId.Warlock, new[] { (byte)RoleId.Vampire });
+            blockedRolePairings.Add((byte)RoleId.Spy, new[] { (byte)RoleId.Mini });
+            blockedRolePairings.Add((byte)RoleId.Mini, new[] { (byte)RoleId.Spy });
+            blockedRolePairings.Add((byte)RoleId.Vulture, new[] { (byte)RoleId.Cleaner });
+            blockedRolePairings.Add((byte)RoleId.Cleaner, new[] { (byte)RoleId.Vulture });
             blockedRolePairings.Add((byte)RoleId.Cupid, new[] { (byte)RoleId.Akujo });
             blockedRolePairings.Add((byte)RoleId.Akujo, new[] { (byte)RoleId.Cupid });
         }
+        public static void SetupRoleOptions(RoleInfo info)
+        {
+            SetupRoleOptions(info.Id, info.types, info.roleId, info.color);
+            info.optionCreator?.Invoke();
+        }
+        public static void SetupRoleOptions(int id, Types tab, RoleId role ,Color color)
+        {
+
+            var spawnOption = CustomOption.Create(id, tab, cs(color, role.ToString()), rates, isHeader: true);
+            //CustomRoleSpawnChances.Add(role, spawnOption);
+            //CustomRoleCounts.Add(role, countOption);
+        }
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using System;
+using TheOtherRoles.Role;
 
-namespace TheOtherRoles.Patches {
+namespace TheOtherRoles.Patches
+{
     [HarmonyPatch]
     public static class AirShipSetAntiTpPosition {
 

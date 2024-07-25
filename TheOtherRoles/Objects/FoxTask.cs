@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using TheOtherRoles.Modules;
-using TheOtherRoles;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
+using TheOtherRoles.Role;
 
 
 namespace TheOtherRoles.Objects

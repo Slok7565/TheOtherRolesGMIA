@@ -1,6 +1,6 @@
 using HarmonyLib;
 using System;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,11 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Objects;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
 
-namespace TheOtherRoles.Patches {
+namespace TheOtherRoles.Patches
+{
     [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
     class IntroCutsceneOnDestroyPatch
     {

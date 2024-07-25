@@ -3,9 +3,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.TheOtherRoles;
+using static TheOtherRoles.Role.TheOtherRoles;
+using TheOtherRoles.Role;
 
-namespace TheOtherRoles.Objects {
+namespace TheOtherRoles.Objects
+{
 
     public class Portal {
         public static Portal firstPortal = null;

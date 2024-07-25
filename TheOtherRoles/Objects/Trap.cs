@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
+using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
