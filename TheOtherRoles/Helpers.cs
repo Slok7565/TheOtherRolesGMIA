@@ -550,7 +550,7 @@ namespace TheOtherRoles {
             {
                 var instance = ShipStatus.Instance.CastFast<FungleShipStatus>().specialSabotage;
                 MushroomMixupSabotageSystem.CondensedOutfit condensedOutfit = instance.currentMixups[target.PlayerId];
-                GameData.PlayerOutfit playerOutfit = instance.ConvertToPlayerOutfit(condensedOutfit);
+                NetworkedPlayerInfo.PlayerOutfit playerOutfit = instance.ConvertToPlayerOutfit(condensedOutfit);
                 target.MixUpOutfit(playerOutfit);
             }
             else

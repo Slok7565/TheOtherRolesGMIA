@@ -1764,15 +1764,15 @@ namespace TheOtherRoles
             if (taskTypeIds != null && taskTypeIds.Length > 0)
             {
                 player.Object.clearAllTasks();
-                player.Tasks = new Il2CppSystem.Collections.Generic.List<GameData.TaskInfo>(taskTypeIds.Length);
+                player.Tasks = new Il2CppSystem.Collections.Generic.List<NetworkedPlayerInfo.TaskInfo>(taskTypeIds.Length);
                 for (int i = 0; i < taskTypeIds.Length; i++)
                 {
-                    player.Tasks.Add(new GameData.TaskInfo(taskTypeIds[i], (uint)i));
+                    player.Tasks.Add(new NetworkedPlayerInfo.TaskInfo(taskTypeIds[i], (uint)i));
                     player.Tasks[i].Id = (uint)i;
                 }
                 for (int i = 0; i < player.Tasks.Count; i++)
                 {
-                    GameData.TaskInfo taskInfo = player.Tasks[i];
+                    NetworkedPlayerInfo.TaskInfo taskInfo = player.Tasks[i];
                     NormalPlayerTask normalPlayerTask = UnityEngine.Object.Instantiate(MapUtilities.CachedShipStatus.GetTaskById(taskInfo.TypeId), player.Object.transform);
                     normalPlayerTask.Id = taskInfo.Id;
                     normalPlayerTask.Owner = player.Object;
