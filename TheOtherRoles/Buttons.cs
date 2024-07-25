@@ -29,7 +29,6 @@ namespace TheOtherRoles
         private static CustomButton deputyHandcuffButton;
         private static CustomButton timeMasterShieldButton;
         private static CustomButton medicShieldButton;
-        private static CustomButton shifterShiftButton;
         private static CustomButton morphlingButton;
         private static CustomButton camouflagerButton;
         private static CustomButton portalmakerPlacePortalButton;
@@ -54,7 +53,6 @@ namespace TheOtherRoles
         public static CustomButton securityGuardButton;
         public static CustomButton securityGuardCamButton;
         public static CustomButton arsonistButton;
-        public static CustomButton serialKillerButton;
         public static CustomButton vultureEatButton;
         public static CustomButton mediumButton;
         public static CustomButton pursuerButton;
@@ -151,13 +149,14 @@ namespace TheOtherRoles
                     return;
                 }
             }
+            PlayerControl.LocalPlayer.GetRoleClass().setCustomButtonCooldowns();
+
             engineerRepairButton.MaxTimer = 0f;
             janitorCleanButton.MaxTimer = Janitor.cooldown;
             sheriffKillButton.MaxTimer = Sheriff.cooldown;
             deputyHandcuffButton.MaxTimer = Deputy.handcuffCooldown;
             timeMasterShieldButton.MaxTimer = TimeMaster.cooldown;
             medicShieldButton.MaxTimer = 0f;
-            shifterShiftButton.MaxTimer = 0f;
             morphlingButton.MaxTimer = Morphling.cooldown;
             camouflagerButton.MaxTimer = Camouflager.cooldown;
             portalmakerPlacePortalButton.MaxTimer = Portalmaker.cooldown;
@@ -190,7 +189,6 @@ namespace TheOtherRoles
             thiefKillButton.MaxTimer = Thief.cooldown;
             mayorMeetingButton.MaxTimer = GameManager.Instance.LogicOptions.GetEmergencyCooldown();
             ninjaButton.MaxTimer = Ninja.stealthCooldown;
-            serialKillerButton.MaxTimer = SerialKiller.suicideTimer;
             //serialKillerButton.MaxTimer = 0f;
             evilTrackerButton.MaxTimer = EvilTracker.cooldown;
             trapperSetTrapButton.MaxTimer = Trapper.cooldown;
@@ -719,30 +717,6 @@ namespace TheOtherRoles
 
 
             // Shifter shift
-            shifterShiftButton = new CustomButton(
-                () => {
-                    if (Veteran.veteran != null && Shifter.currentTarget == Veteran.veteran && Veteran.alertActive && Shifter.isNeutral)
-                    {
-                        Helpers.checkMurderAttemptAndKill(Veteran.veteran, Shifter.shifter);
-                        return;
-                    }
-
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SetFutureShifted, Hazel.SendOption.Reliable, -1);
-                    writer.Write(Shifter.currentTarget.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    RPCProcedure.setFutureShifted(Shifter.currentTarget.PlayerId);
-                    SoundEffectsManager.play("shifterShift");
-                },
-                () => { return Shifter.shifter != null && Shifter.shifter == CachedPlayer.LocalPlayer.PlayerControl && Shifter.futureShift == null && !CachedPlayer.LocalPlayer.Data.IsDead; },
-                () => { return Shifter.currentTarget && Shifter.futureShift == null && CachedPlayer.LocalPlayer.PlayerControl.CanMove; },
-                () => { },
-                Shifter.getButtonSprite(),
-                CustomButton.ButtonPositions.lowerRowRight,
-                __instance,
-                KeyCode.F,
-                buttonText: ModTranslation.getString("ShiftText"),
-                abilityTexture: true
-            );
 
             // Morphling morph
 
@@ -3067,45 +3041,8 @@ namespace TheOtherRoles
                 KeyCode.F,
                 buttonText: ModTranslation.getString("ImmoralistSuicideText")
             );
-
+            CachedPlayer.LocalPlayer.PlayerControl.GetRoleClass().CreateButton(__instance);
             // Serial Killer Suicide Countdown
-            serialKillerButton = new CustomButton(
-                () => { },
-                () => { return SerialKiller.serialKiller != null && CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && SerialKiller.isCountDown; },
-                () => { return true; },
-                () =>
-                {
-                    if (CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller)
-                    {
-                        SerialKiller.serialKiller.SetKillTimer(SerialKiller.killCooldown);
-                        if (SerialKiller.resetTimer)
-                        {
-                            serialKillerButton.Timer = SerialKiller.suicideTimer;
-                        }
-                    }
-                },
-                SerialKiller.getButtonSprite(),
-                CustomButton.ButtonPositions.upperRowLeft,
-                __instance,
-                KeyCode.F,
-                true,
-                SerialKiller.suicideTimer,
-                () =>
-                {
-                    byte targetId = SerialKiller.serialKiller.PlayerId;
-                    MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SerialKillerSuicide, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
-                    killWriter.Write(targetId);
-                    AmongUsClient.Instance.FinishRpcImmediately(killWriter);
-                    RPCProcedure.serialKillerSuicide(targetId);
-                },
-                abilityTexture: true
-            );
-            //UnityEngine.Object.Destroy(serialKillerButton.actionButton.buttonLabelText);
-            //serialKillerButton.actionButton.buttonLabelText = UnityEngine.Object.Instantiate(__instance.AbilityButton.buttonLabelText, serialKillerButton.actionButton.transform);
-            serialKillerButton.showButtonText = true;
-            serialKillerButton.buttonText = ModTranslation.getString("serialKillerSuicideText");
-            serialKillerButton.isEffectActive = true;
-
             // Evil Tracker track
             evilTrackerButton = new CustomButton(
                 () => {

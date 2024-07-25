@@ -2952,34 +2952,6 @@ namespace TheOtherRoles
         }
     }
 
-    public static class SerialKiller
-    {
-        public static PlayerControl serialKiller;
-        public static Color color = Palette.ImpostorRed;
-
-        public static float killCooldown = 15f;
-        public static float suicideTimer = 40f;
-        public static bool resetTimer = true;
-
-        public static bool isCountDown = false;
-
-        private static Sprite buttonSprite;
-        public static Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public static void clearAndReload()
-        {
-            serialKiller = null;
-            killCooldown = CustomOptionHolder.serialKillerKillCooldown.getFloat();
-            suicideTimer = Mathf.Max(CustomOptionHolder.serialKillerSuicideTimer.getFloat(), killCooldown + 2.5f);
-            resetTimer = CustomOptionHolder.serialKillerResetTimer.getBool();
-            isCountDown = false;
-        }
-    }
 
     public static class Prophet
     {
@@ -3221,42 +3193,6 @@ namespace TheOtherRoles
         }
     }
 
-    public static class Shifter
-    {
-        public static PlayerControl shifter;
-        public static List<int> pastShifters = new List<int>();
-        public static Color color = new Color32(102, 102, 102, byte.MaxValue);
-
-        public static PlayerControl futureShift;
-        public static PlayerControl currentTarget;
-        public static PlayerControl killer;
-        public static DeadPlayer.CustomDeathReason deathReason;
-        public static bool shiftModifiers = false;
-
-        public static bool isNeutral = false;
-        public static bool shiftPastShifters = false;
-
-        private static Sprite buttonSprite;
-        public static Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShiftButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public static void clearAndReload()
-        {
-            shifter = null;
-            pastShifters = new List<int>();
-            currentTarget = null;
-            futureShift = null;
-            killer = null;
-            deathReason = DeadPlayer.CustomDeathReason.Disconnect; // Get something unreachable here
-            shiftModifiers = CustomOptionHolder.shifterShiftsModifiers.getBool();
-            shiftPastShifters = CustomOptionHolder.shifterPastShifters.getBool();
-            isNeutral = false;
-        }
-    }
 
     public static class Witch {
         public static PlayerControl witch;

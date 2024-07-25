@@ -9,6 +9,9 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using static TheOtherRoles.TheOtherRoles;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.TheOtherRoles.Roles.Neutral;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(RoleOptionsCollectionV07), nameof(RoleOptionsCollectionV07.GetNumPerGame))]
@@ -104,10 +107,15 @@ namespace TheOtherRoles.Patches {
             int maxImpostorRoles = Mathf.Min(impostors.Count, impCountSettings);
 
             // Fill in the lists with the roles that should be assigned to players. Note that the special roles (like Mafia or Lovers) are NOT included in these lists
-            Dictionary<byte, int> impSettings = new Dictionary<byte, int>();
-            Dictionary<byte, int> neutralSettings = new Dictionary<byte, int>();
+            var impSettings = new Dictionary<byte, int>();
+            var neutralSettings = new Dictionary<int, int>();
             Dictionary<byte, int> crewSettings = new Dictionary<byte, int>();
-            
+            foreach (RoleId role in Enum.GetValues(typeof(RoleId)))
+            {
+                if (role.GetRoleInfo().types is not CustomOption.CustomOptionType.Impostor) continue;
+                impSettings.Add((byte)role, CustomOptionHolder.CustomRoleSpawnChances[role].getSelection());
+            }
+
             impSettings.Add((byte)RoleId.Morphling, CustomOptionHolder.morphlingSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Camouflager, CustomOptionHolder.camouflagerSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Vampire, CustomOptionHolder.vampireSpawnRate.getSelection());
@@ -118,7 +126,6 @@ namespace TheOtherRoles.Patches {
             impSettings.Add((byte)RoleId.BountyHunter, CustomOptionHolder.bountyHunterSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Witch, CustomOptionHolder.witchSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Catcher, CustomOptionHolder.CatcherSpawnRate.getSelection());
-            impSettings.Add((byte)RoleId.SerialKiller, CustomOptionHolder.serialKillerSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Assassin, CustomOptionHolder.assassinSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Ninja, CustomOptionHolder.ninjaSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.NekoKabocha, CustomOptionHolder.nekoKabochaSpawnRate.getSelection());
@@ -129,7 +136,11 @@ namespace TheOtherRoles.Patches {
             impSettings.Add((byte)RoleId.Blackmailer, CustomOptionHolder.blackmailerSpawnRate.getSelection());
             //impSettings.Add((byte)RoleId.Bomber, CustomOptionHolder.bomberSpawnRate.getSelection());
 
-            neutralSettings.Add((byte)RoleId.Jester, CustomOptionHolder.jesterSpawnRate.getSelection());
+            foreach (RoleId role in Enum.GetValues(typeof(RoleId)))
+            {
+                if (role.GetRoleInfo().types is not CustomOption.CustomOptionType.Neutral) continue;
+                neutralSettings.Add((byte)role, CustomOptionHolder.CustomRoleSpawnChances[role].getSelection());
+            }
             neutralSettings.Add((byte)RoleId.Arsonist, CustomOptionHolder.arsonistSpawnRate.getSelection());
             neutralSettings.Add((byte)RoleId.Jackal, CustomOptionHolder.jackalSpawnRate.getSelection());
             neutralSettings.Add((byte)RoleId.Opportunist, CustomOptionHolder.opportunistSpawnRate.getSelection());
@@ -240,14 +251,14 @@ namespace TheOtherRoles.Patches {
 
             // Assign Shifter (chance to be neutral based on setting)
             bool shifterIsNeutral = false;
-            if (data.crewmates.Count > 0 && data.maxNeutralRoles > 0 && rnd.Next(1, 101) <= CustomOptionHolder.shifterIsNeutralRate.getSelection() * 10)
+            if (data.crewmates.Count > 0 && data.maxNeutralRoles > 0 && rnd.Next(1, 101) <= Shifter.shifterIsNeutralRate.getSelection() * 10)
             {
-                data.neutralSettings.Add((byte)RoleId.Shifter, CustomOptionHolder.shifterSpawnRate.getSelection());
+                data.neutralSettings.Add((byte)RoleId.Shifter, CustomOptionHolder.CustomRoleSpawnChances[RoleId.Shifter].getSelection());
                 shifterIsNeutral = true;
             }
             else if (data.crewmates.Count > 0 && data.maxCrewmateRoles > 0)
             {
-                data.crewSettings.Add((byte)RoleId.Shifter, CustomOptionHolder.shifterSpawnRate.getSelection());
+                data.crewSettings.Add((byte)RoleId.Shifter, CustomOptionHolder.CustomRoleSpawnChances[RoleId.Shifter].getSelection());
                 shifterIsNeutral = false;
             }
 

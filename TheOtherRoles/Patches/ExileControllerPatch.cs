@@ -25,36 +25,11 @@ namespace TheOtherRoles.Patches {
                 RPCProcedure.medicSetShielded(Medic.futureShielded.PlayerId);
             }
             if (Medic.usedShield) Medic.meetingAfterShielding = true;  // Has to be after the setting of the shield
-
-            // Shifter shift
-            if (Shifter.shifter != null && AmongUsClient.Instance.AmHost && Shifter.futureShift != null) { // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
-                PlayerControl oldShifter = Shifter.shifter;
-                byte oldTaskMasterPlayerId = TaskMaster.isTaskMaster(Shifter.futureShift.PlayerId) && TaskMaster.isTaskComplete ? Shifter.futureShift.PlayerId : byte.MaxValue;
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ShifterShift, Hazel.SendOption.Reliable, -1);
-                writer.Write(Shifter.futureShift.PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.shifterShift(Shifter.futureShift.PlayerId);
-
-                if (TaskMaster.isTaskMaster(oldShifter.PlayerId))
-                {
-                    byte clearTasks = 0;
-                    for (int i = 0; i < oldShifter.Data.Tasks.Count; ++i)
-                    {
-                        if (oldShifter.Data.Tasks[i].Complete)
-                            ++clearTasks;
-                    }
-                    bool allTasksCompleted = clearTasks == oldShifter.Data.Tasks.Count;
-                    byte[] taskTypeIds = allTasksCompleted ? TaskMasterTaskHelper.GetTaskMasterTasks(oldShifter) : null;
-                    MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.TaskMasterSetExTasks, Hazel.SendOption.Reliable, -1);
-                    writer2.Write(oldShifter.PlayerId);
-                    writer2.Write(oldTaskMasterPlayerId);
-                    if (taskTypeIds != null)
-                        writer2.Write(taskTypeIds);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                    RPCProcedure.taskMasterSetExTasks(oldShifter.PlayerId, oldTaskMasterPlayerId, taskTypeIds);
-                }
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                pc.GetRoleClass().OnExile(__instance, exiled, tie);
             }
-            Shifter.futureShift = null;
+            // Shifter shift
 
             // Eraser erase
             if (Eraser.eraser != null && AmongUsClient.Instance.AmHost && Eraser.futureErased != null) {  // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
@@ -190,9 +165,10 @@ namespace TheOtherRoles.Patches {
             if (exiled != null && Mini.mini != null && Mini.mini.PlayerId == exiled.PlayerId && !Mini.isGrownUp() && !Mini.mini.Data.Role.IsImpostor && !RoleInfo.getRoleInfoForPlayer(Mini.mini).Any(x => x.isNeutral)) {
                 Mini.triggerMiniLose = true;
             }
-            // Jester win condition
-            else if (exiled != null && Jester.jester != null && Jester.jester.PlayerId == exiled.PlayerId) {
-                Jester.triggerJesterWin = true;
+            var decidedwinner = false;
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                pc.GetRoleClass().OnWrapUp(exiled, );
             }
 
 
@@ -564,11 +540,6 @@ namespace TheOtherRoles.Patches {
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
                         __result = player.Data.PlayerName + " was The " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false, includeHidden: true).Select(x => x.name).ToArray());
                     }
-                    // Hide number of remaining impostors on Jester win
-                    if (id == StringNames.ImpostorsRemainP || id == StringNames.ImpostorsRemainS) {
-                        if (Jester.jester != null && player.PlayerId == Jester.jester.PlayerId) __result = "";
-                    }
-                    if (Yasuna.specialVoteTargetPlayerId != byte.MaxValue)
                     {
                         if (CustomOptionHolder.yasunaSpecificMessageMode.getBool()) __result += ModTranslation.getString("yasunaSpecialIndicator");
                         Tiebreaker.isTiebreak = false;

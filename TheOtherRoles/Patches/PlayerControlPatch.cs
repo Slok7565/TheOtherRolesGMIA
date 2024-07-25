@@ -13,13 +13,16 @@ using TheOtherRoles.CustomGameModes;
 using static UnityEngine.GraphicsBuffer;
 using AmongUs.GameOptions;
 using Sentry.Internal.Extensions;
+using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.TheOtherRoles.Core.Interfaces;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
     public static class PlayerControlFixedUpdatePatch {
         // Helpers
 
-        static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
+        public static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
             PlayerControl result = null;
             float num = AmongUs.GameOptions.GameOptionsData.KillDistances[Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
             if (!MapUtilities.CachedShipStatus) return result;
@@ -61,7 +64,7 @@ namespace TheOtherRoles.Patches {
             return result;
         }
 
-        static void setPlayerOutline(PlayerControl target, Color color) {
+        public static void setPlayerOutline(PlayerControl target, Color color) {
             if (target == null || target.cosmetics?.currentBodySprite?.BodySprite == null) return;
 
             color = color.SetAlpha(Chameleon.visibility(target.PlayerId));
@@ -149,21 +152,6 @@ namespace TheOtherRoles.Patches {
             if (!Medic.usedShield) setPlayerOutline(Medic.currentTarget, Medic.shieldedColor);
         }
 
-        static void shifterSetTarget() {
-            if (Shifter.shifter == null || Shifter.shifter != CachedPlayer.LocalPlayer.PlayerControl) return;
-            List<PlayerControl> blockShift = null;
-            if (Shifter.isNeutral && !Shifter.shiftPastShifters)
-            {
-                blockShift = new List<PlayerControl>();
-                foreach (var playerId in Shifter.pastShifters)
-                {
-                    blockShift.Add(Helpers.playerById((byte)playerId));
-                }
-            }
-
-            Shifter.currentTarget = setTarget(untargetablePlayers: blockShift);
-            if (Shifter.futureShift == null) setPlayerOutline(Shifter.currentTarget, Shifter.color);
-        }
 
 
         static void morphlingSetTarget() {
@@ -1594,11 +1582,6 @@ namespace TheOtherRoles.Patches {
             }
         }
 
-        /*public static void serialKillerUpdate()
-        {
-            if (SerialKiller.serialKiller == null || CachedPlayer.LocalPlayer.PlayerControl != SerialKiller.serialKiller) return;
-            if (SerialKiller.isCountDown) HudManagerStartPatch.serialKillerButton.isEffectActive = true;
-        }*/
 
         public static void evilTrackerUpdate()
         {
@@ -1934,8 +1917,8 @@ namespace TheOtherRoles.Patches {
                 morphlingSetTarget();
                 // Medic
                 medicSetTarget();
+                __instance.GetRoleClass().OnFixedUpdate();
                 // Shifter
-                shifterSetTarget();
                 // Sheriff
                 sheriffSetTarget();
                 // Deputy
@@ -2198,7 +2181,7 @@ namespace TheOtherRoles.Patches {
             if (resetToDead) __instance.Data.IsDead = true;
 
             // Remove fake tasks when player dies
-            if (target.hasFakeTasks() || target == Lawyer.lawyer || target == Pursuer.pursuer || target == Thief.thief || (target == Shifter.shifter && Shifter.isNeutral) || Madmate.madmate.Any(x => x.PlayerId == target.PlayerId) || target == CreatedMadmate.createdMadmate || target == JekyllAndHyde.jekyllAndHyde || target == Fox.fox)
+            if (target.hasFakeTasks() || target == Lawyer.lawyer || target == Pursuer.pursuer || target == Thief.thief || (target.GetRoleClass() as Shifter)?.isNeutral ?? false || Madmate.madmate.Any(x => x.PlayerId == target.PlayerId) || target == CreatedMadmate.createdMadmate || target == JekyllAndHyde.jekyllAndHyde || target == Fox.fox)
                 target.clearAllTasks();
 
             // First kill (set before lover suicide)
@@ -2270,14 +2253,9 @@ namespace TheOtherRoles.Patches {
             }
 
             // Serial Killer set suicide timer
-            if (SerialKiller.serialKiller != null && CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller && __instance == SerialKiller.serialKiller && target != SerialKiller.serialKiller)
-            {
-                //HudManagerStartPatch.serialKillerButton.isEffectActive = false;
-                SerialKiller.serialKiller.SetKillTimer(SerialKiller.killCooldown);
-                HudManagerStartPatch.serialKillerButton.Timer = SerialKiller.suicideTimer;
-                SerialKiller.isCountDown = true;
-                //HudManagerStartPatch.serialKillerButton.isEffectActive = true;
-            }
+
+            (__instance.GetRoleClass() as IKiller)?.OnMurderPlayerAsKiller(target);
+            
 
             if (JekyllAndHyde.jekyllAndHyde != null && CachedPlayer.LocalPlayer.PlayerControl == JekyllAndHyde.jekyllAndHyde && __instance == JekyllAndHyde.jekyllAndHyde && target != JekyllAndHyde.jekyllAndHyde)
             {
@@ -2605,7 +2583,7 @@ namespace TheOtherRoles.Patches {
 
 
             // Remove fake tasks when player dies
-            if (__instance.hasFakeTasks() || __instance == Lawyer.lawyer || __instance == Pursuer.pursuer || __instance == Thief.thief || (__instance == Shifter.shifter && Shifter.isNeutral) || Madmate.madmate.Any(x => x.PlayerId == __instance.PlayerId) || __instance == CreatedMadmate.createdMadmate || __instance == JekyllAndHyde.jekyllAndHyde || __instance == Fox.fox)
+            if (__instance.hasFakeTasks() || __instance == Lawyer.lawyer || __instance == Pursuer.pursuer || __instance == Thief.thief || (__instance.GetRoleClass() as Shifter)?.isNeutral ?? false || Madmate.madmate.Any(x => x.PlayerId == __instance.PlayerId) || __instance == CreatedMadmate.createdMadmate || __instance == JekyllAndHyde.jekyllAndHyde || __instance == Fox.fox)
                 __instance.clearAllTasks();
 
             // Neko-Kabocha revenge on exile
