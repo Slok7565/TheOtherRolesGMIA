@@ -129,7 +129,12 @@ public abstract class RoleBase : IDisposable
     /// 覆盖会议界面文本
     /// </summary>
     public virtual string OverrideMeetingBtnText() => default;
+    /// <summary>
+    /// 创建按钮
+    /// </summary>
+    public virtual void CreateButton(HudManager __instance) {}
 
+    public virtual void setCustomButtonCooldowns() { }
     protected enum GeneralOption
     {
         Cooldown,

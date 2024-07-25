@@ -111,7 +111,6 @@ namespace TheOtherRoles
         FortuneTellerUsedDivine,
         NekoKabochaExile,
         SprinterSprint,
-        SerialKillerSuicide,
         VeteranAlert,
         VeteranKill,
         UndertakerDragBody,
@@ -465,9 +464,6 @@ namespace TheOtherRoles
                           break;
                       case RoleId.NekoKabocha:
                           NekoKabocha.nekoKabocha = player;
-                          break;
-                      case RoleId.SerialKiller:
-                          SerialKiller.serialKiller = player;
                           break;
                       case RoleId.Undertaker:
                           Undertaker.undertaker = player;
@@ -869,7 +865,6 @@ namespace TheOtherRoles
             if (player == Ninja.ninja) Ninja.ninja = oldShifter;
             if (player == NekoKabocha.nekoKabocha) NekoKabocha.nekoKabocha = oldShifter;
             if (player == Assassin.assassin) Assassin.assassin = oldShifter;
-            if (player == SerialKiller.serialKiller) SerialKiller.serialKiller = oldShifter;
             if (player == EvilTracker.evilTracker) EvilTracker.evilTracker = oldShifter;
             if (player == EvilHacker.evilHacker) EvilHacker.evilHacker = oldShifter;
             if (player == Witch.witch) Witch.witch = oldShifter;
@@ -1275,7 +1270,6 @@ namespace TheOtherRoles
             if (player == Assassin.assassin) Assassin.clearAndReload();
             if (player == Ninja.ninja) Ninja.clearAndReload();
             if (player == NekoKabocha.nekoKabocha) NekoKabocha.clearAndReload();
-            if (player == SerialKiller.serialKiller) SerialKiller.clearAndReload();
             if (player == EvilTracker.evilTracker) EvilTracker.clearAndReload();
             if (player == Undertaker.undertaker) Undertaker.clearAndReload();
             if (player == MimicK.mimicK) MimicK.clearAndReload();
@@ -1529,13 +1523,6 @@ namespace TheOtherRoles
             GameHistory.overrideDeathReasonAndKiller(Helpers.playerById(targetId), DeadPlayer.CustomDeathReason.Revenge, killer: NekoKabocha.nekoKabocha);
         }
 
-        public static void serialKillerSuicide(byte serialKillerId)
-        {
-            PlayerControl serialKiller = Helpers.playerById(serialKillerId);
-            if (serialKiller == null) return;
-            serialKiller.MurderPlayer(serialKiller, MurderResultFlags.Succeeded);
-            GameHistory.overrideDeathReasonAndKiller(serialKiller, DeadPlayer.CustomDeathReason.Suicide);
-        }
 
         public static void sprinterSprint(byte playerId, bool sprinting)
         {
@@ -2220,7 +2207,6 @@ namespace TheOtherRoles
             if (target == Ninja.ninja) Ninja.ninja = thief;
             if (target == EvilTracker.evilTracker) EvilTracker.evilTracker = thief;
             if (target == NekoKabocha.nekoKabocha && !NekoKabocha.revengeNeutral) NekoKabocha.nekoKabocha = thief;
-            if (target == SerialKiller.serialKiller) SerialKiller.serialKiller = thief;
             if (target == Swapper.swapper && target.Data.Role.IsImpostor) Swapper.swapper = thief;
             if (target == Undertaker.undertaker) Undertaker.undertaker = thief;
             if (target == EvilHacker.evilHacker) EvilHacker.evilHacker = thief;
@@ -2395,11 +2381,12 @@ namespace TheOtherRoles
 
         static void Postfix([HarmonyArgument(0)]byte callId, [HarmonyArgument(1)]MessageReader reader)
         {
-            byte packetId = callId;
             switch (packetId) {
 
                 // Main Controls
-
+                case CustomRPC.RoleIdSync:
+                    CustomRoleManager.DispatchRpc(reader);
+                    break;
                 case (byte)CustomRPC.ResetVaribles:
                     RPCProcedure.resetVariables();
                     break;
@@ -2577,9 +2564,6 @@ namespace TheOtherRoles
                     break;
                 case (byte)CustomRPC.NekoKabochaExile:
                     RPCProcedure.nekoKabochaExile(reader.ReadByte());
-                    break;
-                case (byte)CustomRPC.SerialKillerSuicide:
-                    RPCProcedure.serialKillerSuicide(reader.ReadByte());
                     break;
                 case (byte)CustomRPC.FortuneTellerUsedDivine:
                     byte fId = reader.ReadByte();
