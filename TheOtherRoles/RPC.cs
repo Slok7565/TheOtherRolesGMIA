@@ -305,7 +305,7 @@ namespace TheOtherRoles
                 {
 
                     GameData.Instance.GetPlayerById(player.PlayerId); // player.RemoveInfected(); (was removed in 2022.12.08, no idea if we ever need that part again, replaced by these 2 lines.)
-                    player.SetRole(RoleTypes.Crewmate);
+                    player.StartCoroutine(player.CoSetRole(RoleTypes.Crewmate, false));
 
                     player.MurderPlayer(player, MurderResultFlags.Succeeded);
                     player.Data.IsDead = true;
@@ -674,7 +674,7 @@ namespace TheOtherRoles
             var player = Helpers.playerById(playerId);
             player.clearAllTasks();
 
-            GameData.Instance.SetTasks(playerId, taskTypeIds);
+            player.Data.SetTasks(taskTypeIds);
         }
 
         public static void dynamicMapOption(byte mapId) {
