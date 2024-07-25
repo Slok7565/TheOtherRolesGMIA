@@ -27,10 +27,12 @@ namespace TheOtherRoles.TheOtherRoles.Core
     public class RoleInfo
     {
         public Type ClassType;
-        Func<PlayerControl, RoleBase> CreateInstance;
+        public Func<PlayerControl, RoleBase> CreateInstance;
         public int Id;
         public Color color;
-        public OptionCreatorDelegate optionCreator;
+        public OptionCreatorDelegate OptionCreator;
+        public CustomOption RoleOption => CustomOptionHolder.CustomRoleSpawnChances[roleId];
+
         public string name { get { return ModTranslation.getString(nameKey); } }
         public string introDescription { get { return ModTranslation.getString(nameKey + "IntroDesc"); } }
         public string shortDescription { get { return ModTranslation.getString(nameKey + "ShortDesc"); } }
@@ -55,7 +57,7 @@ namespace TheOtherRoles.TheOtherRoles.Core
         {
             ClassType = classType;
             CreateInstance = createInstance;
-            this.optionCreator = optionCreator;
+            OptionCreator = optionCreator;
             Id = id;
             nameKey = name;
             this.color = color;

@@ -193,10 +193,10 @@ namespace TheOtherRoles.Patches
             if (exiled != null && Mini.mini != null && Mini.mini.PlayerId == exiled.PlayerId && !Mini.isGrownUp() && !Mini.mini.Data.Role.IsImpostor && !RoleInfo.getRoleInfoForPlayer(Mini.mini).Any(x => x.isNeutral)) {
                 Mini.triggerMiniLose = true;
             }
-            // Jester win condition
+            var decidedwinner = false;
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                pc.GetRoleClass().OnWrapUp();
+                pc.GetRoleClass().OnWrapUp(exiled, );
             }
 
             // Reset custom button timers where necessary
@@ -571,8 +571,6 @@ namespace TheOtherRoles.Patches
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
                         __result = player.Data.PlayerName + " was The " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false, includeHidden: true).Select(x => x.name).ToArray());
                     }
-                    // Hide number of remaining impostors on Jester win
-                    if (Yasuna.specialVoteTargetPlayerId != byte.MaxValue)
                     {
                         if (CustomOptionHolder.yasunaSpecificMessageMode.getBool()) __result += ModTranslation.getString("yasunaSpecialIndicator");
                         Tiebreaker.isTiebreak = false;

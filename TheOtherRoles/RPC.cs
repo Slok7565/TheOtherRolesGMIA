@@ -20,6 +20,7 @@ using Rewired.Utils.Platforms.Windows;
 using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
+using UnityEngine.Networking.Types;
 
 namespace TheOtherRoles
 {
@@ -253,247 +254,252 @@ namespace TheOtherRoles
         }
 
         public static void setRole(byte roleId, byte playerId) {
-            foreach (PlayerControl player in CachedPlayer.AllPlayers)
-                if (player.PlayerId == playerId) {
-                    switch((RoleId)roleId) {
-                    case RoleId.Jester:
-                        Jester.jester = player;
-                        break;
-                    case RoleId.Mayor:
-                        Mayor.mayor = player;
-                        break;
-                    case RoleId.Portalmaker:
-                        Portalmaker.portalmaker = player;
-                        break;
-                    case RoleId.Engineer:
-                        Engineer.engineer = player;
-                        break;
-                    case RoleId.Sheriff:
-                        Sheriff.sheriff = player;
-                        break;
-                    case RoleId.Deputy:
-                        Deputy.deputy = player;
-                        break;
-                    case RoleId.Lighter:
-                        Lighter.lighter = player;
-                        break;
-                    case RoleId.Godfather:
-                        Godfather.godfather = player;
-                        break;
-                    case RoleId.Mafioso:
-                        Mafioso.mafioso = player;
-                        break;
-                    case RoleId.Janitor:
-                        Janitor.janitor = player;
-                        break;
-                    case RoleId.Detective:
-                        Detective.detective = player;
-                        break;
-                    case RoleId.TimeMaster:
-                        TimeMaster.timeMaster = player;
-                        break;
-                    case RoleId.Medic:
-                        Medic.medic = player;
-                        break;
-                    case RoleId.Shifter:
-                        Shifter.shifter = player;
-                        break;
-                    case RoleId.EvilWatcher:
-                        Watcher.evilwatcher = player;
-                        break;
-                    case RoleId.NiceWatcher:
-                        Watcher.nicewatcher = player;
-                        break;
-                    case RoleId.Akujo:
-                        Akujo.akujo = player;
-                        break;
-                    case RoleId.Swapper:
-                        Swapper.swapper = player;
-                        break;
-                    case RoleId.Seer:
-                        Seer.seer = player;
-                        break;
-                    case RoleId.Morphling:
-                        Morphling.morphling = player;
-                        break;
-                    case RoleId.Camouflager:
-                        Camouflager.camouflager = player;
-                        break;
-                    case RoleId.Moriarty:
-                        Moriarty.moriarty = player;
-                        break;
-                    case RoleId.JekyllAndHyde:
-                        JekyllAndHyde.jekyllAndHyde = player;
-                        break;
-                    case RoleId.Hacker:
-                        Hacker.hacker = player;
-                        break;
-                    case RoleId.Tracker:
-                        Tracker.tracker = player;
-                        break;
-                    case RoleId.Vampire:
-                        Vampire.vampire = player;
-                        break;
-                    case RoleId.Snitch:
-                        Snitch.snitch = player;
-                        break;
-                    case RoleId.FortuneTeller:
-                        FortuneTeller.fortuneTeller = player;
-                        break;
-                    case RoleId.PlagueDoctor:
-                        PlagueDoctor.plagueDoctor = player;
-                        break;
-                    case RoleId.TaskMaster:
-                        TaskMaster.taskMaster = player;
-                        break;
-                    case RoleId.Yasuna:
-                        Yasuna.yasuna = player;
-                        break;
-                    case RoleId.EvilYasuna:
-                        Yasuna.yasuna = player;
-                        break;
-                    case RoleId.Sprinter:
-                        Sprinter.sprinter = player;
-                        break;
-                    case RoleId.EvilTracker:
-                        EvilTracker.evilTracker = player;
-                        break;
-                    case RoleId.EvilHacker:
-                        EvilHacker.evilHacker = player;
-                        break;
-                    case RoleId.Trapper:
-                        Trapper.trapper = player;
-                        break;
-                    case RoleId.Jackal:
-                        Jackal.jackal = player;
-                        break;
-                    case RoleId.Sidekick:
-                        Sidekick.sidekick = player;
-                        break;
-                    case RoleId.Eraser:
-                        Eraser.eraser = player;
-                        break;
-                    case RoleId.Spy:
-                        Spy.spy = player;
-                        break;
-                    case RoleId.Teleporter:
-                        Teleporter.teleporter = player;
-                        break;
-                    case RoleId.Catcher:
-                        Catcher.catcher = player;
-                        break;
-                    case RoleId.Trickster:
-                        Trickster.trickster = player;
-                        break;
-                    case RoleId.Cleaner:
-                        Cleaner.cleaner = player;
-                        break;
-                    case RoleId.Warlock:
-                        Warlock.warlock = player;
-                        break;
-                    case RoleId.Bait:
-                        Bait.bait = player;
-                        break;
-                    case RoleId.Veteran:
-                        Veteran.veteran = player;
-                        break;
-                    case RoleId.Sherlock:
-                        Sherlock.sherlock = player;
-                        break;
-                    case RoleId.Blackmailer:
-                        Blackmailer.blackmailer = player;
-                        break;
-                    case RoleId.Prophet:
-                        Prophet.prophet = player;
-                        break;
-                    case RoleId.SecurityGuard:
-                        SecurityGuard.securityGuard = player;
-                        break;
-                    case RoleId.Arsonist:
-                        Arsonist.arsonist = player;
-                        break;
-                    case RoleId.EvilGuesser:
-                        Guesser.evilGuesser = player;
-                        break;
-                    case RoleId.NiceGuesser:
-                        Guesser.niceGuesser = player;
-                        break;
-                    case RoleId.BountyHunter:
-                        BountyHunter.bountyHunter = player;
-                        break;
-                    case RoleId.Vulture:
-                        Vulture.vulture = player;
-                        break;
-                    case RoleId.Fox:
-                        Fox.fox = player;
-                        break;
-                    case RoleId.Immoralist:
-                        Immoralist.immoralist = player;
-                        break;
-                    case RoleId.Medium:
-                        Medium.medium = player;
-                        break;
-                    //case RoleId.Trapper:
-                        //Trapper.trapper = player;
-                        //break;
-                    case RoleId.Lawyer:
-                        Lawyer.lawyer = player;
-                        break;
-                    //case RoleId.Prosecutor:
-                        //Lawyer.lawyer = player;
-                        //Lawyer.isProsecutor = true;
-                        //break;
-                    case RoleId.Pursuer:
-                        Pursuer.pursuer = player;
-                        break;
-                    case RoleId.Witch:
-                        Witch.witch = player;
-                        break;
-                    case RoleId.Assassin:
-                        Assassin.assassin = player;
-                        break;
-                    case RoleId.Ninja:
-                        Ninja.ninja = player;
-                        break;
-                    case RoleId.Opportunist:
-                        Opportunist.opportunist = player;
-                        break;
-                    case RoleId.NekoKabocha:
-                        NekoKabocha.nekoKabocha = player;
-                        break;
-                    case RoleId.SerialKiller:
-                        SerialKiller.serialKiller = player;
-                        break;
-                    case RoleId.Undertaker:
-                        Undertaker.undertaker = player;
-                        break;
-                    case RoleId.MimicK:
-                        MimicK.mimicK = player;
-                        break;
-                    case RoleId.MimicA:
-                        MimicA.mimicA = player;
-                        break;
-                    case RoleId.BomberA:
-                        BomberA.bomberA = player;
-                        break;
-                    case RoleId.BomberB:
-                        BomberB.bomberB = player;
-                        break;
-                    case RoleId.Cupid:
-                        Cupid.cupid = player;
-                        break;
-                    case RoleId.Thief:
-                        Thief.thief = player;
-                        break;
-                        //case RoleId.Bomber:
-                        //Bomber.bomber = player;
-                        //break;
-                    }
-        }
+            PlayerControl player = Helpers.playerById(playerId);
+
+            player.GetRoleClass()?.Dispose();
+            CustomRoleManager.CreateInstance((RoleId)roleId, player);
+
+            /*  if (player.PlayerId == playerId) {
+                      switch((RoleId)roleId) {
+                      case RoleId.Jester:
+                          Jester.jester = player;
+                          break;
+                      case RoleId.Mayor:
+                          Mayor.mayor = player;
+                          break;
+                      case RoleId.Portalmaker:
+                          Portalmaker.portalmaker = player;
+                          break;
+                      case RoleId.Engineer:
+                          Engineer.engineer = player;
+                          break;
+                      case RoleId.Sheriff:
+                          Sheriff.sheriff = player;
+                          break;
+                      case RoleId.Deputy:
+                          Deputy.deputy = player;
+                          break;
+                      case RoleId.Lighter:
+                          Lighter.lighter = player;
+                          break;
+                      case RoleId.Godfather:
+                          Godfather.godfather = player;
+                          break;
+                      case RoleId.Mafioso:
+                          Mafioso.mafioso = player;
+                          break;
+                      case RoleId.Janitor:
+                          Janitor.janitor = player;
+                          break;
+                      case RoleId.Detective:
+                          Detective.detective = player;
+                          break;
+                      case RoleId.TimeMaster:
+                          TimeMaster.timeMaster = player;
+                          break;
+                      case RoleId.Medic:
+                          Medic.medic = player;
+                          break;
+                      case RoleId.Shifter:
+                          Shifter.shifter = player;
+                          break;
+                      case RoleId.EvilWatcher:
+                          Watcher.evilwatcher = player;
+                          break;
+                      case RoleId.NiceWatcher:
+                          Watcher.nicewatcher = player;
+                          break;
+                      case RoleId.Akujo:
+                          Akujo.akujo = player;
+                          break;
+                      case RoleId.Swapper:
+                          Swapper.swapper = player;
+                          break;
+                      case RoleId.Seer:
+                          Seer.seer = player;
+                          break;
+                      case RoleId.Morphling:
+                          Morphling.morphling = player;
+                          break;
+                      case RoleId.Camouflager:
+                          Camouflager.camouflager = player;
+                          break;
+                      case RoleId.Moriarty:
+                          Moriarty.moriarty = player;
+                          break;
+                      case RoleId.JekyllAndHyde:
+                          JekyllAndHyde.jekyllAndHyde = player;
+                          break;
+                      case RoleId.Hacker:
+                          Hacker.hacker = player;
+                          break;
+                      case RoleId.Tracker:
+                          Tracker.tracker = player;
+                          break;
+                      case RoleId.Vampire:
+                          Vampire.vampire = player;
+                          break;
+                      case RoleId.Snitch:
+                          Snitch.snitch = player;
+                          break;
+                      case RoleId.FortuneTeller:
+                          FortuneTeller.fortuneTeller = player;
+                          break;
+                      case RoleId.PlagueDoctor:
+                          PlagueDoctor.plagueDoctor = player;
+                          break;
+                      case RoleId.TaskMaster:
+                          TaskMaster.taskMaster = player;
+                          break;
+                      case RoleId.Yasuna:
+                          Yasuna.yasuna = player;
+                          break;
+                      case RoleId.EvilYasuna:
+                          Yasuna.yasuna = player;
+                          break;
+                      case RoleId.Sprinter:
+                          Sprinter.sprinter = player;
+                          break;
+                      case RoleId.EvilTracker:
+                          EvilTracker.evilTracker = player;
+                          break;
+                      case RoleId.EvilHacker:
+                          EvilHacker.evilHacker = player;
+                          break;
+                      case RoleId.Trapper:
+                          Trapper.trapper = player;
+                          break;
+                      case RoleId.Jackal:
+                          Jackal.jackal = player;
+                          break;
+                      case RoleId.Sidekick:
+                          Sidekick.sidekick = player;
+                          break;
+                      case RoleId.Eraser:
+                          Eraser.eraser = player;
+                          break;
+                      case RoleId.Spy:
+                          Spy.spy = player;
+                          break;
+                      case RoleId.Teleporter:
+                          Teleporter.teleporter = player;
+                          break;
+                      case RoleId.Catcher:
+                          Catcher.catcher = player;
+                          break;
+                      case RoleId.Trickster:
+                          Trickster.trickster = player;
+                          break;
+                      case RoleId.Cleaner:
+                          Cleaner.cleaner = player;
+                          break;
+                      case RoleId.Warlock:
+                          Warlock.warlock = player;
+                          break;
+                      case RoleId.Bait:
+                          Bait.bait = player;
+                          break;
+                      case RoleId.Veteran:
+                          Veteran.veteran = player;
+                          break;
+                      case RoleId.Sherlock:
+                          Sherlock.sherlock = player;
+                          break;
+                      case RoleId.Blackmailer:
+                          Blackmailer.blackmailer = player;
+                          break;
+                      case RoleId.Prophet:
+                          Prophet.prophet = player;
+                          break;
+                      case RoleId.SecurityGuard:
+                          SecurityGuard.securityGuard = player;
+                          break;
+                      case RoleId.Arsonist:
+                          Arsonist.arsonist = player;
+                          break;
+                      case RoleId.EvilGuesser:
+                          Guesser.evilGuesser = player;
+                          break;
+                      case RoleId.NiceGuesser:
+                          Guesser.niceGuesser = player;
+                          break;
+                      case RoleId.BountyHunter:
+                          BountyHunter.bountyHunter = player;
+                          break;
+                      case RoleId.Vulture:
+                          Vulture.vulture = player;
+                          break;
+                      case RoleId.Fox:
+                          Fox.fox = player;
+                          break;
+                      case RoleId.Immoralist:
+                          Immoralist.immoralist = player;
+                          break;
+                      case RoleId.Medium:
+                          Medium.medium = player;
+                          break;
+                      //case RoleId.Trapper:
+                          //Trapper.trapper = player;
+                          //break;
+                      case RoleId.Lawyer:
+                          Lawyer.lawyer = player;
+                          break;
+                      //case RoleId.Prosecutor:
+                          //Lawyer.lawyer = player;
+                          //Lawyer.isProsecutor = true;
+                          //break;
+                      case RoleId.Pursuer:
+                          Pursuer.pursuer = player;
+                          break;
+                      case RoleId.Witch:
+                          Witch.witch = player;
+                          break;
+                      case RoleId.Assassin:
+                          Assassin.assassin = player;
+                          break;
+                      case RoleId.Ninja:
+                          Ninja.ninja = player;
+                          break;
+                      case RoleId.Opportunist:
+                          Opportunist.opportunist = player;
+                          break;
+                      case RoleId.NekoKabocha:
+                          NekoKabocha.nekoKabocha = player;
+                          break;
+                      case RoleId.SerialKiller:
+                          SerialKiller.serialKiller = player;
+                          break;
+                      case RoleId.Undertaker:
+                          Undertaker.undertaker = player;
+                          break;
+                      case RoleId.MimicK:
+                          MimicK.mimicK = player;
+                          break;
+                      case RoleId.MimicA:
+                          MimicA.mimicA = player;
+                          break;
+                      case RoleId.BomberA:
+                          BomberA.bomberA = player;
+                          break;
+                      case RoleId.BomberB:
+                          BomberB.bomberB = player;
+                          break;
+                      case RoleId.Cupid:
+                          Cupid.cupid = player;
+                          break;
+                      case RoleId.Thief:
+                          Thief.thief = player;
+                          break;
+                          //case RoleId.Bomber:
+                          //Bomber.bomber = player;
+                          //break;
+                      }
+          }*/
         }
 
         public static void setModifier(byte modifierId, byte playerId, byte flag) {
             PlayerControl player = Helpers.playerById(playerId);
+            CustomRoleManager.CreateInstance((RoleId)modifierId, player);
             switch ((RoleId)modifierId) {
                 //case RoleId.Bait:
                     //Bait.bait.Add(player);
@@ -698,6 +704,7 @@ namespace TheOtherRoles
             PlayerControl player = Helpers.playerById(targetId);
             if (player == null || oldShifter == null) return;
 
+            
             Shifter.futureShift = null;
             if (!Shifter.isNeutral) Shifter.clearAndReload();
 
@@ -733,6 +740,8 @@ namespace TheOtherRoles
 
             if (Shifter.shiftModifiers)
             {
+
+
                 // Switch Lovers
                 if (Lovers.lover1 != null && oldShifter == Lovers.lover1) Lovers.lover1 = player;
                 else if (Lovers.lover1 != null && player == Lovers.lover1) Lovers.lover1 = oldShifter;
@@ -787,6 +796,7 @@ namespace TheOtherRoles
             }
 
             // Shift role
+
             if (Mayor.mayor != null && Mayor.mayor == player)
                 Mayor.mayor = oldShifter;
             if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player)
@@ -896,6 +906,9 @@ namespace TheOtherRoles
             {
                 Lawyer.target = oldShifter;
             }
+
+            player.GetRoleClass().Player = oldShifter;
+            oldShifter.GetRoleClass().Player = player;
 
             if (Shifter.isNeutral)
             {

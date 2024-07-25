@@ -16,7 +16,7 @@ public abstract class RoleBase : IDisposable
     /// <summary>
     /// 玩家本体
     /// </summary>
-    public PlayerControl Player { get; private set; }
+    public PlayerControl Player { get; set; }
 
     protected Func<HasTask> hasTasks;
     /// <summary>
@@ -35,11 +35,14 @@ public abstract class RoleBase : IDisposable
     {
         this.hasTasks = hasTasks ?? (roleInfo.types == CustomOption.CustomOptionType.Crewmate ? () => HasTask.True : () => HasTask.False);
         Player = player;
+        CustomRoleManager.AllActiveRoles.Add(Player.PlayerId, this);
+
     }
 #pragma warning disable CA1816
     public void Dispose()
     {
         OnDestroy();
+        CustomRoleManager.AllActiveRoles.Remove(Player.PlayerId);
         Player = null;
     }
 #pragma warning restore CA1816
@@ -103,14 +106,30 @@ public abstract class RoleBase : IDisposable
     /// </summary>
     public virtual bool CanVent() => Player?.Data?.Role?.CanVent ?? false;
     /// <summary>
+    /// 是否允许在管道移动
+    /// </summary>
+    public virtual bool CanMoveInVents() =>  false;
+    /// <summary>
     /// 是否用于内鬼视野
     /// </summary>
     public virtual bool HasImpVision() => Player?.Data?.Role?.IsImpostor ?? false;
     /// <summary>
     /// 驱逐后的处理
     /// </summary>
-    public virtual void OnWrapUp(GameData.PlayerInfo exiled) { }
+    public virtual Action OnWrapUp(GameData.PlayerInfo exiled, ref bool DecideWinner) => null;
+    /// <summary>
+    /// 覆盖驱逐文本
+    /// </summary>
     public virtual string OverrideExileText(PlayerControl player, StringNames id) => default;
+    /// <summary>
+    /// 是否可以召开会议
+    /// </summary>
+    public virtual bool CanUseMeetingButton() => true;
+    /// <summary>
+    /// 覆盖会议界面文本
+    /// </summary>
+    public virtual string OverrideMeetingBtnText() => default;
+
     protected enum GeneralOption
     {
         Cooldown,
