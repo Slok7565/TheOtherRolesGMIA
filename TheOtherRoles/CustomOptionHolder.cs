@@ -152,6 +152,11 @@ namespace TheOtherRoles
         public static CustomOption ninjaCanVent;
         public static CustomOption ninjaCanBeTargeted;
 
+        public static CustomOption serialKillerSpawnRate;
+        public static CustomOption serialKillerKillCooldown;
+        public static CustomOption serialKillerSuicideTimer;
+        public static CustomOption serialKillerResetTimer;
+
         public static CustomOption mayorSpawnRate;
         public static CustomOption mayorCanSeeVoteColors;
         public static CustomOption mayorTasksNeededToSeeVoteColors;
@@ -685,6 +690,10 @@ namespace TheOtherRoles
             ninjaCanBeTargeted = CustomOption.Create(5056, Types.Impostor, "ninjaCanBeTargeted", true, ninjaSpawnRate);
             ninjaCanVent = CustomOption.Create(5057, Types.Impostor, "ninjaCanVent", false, ninjaSpawnRate);
 
+            serialKillerSpawnRate = CustomOption.Create(4010, Types.Impostor, cs(SerialKiller.color, "serialKiller"), rates, null, true);
+            serialKillerKillCooldown = CustomOption.Create(4011, Types.Impostor, "serialKillerKillCooldown", 15f, 2.5f, 60f, 2.5f, serialKillerSpawnRate, false, "unitSeconds");
+            serialKillerSuicideTimer = CustomOption.Create(4012, Types.Impostor, "serialKillerSuicideTimer", 40f, 2.5f, 60f, 2.5f, serialKillerSpawnRate, false, "unitSeconds");
+            serialKillerResetTimer = CustomOption.Create(4013, Types.Impostor, "serialKillerResetTimer", true, serialKillerSpawnRate);
 
             nekoKabochaSpawnRate = CustomOption.Create(880, Types.Impostor, cs(NekoKabocha.color, "nekoKabocha"), rates, null, true);
             nekoKabochaRevengeCrew = CustomOption.Create(881, Types.Impostor, "nekoKabochaRevengeCrew", true, nekoKabochaSpawnRate);

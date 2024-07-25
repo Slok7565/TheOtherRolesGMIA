@@ -107,15 +107,10 @@ namespace TheOtherRoles.Patches
             int maxImpostorRoles = Mathf.Min(impostors.Count, impCountSettings);
 
             // Fill in the lists with the roles that should be assigned to players. Note that the special roles (like Mafia or Lovers) are NOT included in these lists
-            var impSettings = new Dictionary<byte, int>();
+            Dictionary<byte, int> impSettings = new Dictionary<byte, int>();
             var neutralSettings = new Dictionary<int, int>();
             Dictionary<byte, int> crewSettings = new Dictionary<byte, int>();
-            foreach (RoleId role in Enum.GetValues(typeof(RoleId)))
-            {
-                if (role.GetRoleInfo().types is not CustomOption.CustomOptionType.Impostor) continue;
-                impSettings.Add((byte)role, CustomOptionHolder.CustomRoleSpawnChances[role].getSelection());
-            }
-
+            
             impSettings.Add((byte)RoleId.Morphling, CustomOptionHolder.morphlingSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Camouflager, CustomOptionHolder.camouflagerSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Vampire, CustomOptionHolder.vampireSpawnRate.getSelection());
@@ -126,6 +121,7 @@ namespace TheOtherRoles.Patches
             impSettings.Add((byte)RoleId.BountyHunter, CustomOptionHolder.bountyHunterSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Witch, CustomOptionHolder.witchSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Catcher, CustomOptionHolder.CatcherSpawnRate.getSelection());
+            impSettings.Add((byte)RoleId.SerialKiller, CustomOptionHolder.serialKillerSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Assassin, CustomOptionHolder.assassinSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.Ninja, CustomOptionHolder.ninjaSpawnRate.getSelection());
             impSettings.Add((byte)RoleId.NekoKabocha, CustomOptionHolder.nekoKabochaSpawnRate.getSelection());

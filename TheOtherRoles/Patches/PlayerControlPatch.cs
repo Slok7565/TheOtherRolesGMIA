@@ -15,7 +15,6 @@ using AmongUs.GameOptions;
 using Sentry.Internal.Extensions;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
 
 namespace TheOtherRoles.Patches
 {
@@ -1598,6 +1597,11 @@ namespace TheOtherRoles.Patches
             }
         }
 
+        /*public static void serialKillerUpdate()
+        {
+            if (SerialKiller.serialKiller == null || CachedPlayer.LocalPlayer.PlayerControl != SerialKiller.serialKiller) return;
+            if (SerialKiller.isCountDown) HudManagerStartPatch.serialKillerButton.isEffectActive = true;
+        }*/
 
         public static void evilTrackerUpdate()
         {
@@ -2269,9 +2273,14 @@ namespace TheOtherRoles.Patches
             }
 
             // Serial Killer set suicide timer
-
-            (__instance.GetRoleClass() as IKiller)?.OnMurderPlayerAsKiller(target);
-            
+            if (SerialKiller.serialKiller != null && CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller && __instance == SerialKiller.serialKiller && target != SerialKiller.serialKiller)
+            {
+                //HudManagerStartPatch.serialKillerButton.isEffectActive = false;
+                SerialKiller.serialKiller.SetKillTimer(SerialKiller.killCooldown);
+                HudManagerStartPatch.serialKillerButton.Timer = SerialKiller.suicideTimer;
+                SerialKiller.isCountDown = true;
+                //HudManagerStartPatch.serialKillerButton.isEffectActive = true;
+            }
 
             if (JekyllAndHyde.jekyllAndHyde != null && CachedPlayer.LocalPlayer.PlayerControl == JekyllAndHyde.jekyllAndHyde && __instance == JekyllAndHyde.jekyllAndHyde && target != JekyllAndHyde.jekyllAndHyde)
             {

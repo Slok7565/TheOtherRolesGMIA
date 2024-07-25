@@ -49,6 +49,7 @@ namespace TheOtherRoles.TheOtherRoles.Core
             int id,
             Color color,
             OptionCreatorDelegate optionCreator,
+            string name,
             RoleId roleId,
             CustomOptionType types,
             bool isNeutral = false,
@@ -57,7 +58,8 @@ namespace TheOtherRoles.TheOtherRoles.Core
             ClassType = classType;
             CreateInstance = createInstance;
             OptionCreator = optionCreator;
-            nameKey = roleId.ToString();
+            Id = id;
+            nameKey = name;
             this.color = color;
             this.roleId = roleId;
             this.types = types;
@@ -70,6 +72,7 @@ namespace TheOtherRoles.TheOtherRoles.Core
              int id,
             Color color,
             OptionCreatorDelegate optionCreator,
+            string name,
             RoleId roleId,
             CustomOptionType types,
             bool isNeutral = false,
@@ -83,6 +86,7 @@ namespace TheOtherRoles.TheOtherRoles.Core
             id,
             color,
             optionCreator,
+            name,
             roleId,
             types,
             isNeutral,

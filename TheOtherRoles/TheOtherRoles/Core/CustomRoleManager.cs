@@ -52,12 +52,8 @@ public static class CustomRoleManager
     public static void OtherRolesAdd(PlayerControl pc)
     {
     }
-    public static void DispatchRpc(MessageReader reader)
-    {
-        var playerId = reader.ReadByte();
-        GetByPlayerId(playerId)?.ReceiveRPC(reader);
+
     }
-}
 public enum RoleId
 {
     Jester,

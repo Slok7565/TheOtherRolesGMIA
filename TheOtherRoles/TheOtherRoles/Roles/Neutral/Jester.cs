@@ -16,9 +16,10 @@ public sealed class Jester : RoleBase
     RoleInfo.Create(
         typeof(Jester),
         player => new Jester(player),
-        05_00100,
+        03_00100,
         new Color32(236, 98, 165, byte.MaxValue),
         CreateOpt,
+        "jester",
         RoleId.Jester,
         CustomOptionType.Neutral
 
@@ -29,6 +30,7 @@ public sealed class Jester : RoleBase
         player
     )
     { }
+    public static CustomOption jesterSpawnRate;
     public static CustomOption jesterCanCallEmergency;
     public static CustomOption jesterHasImpostorVision;
     public static CustomOption jesterCanVent;
@@ -61,9 +63,9 @@ public sealed class Jester : RoleBase
     }
     static void CreateOpt()
     {
-        jesterCanCallEmergency = CustomOption.Create(Info, 10, "jesterCanCallEmergency", true);
-        jesterHasImpostorVision = CustomOption.Create(Info, 11,  "jesterHasImpostorVision", false);
-        jesterCanVent = CustomOption.Create(Info, 12, "jesterCanVent", false);
+        jesterCanCallEmergency = CustomOption.Create(Info, 10, "jesterCanCallEmergency", true, jesterSpawnRate);
+        jesterHasImpostorVision = CustomOption.Create(62, CustomOptionType.Neutral, "jesterHasImpostorVision", false, jesterSpawnRate);
+        jesterCanVent = CustomOption.Create(6088, CustomOptionType.Neutral, "jesterCanVent", false, jesterSpawnRate);
 
     }
     public override void clearAndReload()

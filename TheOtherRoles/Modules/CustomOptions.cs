@@ -71,15 +71,6 @@ namespace TheOtherRoles
         public static CustomOption Create(int id, CustomOptionType type, string name, string[] selections, CustomOption parent = null, bool isHeader = false, string format = "") {
             return new CustomOption(id, type, name, selections, "", parent, isHeader, format);
         }
-        public static CustomOption Create(RoleInfo Info, int id, string name, string[] selections, CustomOption parent = null, string format = "")
-        {
-            var type = Info.types;
-            id = Info.Id + id;
-            parent = parent ?? CustomOptionHolder.CustomRoleSpawnChances[Info.roleId];
-            return new CustomOption(id, type, name, selections, "", parent, false, format);
-        }
-
-        //////////////////////////////////////////////////////////////////
 
         public static CustomOption Create(int id, CustomOptionType type, string name, float defaultValue, float min, float max, float step, CustomOption parent = null, bool isHeader = false, string format = "") {
             List<object> selections = new();
@@ -87,29 +78,16 @@ namespace TheOtherRoles
                 selections.Add(s);
             return new CustomOption(id, type, name, selections.ToArray(), defaultValue, parent, isHeader, format);
         }
-        public static CustomOption Create(RoleInfo Info, int id, string name, float defaultValue, float min, float max, float step, CustomOption parent = null, string format = "")
-        {
-            List<object> selections = new();
-            for (float s = min; s <= max; s += step)
-                selections.Add(s);
-            var type = Info.types;
-            id = Info.Id + id;
-            parent = parent ?? CustomOptionHolder.CustomRoleSpawnChances[Info.roleId];
-            return new CustomOption(id, type, name, selections.ToArray(), defaultValue, parent, false, format);
-        }
 
-        //////////////////////////////////////////////////////////////////
         public static CustomOption Create(int id, CustomOptionType type, string name, bool defaultValue, CustomOption parent = null, bool isHeader = false, string format = "") {
             return new CustomOption(id, type, name, new string[]{ "optionOff", "optionOn" }, defaultValue ? "optionOn" : "optionOff", parent, isHeader, format);
         }
         public static CustomOption Create(RoleInfo Info, int id, string name, bool defaultValue, CustomOption parent = null, string format = "")
         {
             var type = Info.types;
-            id = Info.Id + id;
-            parent = parent ?? CustomOptionHolder.CustomRoleSpawnChances[Info.roleId];
-            return new CustomOption(id, type, name, new string[] { "optionOff", "optionOn" }, defaultValue ? "optionOn" : "optionOff", parent, false, format);
+            id = Info.roleId
+            return new CustomOption(id, type, name, new string[] { "optionOff", "optionOn" }, defaultValue ? "optionOn" : "optionOff", parent, isHeader, format);
         }
-        //////////////////////////////////////////////////////////////////
 
         // Static behaviour
 
