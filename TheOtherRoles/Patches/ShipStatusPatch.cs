@@ -2,15 +2,13 @@ using System;
 using System.Linq;
 using HarmonyLib;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using UnityEngine;
 using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
 
-namespace TheOtherRoles.Patches
-{
+namespace TheOtherRoles.Patches {
 
     [HarmonyPatch(typeof(ShipStatus))]
     public class ShipStatusPatch 

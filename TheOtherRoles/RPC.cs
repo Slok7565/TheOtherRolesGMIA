@@ -1,6 +1,6 @@
 using HarmonyLib;
 using Hazel;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.HudManagerStartPatch;
 using static TheOtherRoles.GameHistory;
 using static TheOtherRoles.TORMapOptions;
@@ -16,13 +16,103 @@ using TheOtherRoles.CustomGameModes;
 using AmongUs.Data;
 using AmongUs.GameOptions;
 using MonoMod.Cil;
-using Rewired.Utils.Platforms.Windows;
-using TheOtherRoles.Roles.Core;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
 
 namespace TheOtherRoles
 {
+    public enum RoleId {
+        Jester,
+        Mayor,
+        Portalmaker,
+        Engineer,
+        Sheriff,
+        Deputy,
+        Lighter,
+        Godfather,
+        Mafioso,
+        Janitor,
+        Detective,
+        TimeMaster,
+        Medic,
+        Swapper,
+        Seer,
+        Sprinter,
+        Morphling,
+        Camouflager,
+        Hacker,
+        Tracker,
+        Vampire,
+        Catcher,
+        Snitch,
+        Jackal,
+        Sidekick,
+        Eraser,
+        FortuneTeller,
+        Bait,
+        Veteran,
+        Sherlock,
+        Spy,
+        Trickster,
+        Cleaner,
+        Warlock,
+        SecurityGuard,
+        Arsonist,
+        EvilGuesser,
+        NiceGuesser,
+        NiceWatcher,
+        EvilWatcher,
+        BountyHunter,
+        Vulture,
+        Medium,
+        Shifter,
+        Yasuna,
+        Prophet,
+        TaskMaster,
+        Teleporter,
+        EvilYasuna,
+        //Trapper,
+        Lawyer,
+        //Prosecutor,
+        Pursuer,
+        Moriarty,
+        PlagueDoctor,
+        Akujo,
+        Cupid,
+        JekyllAndHyde,
+        Fox,
+        Immoralist,
+        Witch,
+        Assassin,
+        Ninja,
+        NekoKabocha,
+        Thief,
+        SerialKiller,
+        EvilTracker,
+        MimicK,
+        MimicA,
+        BomberA,
+        BomberB,
+        EvilHacker,
+        Undertaker,
+        Trapper,
+        Blackmailer,
+        Opportunist,
+        Madmate,
+        //Bomber,
+        Crewmate,
+        Impostor,
+        // Modifier ---
+        Lover,
+        //Bait, Bait is no longer a modifier
+        Bloody,
+        AntiTeleport,
+        Tiebreaker,
+        Sunglasses,
+        Mini,
+        Vip,
+        Invert,
+        Chameleon,
+        //Shifter
+    }
 
     enum CustomRPC
     {
@@ -44,8 +134,9 @@ namespace TheOtherRoles
         SetGameStarting,
         ShareGamemode,
         StopStart,
+
         // Role functionality
-        RoleIdSync,
+
         EngineerFixLights = 101,
         EngineerFixSubmergedOxygen,
         EngineerUsedRepair,
@@ -183,8 +274,6 @@ namespace TheOtherRoles
             CustomNormalPlayerTask.reset();
             Shrine.reset();
             clearAndReloadMapOptions();
-            foreach (var pc in PlayerControl.AllPlayerControls)
-                pc.GetRoleClass().;
             clearAndReloadRoles();
             clearGameHistory();
             setCustomButtonCooldowns();

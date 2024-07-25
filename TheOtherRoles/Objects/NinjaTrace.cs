@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
-namespace TheOtherRoles.Objects
-{
+namespace TheOtherRoles.Objects {
     class AssassinTrace {
         public static List<AssassinTrace> traces = new List<AssassinTrace>();
 

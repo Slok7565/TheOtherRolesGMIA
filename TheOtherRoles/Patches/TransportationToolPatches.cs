@@ -2,8 +2,8 @@
 using Il2CppSystem.Collections.Generic;
 using System;
 using UnityEngine.Windows.Speech;
+using TheOtherRoles;
 using static UnityEngine.GraphicsBuffer;
-using TheOtherRoles.Role;
 
 namespace TheOtherRoles.Patches
 {

@@ -5,10 +5,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 
 namespace TheOtherRoles.Objects
 {

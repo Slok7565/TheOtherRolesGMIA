@@ -9,8 +9,7 @@ using TheOtherRoles.Utilities;
 using System.Linq;
 using Reactor.Utilities.Extensions;
 
-namespace TheOtherRoles.Patches
-{
+namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(GameStartManager), nameof(GameStartManager.Update))]
     public static class GameStartManagerUpdatePatch
     {

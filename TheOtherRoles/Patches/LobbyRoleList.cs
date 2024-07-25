@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using Object = UnityEngine.Object;
 
 namespace TheOtherRoles.Patches

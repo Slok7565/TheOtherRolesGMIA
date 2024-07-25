@@ -6,15 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
 
-namespace TheOtherRoles.Patches
-{
+namespace TheOtherRoles.Patches {
 
-    [HarmonyPatch(typeof(MapBehaviour))]
+	[HarmonyPatch(typeof(MapBehaviour))]
 	class MapBehaviourPatch {
 		public static Dictionary<PlayerControl, SpriteRenderer> herePoints = new Dictionary<PlayerControl, SpriteRenderer>();
 

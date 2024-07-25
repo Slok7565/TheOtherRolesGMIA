@@ -2,7 +2,7 @@ using HarmonyLib;
 using Hazel;
 using System.Collections.Generic;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.TORMapOptions;
 using TheOtherRoles.Objects;
 using System;
@@ -12,11 +12,8 @@ using UnityEngine;
 using Innersloth.Assets;
 using Reactor.Utilities;
 using AmongUs.QuickChat;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
 
-namespace TheOtherRoles.Patches
-{
+namespace TheOtherRoles.Patches {
     [HarmonyPatch]
     class MeetingHudPatch {
         static bool[] selections;

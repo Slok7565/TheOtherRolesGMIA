@@ -2,7 +2,7 @@ using HarmonyLib;
 using Hazel;
 using System;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,8 +15,6 @@ using TheOtherRoles.Patches;
 using static UnityEngine.GraphicsBuffer;
 using System.Diagnostics.Metrics;
 using UnityEngine.SocialPlatforms;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
 
 namespace TheOtherRoles
 {

@@ -4,11 +4,9 @@ using System;
 using System.Linq;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 
-namespace TheOtherRoles
-{
+namespace TheOtherRoles {
     [HarmonyPatch]
     public static class TasksHandler {
 

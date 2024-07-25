@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Players;
 using System;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
 
-namespace TheOtherRoles.Patches
-{
+namespace TheOtherRoles.Patches {
     [HarmonyPatch]
     public static class HauntMenuMinigamePatch {
 

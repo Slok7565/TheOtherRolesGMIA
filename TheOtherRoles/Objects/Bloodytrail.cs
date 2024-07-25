@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.Role;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 
-namespace TheOtherRoles.Objects
-{
+namespace TheOtherRoles.Objects {
     class Bloodytrail {
         private static List<Bloodytrail> bloodytrail = new List<Bloodytrail>();
         private static List<Sprite> sprites = new List<Sprite>();

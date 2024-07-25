@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.TheOtherRoles;
 using TheOtherRoles.Modules;
 using HarmonyLib;
 using Hazel;
@@ -22,12 +22,8 @@ using System.Globalization;
 using TheOtherRoles.Patches;
 using System.Collections;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
 
-namespace TheOtherRoles
-{
+namespace TheOtherRoles {
 
     public enum MurderAttemptResult {
         PerformKill,
@@ -331,7 +327,7 @@ namespace TheOtherRoles
         }
 
         public static bool hasFakeTasks(this PlayerControl player) {
-            return (player.GetRoleClass().HasTasks || player == Jackal.jackal || player == Sidekick.sidekick || player == Arsonist.arsonist || player == Opportunist.opportunist || player == Vulture.vulture || Jackal.formerJackals.Any(x => x == player) || player == Moriarty.moriarty || player == Moriarty.formerMoriarty
+            return (player == Jester.jester || player == Jackal.jackal || player == Sidekick.sidekick || player == Arsonist.arsonist || player == Opportunist.opportunist || player == Vulture.vulture || Jackal.formerJackals.Any(x => x == player) || player == Moriarty.moriarty || player == Moriarty.formerMoriarty
                 || (Madmate.madmate.Any(x => x.PlayerId == player.PlayerId) && !Madmate.hasTasks) ||
                 (player == CreatedMadmate.createdMadmate && !CreatedMadmate.hasTasks) || player == Akujo.akujo || player == PlagueDoctor.plagueDoctor || player == JekyllAndHyde.formerJekyllAndHyde || player == Cupid.cupid);
         }
@@ -731,9 +727,7 @@ namespace TheOtherRoles
         }
 
         public static bool roleCanUseVents(this PlayerControl player) {
-            bool roleCouldUse = false;
-            if (player.GetRoleClass().CanVent())
-                roleCouldUse = true;
+            bool roleCouldUse = false;            
             if (Engineer.engineer != null && Engineer.engineer == player)
                 roleCouldUse = true;
             else if (Jackal.canUseVents && Jackal.jackal != null && Jackal.jackal == player)
@@ -751,6 +745,8 @@ namespace TheOtherRoles
             else if (Moriarty.moriarty != null && Moriarty.moriarty == player)
                 roleCouldUse = true;
             else if (JekyllAndHyde.jekyllAndHyde != null && !JekyllAndHyde.isJekyll() && JekyllAndHyde.jekyllAndHyde == player)
+                roleCouldUse = true;
+            else if (Jester.jester != null && Jester.canUseVents && Jester.jester == player)
                 roleCouldUse = true;
             else if (Thief.canUseVents &&  Thief.thief != null && Thief.thief == player)
                 roleCouldUse = true;
@@ -938,17 +934,17 @@ namespace TheOtherRoles
         }
 
         public static bool isKiller(PlayerControl player) {
-            return player.Data.Role.IsImpostor || player.GetRoleClass() is IKiller;
-            //return player.Data.Role.IsImpostor || 
-            //    (isNeutral(player) && 
-            //    player != Arsonist.arsonist && 
-            //    player != Vulture.vulture && 
-            //    player != Lawyer.lawyer && 
-            //    player != Pursuer.pursuer &&
-            //    player != Opportunist.opportunist &&
-            //    player != Akujo.akujo &&
-            //    player != PlagueDoctor.plagueDoctor &&
-            //    player != Cupid.cupid);
+            return player.Data.Role.IsImpostor || 
+                (isNeutral(player) && 
+                player != Jester.jester && 
+                player != Arsonist.arsonist && 
+                player != Vulture.vulture && 
+                player != Lawyer.lawyer && 
+                player != Pursuer.pursuer &&
+                player != Opportunist.opportunist &&
+                player != Akujo.akujo &&
+                player != PlagueDoctor.plagueDoctor &&
+                player != Cupid.cupid);
 
         }
 
@@ -1015,17 +1011,17 @@ namespace TheOtherRoles
         }
 
         public static bool hasImpVision(GameData.PlayerInfo player) {
-            return CustomRoleManager.GetByPlayerId(player.PlayerId).HasImpVision();
-            //return player.Role.IsImpostor
-            //    || ((Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId || Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision)
-            //    || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)
-            //    || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
-            //    || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision)
-            //    || (Madmate.madmate.Any(x => x.PlayerId == player.PlayerId) && Madmate.hasImpostorVision)
-            //    || (CreatedMadmate.createdMadmate != null && CreatedMadmate.createdMadmate.PlayerId == player.PlayerId && CreatedMadmate.hasImpostorVision)
-            //    || (Moriarty.moriarty != null && Moriarty.moriarty.PlayerId == player.PlayerId)
-            //    || (JekyllAndHyde.jekyllAndHyde != null && !JekyllAndHyde.isJekyll() && JekyllAndHyde.jekyllAndHyde.PlayerId == player.PlayerId)
-            //    || (Fox.fox != null && Fox.fox.PlayerId == player.PlayerId);
+            return player.Role.IsImpostor
+                || ((Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId || Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision)
+                || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)
+                || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
+                || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)
+                || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision)
+                || (Madmate.madmate.Any(x => x.PlayerId == player.PlayerId) && Madmate.hasImpostorVision)
+                || (CreatedMadmate.createdMadmate != null && CreatedMadmate.createdMadmate.PlayerId == player.PlayerId && CreatedMadmate.hasImpostorVision)
+                || (Moriarty.moriarty != null && Moriarty.moriarty.PlayerId == player.PlayerId)
+                || (JekyllAndHyde.jekyllAndHyde != null && !JekyllAndHyde.isJekyll() && JekyllAndHyde.jekyllAndHyde.PlayerId == player.PlayerId)
+                || (Fox.fox != null && Fox.fox.PlayerId == player.PlayerId);
         }
         
         public static object TryCast(this Il2CppObjectBase self, Type type)
