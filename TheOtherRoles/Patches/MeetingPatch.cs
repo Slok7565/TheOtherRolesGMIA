@@ -979,7 +979,12 @@ namespace TheOtherRoles.Patches
 
                 NekoKabocha.meetingKiller = null;
 
-                __instance.GetRoleClass().OnMeetingStart(meetingTarget);
+                if (Shifter.shifter != null && Shifter.isNeutral && Shifter.shifter.Data.IsDead && Shifter.futureShift != null && Shifter.futureShift.Data.Role.IsImpostor)
+                {
+                    var dp = GameHistory.deadPlayers.FirstOrDefault(x => x.player.PlayerId == Shifter.shifter.PlayerId);
+                    Shifter.killer = dp.killerIfExisting;
+                    Shifter.deathReason = dp.deathReason;
+                }
 
                 // Add trapped Info into Trapper chat
                 /*if (Trapper.trapper != null && (CachedPlayer.LocalPlayer.PlayerControl == Trapper.trapper || Helpers.shouldShowGhostInfo()) && !Trapper.trapper.Data.IsDead) {

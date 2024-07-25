@@ -31,6 +31,7 @@ namespace TheOtherRoles
         private static CustomButton deputyHandcuffButton;
         private static CustomButton timeMasterShieldButton;
         private static CustomButton medicShieldButton;
+        private static CustomButton shifterShiftButton;
         private static CustomButton morphlingButton;
         private static CustomButton camouflagerButton;
         private static CustomButton portalmakerPlacePortalButton;
@@ -159,6 +160,7 @@ namespace TheOtherRoles
             deputyHandcuffButton.MaxTimer = Deputy.handcuffCooldown;
             timeMasterShieldButton.MaxTimer = TimeMaster.cooldown;
             medicShieldButton.MaxTimer = 0f;
+            shifterShiftButton.MaxTimer = 0f;
             morphlingButton.MaxTimer = Morphling.cooldown;
             camouflagerButton.MaxTimer = Camouflager.cooldown;
             portalmakerPlacePortalButton.MaxTimer = Portalmaker.cooldown;
@@ -719,6 +721,30 @@ namespace TheOtherRoles
 
 
             // Shifter shift
+            shifterShiftButton = new CustomButton(
+                () => {
+                    if (Veteran.veteran != null && Shifter.currentTarget == Veteran.veteran && Veteran.alertActive && Shifter.isNeutral)
+                    {
+                        Helpers.checkMurderAttemptAndKill(Veteran.veteran, Shifter.shifter);
+                        return;
+                    }
+
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SetFutureShifted, Hazel.SendOption.Reliable, -1);
+                    writer.Write(Shifter.currentTarget.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.setFutureShifted(Shifter.currentTarget.PlayerId);
+                    SoundEffectsManager.play("shifterShift");
+                },
+                () => { return Shifter.shifter != null && Shifter.shifter == CachedPlayer.LocalPlayer.PlayerControl && Shifter.futureShift == null && !CachedPlayer.LocalPlayer.Data.IsDead; },
+                () => { return Shifter.currentTarget && Shifter.futureShift == null && CachedPlayer.LocalPlayer.PlayerControl.CanMove; },
+                () => { },
+                Shifter.getButtonSprite(),
+                CustomButton.ButtonPositions.lowerRowRight,
+                __instance,
+                KeyCode.F,
+                buttonText: ModTranslation.getString("ShiftText"),
+                abilityTexture: true
+            );
 
             // Morphling morph
 

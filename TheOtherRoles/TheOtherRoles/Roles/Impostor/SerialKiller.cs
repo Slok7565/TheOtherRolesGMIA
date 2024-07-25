@@ -11,7 +11,6 @@ using static TheOtherRoles.CustomOption;
 using TheOtherRoles.Objects;
 using Hazel;
 using TheOtherRoles.Players;
-using System.Xml.Serialization;
 
 namespace TheOtherRoles.TheOtherRoles.Roles.Impostor;
 public sealed class SerialKiller : RoleBase, IImpostor
@@ -46,17 +45,11 @@ public sealed class SerialKiller : RoleBase, IImpostor
         serialKillerResetTimer = CustomOption.Create(Info, 12, "serialKillerResetTimer" ,true);
     }
 
-    public Sprite getButtonSprite()
+        public Sprite getButtonSprite()
     {
         if (buttonSprite) return buttonSprite;
         buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
         return buttonSprite;
-    }
-    void SendRPC(byte targetId)
-    {
-        MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.RoleIdSync, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
-        killWriter.Write(targetId);
-        AmongUsClient.Instance.FinishRpcImmediately(killWriter);
     }
     public override void ReceiveRPC(MessageReader reader = null)
     {
@@ -100,7 +93,9 @@ public sealed class SerialKiller : RoleBase, IImpostor
     () =>
     {
         byte targetId = Player.PlayerId;
-        SendRPC(targetId);
+        MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.RoleIdSync, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
+        killWriter.Write(targetId);
+        AmongUsClient.Instance.FinishRpcImmediately(killWriter);
         ReceiveRPC();
     },
     abilityTexture: true

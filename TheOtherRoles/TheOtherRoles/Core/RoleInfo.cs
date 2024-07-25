@@ -290,138 +290,135 @@ namespace TheOtherRoles.TheOtherRoles.Core
         //    //shifter,
         //};
 
-        public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true, bool includeHidden = false)
-        {
-            List<RoleInfo> infos = new List<RoleInfo>();
-            if (p == null) return infos;
+        //public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true, bool includeHidden = false) {
+        //    List<RoleInfo> infos = new List<RoleInfo>();
+        //    if (p == null) return infos;
 
-            // Modifier
-            if (showModifier)
-            {
-                // after dead modifier
-                if (!CustomOptionHolder.modifiersAreHidden.getBool() || PlayerControl.LocalPlayer.Data.IsDead || AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Ended)
-                {
-                    //if (Bait.bait.Any(x => x.PlayerId == p.PlayerId)) infos.Add(bait);
-                    if (Bloody.bloody.Any(x => x.PlayerId == p.PlayerId)) infos.Add(bloody);
-                    if (Vip.vip.Any(x => x.PlayerId == p.PlayerId)) infos.Add(vip);
-                }
-                if (p == Lovers.lover1 || p == Lovers.lover2) infos.Add(lover);
-                if (Cupid.lovers1 != null && Cupid.lovers2 != null && (p == Cupid.lovers2 || p == Cupid.lovers1)) infos.Add(cupidLover);
-                if (p == Tiebreaker.tiebreaker) infos.Add(tiebreaker);
-                if (AntiTeleport.antiTeleport.Any(x => x.PlayerId == p.PlayerId)) infos.Add(antiTeleport);
-                if (Sunglasses.sunglasses.Any(x => x.PlayerId == p.PlayerId)) infos.Add(sunglasses);
-                if (p == Mini.mini) infos.Add(mini);
-                if (Invert.invert.Any(x => x.PlayerId == p.PlayerId)) infos.Add(invert);
-                if (Chameleon.chameleon.Any(x => x.PlayerId == p.PlayerId)) infos.Add(chameleon);
-                //if (p == Shifter.shifter) infos.Add(shifter);
-            }
+        //    // Modifier
+        //    if (showModifier) {
+        //        // after dead modifier
+        //        if (!CustomOptionHolder.modifiersAreHidden.getBool() || PlayerControl.LocalPlayer.Data.IsDead || AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Ended)
+        //        {
+        //            //if (Bait.bait.Any(x => x.PlayerId == p.PlayerId)) infos.Add(bait);
+        //            if (Bloody.bloody.Any(x => x.PlayerId == p.PlayerId)) infos.Add(bloody);
+        //            if (Vip.vip.Any(x => x.PlayerId == p.PlayerId)) infos.Add(vip);
+        //        }
+        //        if (p == Lovers.lover1 || p == Lovers.lover2) infos.Add(lover);
+        //        if (Cupid.lovers1 != null && Cupid.lovers2 != null && (p == Cupid.lovers2 || p == Cupid.lovers1)) infos.Add(cupidLover);
+        //        if (p == Tiebreaker.tiebreaker) infos.Add(tiebreaker);
+        //        if (AntiTeleport.antiTeleport.Any(x => x.PlayerId == p.PlayerId)) infos.Add(antiTeleport);
+        //        if (Sunglasses.sunglasses.Any(x => x.PlayerId == p.PlayerId)) infos.Add(sunglasses);
+        //        if (p == Mini.mini) infos.Add(mini);
+        //        if (Invert.invert.Any(x => x.PlayerId == p.PlayerId)) infos.Add(invert);
+        //        if (Chameleon.chameleon.Any(x => x.PlayerId == p.PlayerId)) infos.Add(chameleon);
+        //        //if (p == Shifter.shifter) infos.Add(shifter);
+        //    }
 
-            int count = infos.Count;  // Save count after modifiers are added so that the role count can be checked
+        //    int count = infos.Count;  // Save count after modifiers are added so that the role count can be checked
 
-            // Special roles
-            if (p == Jester.jester) infos.Add(jester);
-            if (p == Mayor.mayor) infos.Add(mayor);
-            if (p == Portalmaker.portalmaker) infos.Add(portalmaker);
-            if (p == Engineer.engineer) infos.Add(engineer);
-            if (p == Sheriff.sheriff || p == Sheriff.formerSheriff) infos.Add(sheriff);
-            if (p == Deputy.deputy) infos.Add(deputy);
-            if (p == Lighter.lighter) infos.Add(lighter);
-            if (p == Godfather.godfather) infos.Add(godfather);
-            if (p == Mafioso.mafioso) infos.Add(mafioso);
-            if (p == Janitor.janitor) infos.Add(janitor);
-            if (p == Morphling.morphling) infos.Add(morphling);
-            if (p == Camouflager.camouflager) infos.Add(camouflager);
-            if (p == Vampire.vampire) infos.Add(vampire);
-            if (p == Catcher.catcher) infos.Add(catcher);
-            if (p == Eraser.eraser) infos.Add(eraser);
-            if (p == Trickster.trickster) infos.Add(trickster);
-            if (p == Cleaner.cleaner) infos.Add(cleaner);
-            if (p == Warlock.warlock) infos.Add(warlock);
-            if (p == Witch.witch) infos.Add(witch);
-            if (p == Assassin.assassin) infos.Add(assassin);
-            //if (p == Bomber.bomber) infos.Add(bomber);
-            if (p == Detective.detective) infos.Add(detective);
-            if (p == TimeMaster.timeMaster) infos.Add(timeMaster);
-            if (p == Medic.medic) infos.Add(medic);
-            if (p == Swapper.swapper) infos.Add(p.Data.Role.IsImpostor ? evilSwapper : niceSwapper);
-            if (p == Seer.seer) infos.Add(seer);
-            if (p == Hacker.hacker) infos.Add(hacker);
-            if (p == Tracker.tracker) infos.Add(tracker);
-            if (p == Snitch.snitch) infos.Add(snitch);
-            if (p == Jackal.jackal || (Jackal.formerJackals != null && Jackal.formerJackals.Any(x => x.PlayerId == p.PlayerId))) infos.Add(jackal);
-            if (p == Sidekick.sidekick) infos.Add(sidekick);
-            if (p == Spy.spy) infos.Add(spy);
-            if (p == SecurityGuard.securityGuard) infos.Add(securityGuard);
-            if (p == Bait.bait) infos.Add(bait);
-            if (p == Veteran.veteran) infos.Add(veteran);
-            if (p == Sherlock.sherlock) infos.Add(sherlock);
-            if (p == Sprinter.sprinter) infos.Add(sprinter);
-            if (p == Yasuna.yasuna) infos.Add(p.Data.Role.IsImpostor ? evilYasuna : yasuna);
-            if (p == Moriarty.moriarty || p == Moriarty.formerMoriarty) infos.Add(moriarty);
-            if (p == JekyllAndHyde.jekyllAndHyde || p == JekyllAndHyde.formerJekyllAndHyde) infos.Add(jekyllAndHyde);
-            if (p == Akujo.akujo) infos.Add(akujo);
-            if (p == Teleporter.teleporter) infos.Add(teleporter);
-            if (p == Cupid.cupid) infos.Add(cupid);
-            if (p == Blackmailer.blackmailer) infos.Add(blackmailer);
-            if (p == Prophet.prophet) infos.Add(prophet);
-            if (p == Fox.fox) infos.Add(fox);
-            if (p == Immoralist.immoralist) infos.Add(immoralist);
-            if (p == FortuneTeller.fortuneTeller)
-            {
-                if (PlayerControl.LocalPlayer.Data.IsDead || includeHidden)
-                {
-                    infos.Add(fortuneTeller);
-                }
-                else
-                {
-                    var info = FortuneTeller.isCompletedNumTasks(p) ? fortuneTeller : crewmate;
-                    infos.Add(info);
-                }
-            }
-            if (p == TaskMaster.taskMaster)
-            {
-                if (CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead || includeHidden || !TaskMaster.becomeATaskMasterWhenCompleteAllTasks) infos.Add(taskMaster);
-                else infos.Add(TaskMaster.isTaskComplete ? taskMaster : crewmate);
-            }
-            if (p == PlagueDoctor.plagueDoctor) infos.Add(plagueDoctor);
-            if (p == Opportunist.opportunist) infos.Add(opportunist);
-            if (p == Shifter.shifter) infos.Add(Shifter.isNeutral ? chainshifter : niceshifter);
-            if (p == Arsonist.arsonist) infos.Add(arsonist);
-            if (p == Guesser.niceGuesser) infos.Add(goodGuesser);
-            if (p == Guesser.evilGuesser) infos.Add(badGuesser);
-            if (p == Watcher.nicewatcher) infos.Add(niceWatcher);
-            if (p == Watcher.evilwatcher) infos.Add(evilWatcher);
-            if (p == BountyHunter.bountyHunter) infos.Add(bountyHunter);
-            if (p == Ninja.ninja) infos.Add(ninja);
-            if (p == NekoKabocha.nekoKabocha) infos.Add(nekoKabocha);
-            if (p == SerialKiller.serialKiller) infos.Add(serialKiller);
-            if (p == EvilTracker.evilTracker) infos.Add(evilTracker);
-            if (p == EvilHacker.evilHacker) infos.Add(evilHacker);
-            if (p == Undertaker.undertaker) infos.Add(undertaker);
-            if (p == Trapper.trapper) infos.Add(trapper);
-            if (p == MimicK.mimicK) infos.Add(mimicK);
-            if (p == MimicA.mimicA) infos.Add(mimicA);
-            if (p == BomberA.bomberA) infos.Add(bomberA);
-            if (p == BomberB.bomberB) infos.Add(bomberB);
-            if (p == Vulture.vulture) infos.Add(vulture);
-            if (p == Medium.medium) infos.Add(medium);
-            if (p == Lawyer.lawyer) infos.Add(lawyer); // && !Lawyer.isProsecutor
-            //if (p == Lawyer.lawyer && Lawyer.isProsecutor) infos.Add(prosecutor);
-            //if (p == Trapper.trapper) infos.Add(trapper);
-            if (p == Pursuer.pursuer) infos.Add(pursuer);
-            if (p == Thief.thief) infos.Add(thief);
+        //    // Special roles
+        //    if (p == Jester.jester) infos.Add(jester);
+        //    if (p == Mayor.mayor) infos.Add(mayor);
+        //    if (p == Portalmaker.portalmaker) infos.Add(portalmaker);
+        //    if (p == Engineer.engineer) infos.Add(engineer);
+        //    if (p == Sheriff.sheriff || p == Sheriff.formerSheriff) infos.Add(sheriff);
+        //    if (p == Deputy.deputy) infos.Add(deputy);
+        //    if (p == Lighter.lighter) infos.Add(lighter);
+        //    if (p == Godfather.godfather) infos.Add(godfather);
+        //    if (p == Mafioso.mafioso) infos.Add(mafioso);
+        //    if (p == Janitor.janitor) infos.Add(janitor);
+        //    if (p == Morphling.morphling) infos.Add(morphling);
+        //    if (p == Camouflager.camouflager) infos.Add(camouflager);
+        //    if (p == Vampire.vampire) infos.Add(vampire);
+        //    if (p == Catcher.catcher) infos.Add(catcher);
+        //    if (p == Eraser.eraser) infos.Add(eraser);
+        //    if (p == Trickster.trickster) infos.Add(trickster);
+        //    if (p == Cleaner.cleaner) infos.Add(cleaner);
+        //    if (p == Warlock.warlock) infos.Add(warlock);
+        //    if (p == Witch.witch) infos.Add(witch);
+        //    if (p == Assassin.assassin) infos.Add(assassin);
+        //    //if (p == Bomber.bomber) infos.Add(bomber);
+        //    if (p == Detective.detective) infos.Add(detective);
+        //    if (p == TimeMaster.timeMaster) infos.Add(timeMaster);
+        //    if (p == Medic.medic) infos.Add(medic);
+        //    if (p == Swapper.swapper) infos.Add(p.Data.Role.IsImpostor ? evilSwapper : niceSwapper);
+        //    if (p == Seer.seer) infos.Add(seer);
+        //    if (p == Hacker.hacker) infos.Add(hacker);
+        //    if (p == Tracker.tracker) infos.Add(tracker);
+        //    if (p == Snitch.snitch) infos.Add(snitch);
+        //    if (p == Jackal.jackal || (Jackal.formerJackals != null && Jackal.formerJackals.Any(x => x.PlayerId == p.PlayerId))) infos.Add(jackal);
+        //    if (p == Sidekick.sidekick) infos.Add(sidekick);
+        //    if (p == Spy.spy) infos.Add(spy);
+        //    if (p == SecurityGuard.securityGuard) infos.Add(securityGuard);
+        //    if (p == Bait.bait) infos.Add(bait);
+        //    if (p == Veteran.veteran) infos.Add(veteran);
+        //    if (p == Sherlock.sherlock) infos.Add(sherlock);
+        //    if (p == Sprinter.sprinter) infos.Add(sprinter);
+        //    if (p == Yasuna.yasuna) infos.Add(p.Data.Role.IsImpostor ? evilYasuna : yasuna);
+        //    if (p == Moriarty.moriarty || p == Moriarty.formerMoriarty) infos.Add(moriarty);
+        //    if (p == JekyllAndHyde.jekyllAndHyde || p == JekyllAndHyde.formerJekyllAndHyde) infos.Add(jekyllAndHyde);
+        //    if (p == Akujo.akujo) infos.Add(akujo);
+        //    if (p == Teleporter.teleporter) infos.Add(teleporter);
+        //    if (p == Cupid.cupid) infos.Add(cupid);
+        //    if (p == Blackmailer.blackmailer) infos.Add(blackmailer);
+        //    if (p == Prophet.prophet) infos.Add(prophet);
+        //    if (p == Fox.fox) infos.Add(fox);
+        //    if (p == Immoralist.immoralist) infos.Add(immoralist);
+        //    if (p == FortuneTeller.fortuneTeller)
+        //    {
+        //        if (PlayerControl.LocalPlayer.Data.IsDead || includeHidden)
+        //        {
+        //            infos.Add(fortuneTeller);
+        //        }
+        //        else
+        //        {
+        //            var info = FortuneTeller.isCompletedNumTasks(p) ? fortuneTeller : crewmate;
+        //            infos.Add(info);
+        //        }
+        //    }
+        //    if (p == TaskMaster.taskMaster)
+        //    {
+        //        if (CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead || includeHidden || !TaskMaster.becomeATaskMasterWhenCompleteAllTasks) infos.Add(taskMaster);
+        //        else infos.Add(TaskMaster.isTaskComplete ? taskMaster : crewmate);
+        //    }
+        //    if (p == PlagueDoctor.plagueDoctor) infos.Add(plagueDoctor);
+        //    if (p == Opportunist.opportunist) infos.Add(opportunist);
+        //    if (p == Shifter.shifter) infos.Add(Shifter.isNeutral ? chainshifter : niceshifter);
+        //    if (p == Arsonist.arsonist) infos.Add(arsonist);
+        //    if (p == Guesser.niceGuesser) infos.Add(goodGuesser);
+        //    if (p == Guesser.evilGuesser) infos.Add(badGuesser);
+        //    if (p == Watcher.nicewatcher) infos.Add(niceWatcher);
+        //    if (p == Watcher.evilwatcher) infos.Add(evilWatcher);
+        //    if (p == BountyHunter.bountyHunter) infos.Add(bountyHunter);
+        //    if (p == Ninja.ninja) infos.Add(ninja);
+        //    if (p == NekoKabocha.nekoKabocha) infos.Add(nekoKabocha);
+        //    if (p == SerialKiller.serialKiller) infos.Add(serialKiller);
+        //    if (p == EvilTracker.evilTracker) infos.Add(evilTracker);
+        //    if (p == EvilHacker.evilHacker) infos.Add(evilHacker);
+        //    if (p == Undertaker.undertaker) infos.Add(undertaker);
+        //    if (p == Trapper.trapper) infos.Add(trapper);
+        //    if (p == MimicK.mimicK) infos.Add(mimicK);
+        //    if (p == MimicA.mimicA) infos.Add(mimicA);
+        //    if (p == BomberA.bomberA) infos.Add(bomberA);
+        //    if (p == BomberB.bomberB) infos.Add(bomberB);
+        //    if (p == Vulture.vulture) infos.Add(vulture);
+        //    if (p == Medium.medium) infos.Add(medium);
+        //    if (p == Lawyer.lawyer) infos.Add(lawyer); // && !Lawyer.isProsecutor
+        //    //if (p == Lawyer.lawyer && Lawyer.isProsecutor) infos.Add(prosecutor);
+        //    //if (p == Trapper.trapper) infos.Add(trapper);
+        //    if (p == Pursuer.pursuer) infos.Add(pursuer);
+        //    if (p == Thief.thief) infos.Add(thief);
 
-            // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek
-            if (infos.Count == count)
-            {
-                if (p.Data.Role.IsImpostor)
-                    infos.Add(TORMapOptions.gameMode == CustomGamemodes.HideNSeek ? RoleInfo.hunter : RoleInfo.impostor);
-                else
-                    infos.Add(TORMapOptions.gameMode == CustomGamemodes.HideNSeek ? RoleInfo.hunted : RoleInfo.crewmate);
-            }
+        //    // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek
+        //    if (infos.Count == count) {
+        //        if (p.Data.Role.IsImpostor)
+        //            infos.Add(TORMapOptions.gameMode == CustomGamemodes.HideNSeek ? RoleInfo.hunter : RoleInfo.impostor);
+        //        else
+        //            infos.Add(TORMapOptions.gameMode == CustomGamemodes.HideNSeek ? RoleInfo.hunted : RoleInfo.crewmate);
+        //    }
 
-            return infos;
-        }
+        //    return infos;
+        //}
 
         public static string GetRolesString(PlayerControl p, bool useColors, bool showModifier = true, bool suppressGhostInfo = false, bool includeHidden = false)
         {
