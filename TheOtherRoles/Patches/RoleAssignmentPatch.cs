@@ -108,7 +108,7 @@ namespace TheOtherRoles.Patches
 
             // Fill in the lists with the roles that should be assigned to players. Note that the special roles (like Mafia or Lovers) are NOT included in these lists
             Dictionary<byte, int> impSettings = new Dictionary<byte, int>();
-            var neutralSettings = new Dictionary<int, int>();
+            Dictionary<byte, int> neutralSettings = new Dictionary<byte, int>();
             Dictionary<byte, int> crewSettings = new Dictionary<byte, int>();
             
             impSettings.Add((byte)RoleId.Morphling, CustomOptionHolder.morphlingSpawnRate.getSelection());
@@ -132,11 +132,7 @@ namespace TheOtherRoles.Patches
             impSettings.Add((byte)RoleId.Blackmailer, CustomOptionHolder.blackmailerSpawnRate.getSelection());
             //impSettings.Add((byte)RoleId.Bomber, CustomOptionHolder.bomberSpawnRate.getSelection());
 
-            foreach (RoleId role in Enum.GetValues(typeof(RoleId)))
-            {
-                if (role.GetRoleInfo().types is not CustomOption.CustomOptionType.Neutral) continue;
-                neutralSettings.Add((byte)role, CustomOptionHolder.CustomRoleSpawnChances[role].getSelection());
-            }
+            neutralSettings.Add((byte)RoleId.Jester, CustomOptionHolder.jesterSpawnRate.getSelection());
             neutralSettings.Add((byte)RoleId.Arsonist, CustomOptionHolder.arsonistSpawnRate.getSelection());
             neutralSettings.Add((byte)RoleId.Jackal, CustomOptionHolder.jackalSpawnRate.getSelection());
             neutralSettings.Add((byte)RoleId.Opportunist, CustomOptionHolder.opportunistSpawnRate.getSelection());
