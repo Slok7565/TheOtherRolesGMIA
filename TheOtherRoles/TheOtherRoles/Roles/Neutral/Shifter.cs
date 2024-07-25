@@ -10,30 +10,30 @@ using UnityEngine;
 using static TheOtherRoles.CustomOption;
 
 namespace TheOtherRoles.TheOtherRoles.Roles.Neutral;
-public sealed class Jester : RoleBase
+public sealed class Shifter : RoleBase
 {
     public static readonly RoleInfo Info =
     RoleInfo.Create(
-        typeof(Jester),
-        player => new Jester(player),
+        typeof(Shifter),
+        player => new Shifter(player),
         05_00100,
         new Color32(236, 98, 165, byte.MaxValue),
         CreateOpt,
-        RoleId.Jester,
+        RoleId.Shifter,
         CustomOptionType.Neutral
 
 );
-    public Jester(PlayerControl player)
+    public Shifter(PlayerControl player)
     : base(
         Info,
         player
     )
     { }
-    public static CustomOption jesterCanCallEmergency;
-    public static CustomOption jesterHasImpostorVision;
-    public static CustomOption jesterCanVent;
+    public static CustomOption ShifterCanCallEmergency;
+    public static CustomOption ShifterHasImpostorVision;
+    public static CustomOption ShifterCanVent;
 
-    public bool triggerJesterWin = false;
+    public bool triggerShifterWin = false;
     public bool canCallEmergency = true;
     public bool hasImpostorVision = false;
     public bool canUseVents = false;
@@ -42,7 +42,7 @@ public sealed class Jester : RoleBase
     public override Action OnWrapUp(GameData.PlayerInfo exiled, ref bool DecidedWinner)
     {
         if (exiled == null || Player.PlayerId != exiled.PlayerId) return null;
-        triggerJesterWin = true;
+        triggerShifterWin = true;
         DecidedWinner = true;
         return () =>
         {
@@ -57,21 +57,21 @@ public sealed class Jester : RoleBase
     public override bool CanUseMeetingButton() => canCallEmergency;
     public override string OverrideMeetingBtnText()
     {
-        return canCallEmergency? default : ModTranslation.getString("jesterMeetingButton");
+        return canCallEmergency? default : ModTranslation.getString("ShifterMeetingButton");
     }
     static void CreateOpt()
     {
-        jesterCanCallEmergency = CustomOption.Create(Info, 10, "jesterCanCallEmergency", true);
-        jesterHasImpostorVision = CustomOption.Create(Info, 11,  "jesterHasImpostorVision", false);
-        jesterCanVent = CustomOption.Create(Info, 12, "jesterCanVent", false);
+        ShifterCanCallEmergency = CustomOption.Create(Info, 10, "ShifterCanCallEmergency", true);
+        ShifterHasImpostorVision = CustomOption.Create(Info, 11,  "ShifterHasImpostorVision", false);
+        ShifterCanVent = CustomOption.Create(Info, 12, "ShifterCanVent", false);
 
     }
     public override void clearAndReload()
     {
-        triggerJesterWin = false;
-        canCallEmergency = jesterCanCallEmergency.getBool();
-        hasImpostorVision = jesterHasImpostorVision.getBool();
-        canUseVents = jesterCanVent.getBool();
+        triggerShifterWin = false;
+        canCallEmergency = ShifterCanCallEmergency.getBool();
+        hasImpostorVision = ShifterHasImpostorVision.getBool();
+        canUseVents = ShifterCanVent.getBool();
     }
 }
 

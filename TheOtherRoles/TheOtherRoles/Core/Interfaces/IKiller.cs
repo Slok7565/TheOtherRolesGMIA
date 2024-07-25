@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TheOtherRoles.TheOtherRoles.Core.Interfaces;
 /// <summary>
@@ -10,5 +11,11 @@ namespace TheOtherRoles.TheOtherRoles.Core.Interfaces;
 /// </summary>
 public interface IKiller
 {
+    public void OnCheckMurderAsKiller() { }
+    public void OnCheckMurderAsTarget() { }
+    public void OnMurderPlayerAsKiller(PlayerControl target) { }
+    public void OnMurderPlayerAsTarget() { }
+
+
 }
 

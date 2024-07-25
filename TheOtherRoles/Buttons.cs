@@ -56,7 +56,6 @@ namespace TheOtherRoles
         public static CustomButton securityGuardButton;
         public static CustomButton securityGuardCamButton;
         public static CustomButton arsonistButton;
-        public static CustomButton serialKillerButton;
         public static CustomButton vultureEatButton;
         public static CustomButton mediumButton;
         public static CustomButton pursuerButton;
@@ -153,6 +152,8 @@ namespace TheOtherRoles
                     return;
                 }
             }
+            PlayerControl.LocalPlayer.GetRoleClass().setCustomButtonCooldowns();
+
             engineerRepairButton.MaxTimer = 0f;
             janitorCleanButton.MaxTimer = Janitor.cooldown;
             sheriffKillButton.MaxTimer = Sheriff.cooldown;
@@ -192,7 +193,6 @@ namespace TheOtherRoles
             thiefKillButton.MaxTimer = Thief.cooldown;
             mayorMeetingButton.MaxTimer = GameManager.Instance.LogicOptions.GetEmergencyCooldown();
             ninjaButton.MaxTimer = Ninja.stealthCooldown;
-            serialKillerButton.MaxTimer = SerialKiller.suicideTimer;
             //serialKillerButton.MaxTimer = 0f;
             evilTrackerButton.MaxTimer = EvilTracker.cooldown;
             trapperSetTrapButton.MaxTimer = Trapper.cooldown;
@@ -3069,45 +3069,8 @@ namespace TheOtherRoles
                 KeyCode.F,
                 buttonText: ModTranslation.getString("ImmoralistSuicideText")
             );
-
+            CachedPlayer.LocalPlayer.PlayerControl.GetRoleClass().CreateButton(__instance);
             // Serial Killer Suicide Countdown
-            serialKillerButton = new CustomButton(
-                () => { },
-                () => { return SerialKiller.serialKiller != null && CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && SerialKiller.isCountDown; },
-                () => { return true; },
-                () =>
-                {
-                    if (CachedPlayer.LocalPlayer.PlayerControl == SerialKiller.serialKiller)
-                    {
-                        SerialKiller.serialKiller.SetKillTimer(SerialKiller.killCooldown);
-                        if (SerialKiller.resetTimer)
-                        {
-                            serialKillerButton.Timer = SerialKiller.suicideTimer;
-                        }
-                    }
-                },
-                SerialKiller.getButtonSprite(),
-                CustomButton.ButtonPositions.upperRowLeft,
-                __instance,
-                KeyCode.F,
-                true,
-                SerialKiller.suicideTimer,
-                () =>
-                {
-                    byte targetId = SerialKiller.serialKiller.PlayerId;
-                    MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SerialKillerSuicide, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
-                    killWriter.Write(targetId);
-                    AmongUsClient.Instance.FinishRpcImmediately(killWriter);
-                    RPCProcedure.serialKillerSuicide(targetId);
-                },
-                abilityTexture: true
-            );
-            //UnityEngine.Object.Destroy(serialKillerButton.actionButton.buttonLabelText);
-            //serialKillerButton.actionButton.buttonLabelText = UnityEngine.Object.Instantiate(__instance.AbilityButton.buttonLabelText, serialKillerButton.actionButton.transform);
-            serialKillerButton.showButtonText = true;
-            serialKillerButton.buttonText = ModTranslation.getString("serialKillerSuicideText");
-            serialKillerButton.isEffectActive = true;
-
             // Evil Tracker track
             evilTrackerButton = new CustomButton(
                 () => {
