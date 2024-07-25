@@ -968,16 +968,16 @@ namespace TheOtherRoles.Patches {
             GetPlayerCounts();
         }
 
-        private bool isLover(GameData.PlayerInfo p) {
+        private bool isLover(NetworkedPlayerInfo p) {
             return (Lovers.lover1 != null && Lovers.lover1.PlayerId == p.PlayerId) || (Lovers.lover2 != null && Lovers.lover2.PlayerId == p.PlayerId);
         }
 
-        private bool isCupidLover(GameData.PlayerInfo p)
+        private bool isCupidLover(NetworkedPlayerInfo p)
         {
             return (Cupid.lovers1 != null && Cupid.lovers1.PlayerId == p.PlayerId) || (Cupid.lovers2 != null && Cupid.lovers2.PlayerId == p.PlayerId);
         }
 
-        private bool isAkujoHonmei(GameData.PlayerInfo p) { 
+        private bool isAkujoHonmei(NetworkedPlayerInfo p) { 
             return Akujo.akujo != null && Akujo.honmei != null && Akujo.honmei.PlayerId == p.PlayerId;
         }
 

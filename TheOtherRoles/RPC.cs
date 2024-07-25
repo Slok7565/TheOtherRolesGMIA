@@ -1757,7 +1757,7 @@ namespace TheOtherRoles
 
             if (!TaskMaster.isTaskMaster(playerId))
                 return;
-            GameData.PlayerInfo player = GameData.Instance.GetPlayerById(playerId);
+            NetworkedPlayerInfo player = GameData.Instance.GetPlayerById(playerId);
             if (player == null)
                 return;
 

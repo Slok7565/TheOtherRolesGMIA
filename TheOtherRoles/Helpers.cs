@@ -1010,7 +1010,7 @@ namespace TheOtherRoles {
             }
         }
 
-        public static bool hasImpVision(GameData.PlayerInfo player) {
+        public static bool hasImpVision(NetworkedPlayerInfo player) {
             return player.Role.IsImpostor
                 || ((Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId || Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision)
                 || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)
