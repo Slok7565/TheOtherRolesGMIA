@@ -14,6 +14,7 @@ using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
 using TheOtherRoles.Role;
+using TheOtherRoles.TheOtherRoles.Core;
 
 namespace TheOtherRoles.Patches
 {
@@ -116,6 +117,7 @@ namespace TheOtherRoles.Patches
             bool couldUse;
             __instance.CanUse(CachedPlayer.LocalPlayer.Data, out canUse, out couldUse);
             bool canMoveInVents = CachedPlayer.LocalPlayer.PlayerControl != Spy.spy && CachedPlayer.LocalPlayer.PlayerControl != Jester.jester && !Madmate.madmate.Contains(CachedPlayer.LocalPlayer.PlayerControl) && CachedPlayer.LocalPlayer.PlayerControl != CreatedMadmate.createdMadmate; //&& !Trapper.playersOnMap.Contains(CachedPlayer.LocalPlayer.PlayerControl)
+            canMoveInVents = PlayerControl.LocalPlayer.GetRoleClass().CanMoveInVents();
             if (!canUse) return false; // No need to execute the native method as using is disallowed anyways
 
             bool isEnter = !CachedPlayer.LocalPlayer.PlayerControl.inVent;
@@ -253,16 +255,15 @@ namespace TheOtherRoles.Patches
         static void Postfix(EmergencyMinigame __instance) {
             var roleCanCallEmergency = true;
             var statusText = "";
-
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                roleCanCallEmergency = pc.GetRoleClass().CanUseMeetingButton();
+                statusText = pc.GetRoleClass().OverrideMeetingBtnText();
+            }
             // Deactivate emergency button for Swapper
             if (Swapper.swapper != null && Swapper.swapper == CachedPlayer.LocalPlayer.PlayerControl && !Swapper.canCallEmergency) {
                 roleCanCallEmergency = false;
                 statusText = ModTranslation.getString("swapperMeetingButton");
-            }
-            // Potentially deactivate emergency button for Jester
-            if (Jester.jester != null && Jester.jester == CachedPlayer.LocalPlayer.PlayerControl && !Jester.canCallEmergency) {
-                roleCanCallEmergency = false;
-                statusText = ModTranslation.getString("jesterMeetingButton");
             }
             // Potentially deactivate emergency button for Lawyer/Prosecutor
             if (Lawyer.lawyer != null && Lawyer.lawyer == CachedPlayer.LocalPlayer.PlayerControl && Lawyer.winsAfterMeetings) {

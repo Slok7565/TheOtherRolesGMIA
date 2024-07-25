@@ -2943,34 +2943,6 @@ namespace TheOtherRoles.Role
         }
     }
 
-    public sealed class SerialKiller : RoleBase
-    {
-        public PlayerControl serialKiller;
-        public Color color = Palette.ImpostorRed;
-
-        public float killCooldown = 15f;
-        public float suicideTimer = 40f;
-        public bool resetTimer = true;
-
-        public bool isCountDown = false;
-
-        private Sprite buttonSprite;
-        public Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public void clearAndReload()
-        {
-            serialKiller = null;
-            killCooldown = CustomOptionHolder.serialKillerKillCooldown.getFloat();
-            suicideTimer = Mathf.Max(CustomOptionHolder.serialKillerSuicideTimer.getFloat(), killCooldown + 2.5f);
-            resetTimer = CustomOptionHolder.serialKillerResetTimer.getBool();
-            isCountDown = false;
-        }
-    }
 
     public sealed class Prophet : RoleBase
     {
