@@ -268,11 +268,6 @@ namespace TheOtherRoles
         public static CustomOption snitchMode;
         public static CustomOption snitchTargets;
 
-        public static CustomOption shifterSpawnRate;
-        public static CustomOption shifterIsNeutralRate;
-        public static CustomOption shifterShiftsModifiers;
-        public static CustomOption shifterPastShifters;
-
         public static CustomOption spySpawnRate;
         public static CustomOption spyCanDieToSheriff;
         public static CustomOption spyImpostorsCanKillAnyone;
@@ -817,11 +812,6 @@ namespace TheOtherRoles
             lawyerTargetCanBeJester = CustomOption.Create(351, Types.Neutral, "lawyerTargetCanBeJester", false, lawyerSpawnRate);
             pursuerCooldown = CustomOption.Create(356, Types.Neutral, "pursuerCooldown", 30f, 5f, 60f, 2.5f, lawyerSpawnRate, false, "unitSeconds");
             pursuerBlanksNumber = CustomOption.Create(357, Types.Neutral, "pursuerBlanksNumber", 5f, 1f, 20f, 1f, lawyerSpawnRate, false, "unitScrews");
-
-            shifterSpawnRate = CustomOption.Create(1100, Types.Neutral, cs(Shifter.color, "shifter"), rates, null, true);
-            shifterIsNeutralRate = CustomOption.Create(6007, Types.Neutral, "shifterIsNeutralRate", rates, shifterSpawnRate);
-            shifterShiftsModifiers = CustomOption.Create(1101, Types.Neutral, "shifterShiftsModifiers", false, shifterSpawnRate);
-            shifterPastShifters = CustomOption.Create(6008, Types.Neutral, "shifterPastShifters", false, shifterSpawnRate);
 
             opportunistSpawnRate = CustomOption.Create(4003, Types.Neutral, cs(Opportunist.color, "opportunist"), rates, null, true);
 

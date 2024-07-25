@@ -1,4 +1,5 @@
 using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using Il2CppSystem.Xml;
 using System;
@@ -114,9 +115,21 @@ public abstract class RoleBase : IDisposable
     /// </summary>
     public virtual bool HasImpVision() => Player?.Data?.Role?.IsImpostor ?? false;
     /// <summary>
+    /// 驱逐时的处理
+    /// </summary>
+    public virtual void OnFixedUpdate() { }
+    /// <summary>
+    /// 驱逐时的处理
+    /// </summary>
+    public virtual void OnMeetingStart(GameData.PlayerInfo meetingTarget) { }
+    /// <summary>
     /// 驱逐后的处理
     /// </summary>
     public virtual Action OnWrapUp(GameData.PlayerInfo exiled, ref bool DecideWinner) => null;
+    /// <summary>
+    /// 驱逐时的处理
+    /// </summary>
+    public virtual void OnExile(ExileController __instance, GameData.PlayerInfo exiled, bool tie) {}
     /// <summary>
     /// 覆盖驱逐文本
     /// </summary>
@@ -133,7 +146,9 @@ public abstract class RoleBase : IDisposable
     /// 创建按钮
     /// </summary>
     public virtual void CreateButton(HudManager __instance) {}
-
+    /// <summary>
+    /// 设置按钮冷却
+    /// </summary>
     public virtual void setCustomButtonCooldowns() { }
     protected enum GeneralOption
     {

@@ -3162,42 +3162,6 @@ namespace TheOtherRoles.Role
         }
     }
 
-    public sealed class Shifter : RoleBase
-    {
-        public PlayerControl shifter;
-        public List<int> pastShifters = new List<int>();
-        public Color color = new Color32(102, 102, 102, byte.MaxValue);
-
-        public PlayerControl futureShift;
-        public PlayerControl currentTarget;
-        public PlayerControl killer;
-        public DeadPlayer.CustomDeathReason deathReason;
-        public bool shiftModifiers = false;
-
-        public bool isNeutral = false;
-        public bool shiftPastShifters = false;
-
-        private Sprite buttonSprite;
-        public Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShiftButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public void clearAndReload()
-        {
-            shifter = null;
-            pastShifters = new List<int>();
-            currentTarget = null;
-            futureShift = null;
-            killer = null;
-            deathReason = DeadPlayer.CustomDeathReason.Disconnect; // Get something unreachable here
-            shiftModifiers = CustomOptionHolder.shifterShiftsModifiers.getBool();
-            shiftPastShifters = CustomOptionHolder.shifterPastShifters.getBool();
-            isNeutral = false;
-        }
-    }
 
     public sealed class Witch : RoleBase
     {
