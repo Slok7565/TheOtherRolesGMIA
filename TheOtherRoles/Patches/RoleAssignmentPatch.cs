@@ -12,6 +12,7 @@ using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
 using TheOtherRoles.TheOtherRoles.Roles.Neutral;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {
@@ -109,8 +110,8 @@ namespace TheOtherRoles.Patches
 
             // Fill in the lists with the roles that should be assigned to players. Note that the special roles (like Mafia or Lovers) are NOT included in these lists
             var impSettings = new Dictionary<byte, int>();
-            var neutralSettings = new Dictionary<int, int>();
-            Dictionary<byte, int> crewSettings = new Dictionary<byte, int>();
+            var neutralSettings = new Dictionary<byte, int>();
+            var crewSettings = new Dictionary<byte, int>();
             foreach (RoleId role in Enum.GetValues(typeof(RoleId)))
             {
                 if (role.GetRoleInfo().types is not CustomOption.CustomOptionType.Impostor) continue;

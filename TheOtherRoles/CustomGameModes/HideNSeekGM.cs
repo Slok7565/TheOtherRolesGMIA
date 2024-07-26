@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using TheOtherRoles.Helpers;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
 using UnityEngine;
 
-namespace TheOtherRoles.CustomGameModes {
+namespace TheOtherRoles.CustomGameModes
+{
     public static class HideNSeek { // HideNSeek Gamemode
         public static bool isHideNSeekGM = false;
         public static TMPro.TMP_Text timerText = null;

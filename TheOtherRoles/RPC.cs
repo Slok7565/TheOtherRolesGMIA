@@ -21,6 +21,7 @@ using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
 using UnityEngine.Networking.Types;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles
 {
@@ -710,7 +711,7 @@ namespace TheOtherRoles
             Morphling.morphTimer = Morphling.duration;
             Morphling.morphTarget = target;
             if (Camouflager.camouflageTimer <= 0f)
-                Morphling.morphling.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                Morphling.morphling.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
         }
 
         public static void camouflagerCamouflage() {
@@ -719,7 +720,7 @@ namespace TheOtherRoles
             Camouflager.camouflageTimer = Camouflager.duration;
             if (Helpers.MushroomSabotageActive()) return; // Dont overwrite the fungle "camo"
             foreach (PlayerControl player in CachedPlayer.AllPlayers)
-                player.setLook("", 6, "", "", "", "");
+                player.setOutFit("", 6, "", "", "", "");
         }
 
         public static void vampireSetBitten(byte targetId, byte performReset) {
@@ -969,6 +970,8 @@ namespace TheOtherRoles
             if (player == null || (!player.canBeErased() && !isCreatedMadmate)) return;
 
             // Crewmate roles
+            player.GetRoleClass().Dispose();
+            /*
             if (player == Mayor.mayor) Mayor.clearAndReload();
             if (player == Portalmaker.portalmaker) Portalmaker.clearAndReload();
             if (player == Engineer.engineer) Engineer.clearAndReload();
@@ -1051,7 +1054,7 @@ namespace TheOtherRoles
             if (player == Immoralist.immoralist) Immoralist.clearAndReload();
             if (player == PlagueDoctor.plagueDoctor) PlagueDoctor.clearAndReload();
             if (player == Cupid.cupid) Cupid.clearAndReload(false);
-
+                        */
             // Always remove the Madmate
             if (Madmate.madmate.Any(x => x.PlayerId == player.PlayerId)) Madmate.madmate.RemoveAll(x => x.PlayerId == player.PlayerId);
 
@@ -1211,12 +1214,12 @@ namespace TheOtherRoles
                 target.cosmetics.colorBlindText.gameObject.SetActive(DataManager.Settings.Accessibility.ColorBlindMode);
                 target.cosmetics.colorBlindText.color = target.cosmetics.colorBlindText.color.SetAlpha(1f);
 
-                if (Camouflager.camouflageTimer <= 0) target.setDefaultLook();
+                if (Camouflager.camouflageTimer <= 0) target.setDefaultOutFit();
                 //Assassin.isInvisble = false;
                 return;
             }
 
-            target.setLook("", 6, "", "", "", "");
+            target.setOutFit("", 6, "", "", "", "");
             Color color = Color.clear;
             bool canSee = CachedPlayer.LocalPlayer.Data.Role.IsImpostor || CachedPlayer.LocalPlayer.Data.IsDead;
             if (canSee) color.a = 0.1f;
@@ -1256,7 +1259,7 @@ namespace TheOtherRoles
         public static void ninjaStealth(byte playerId, bool stealthed)
         {
             PlayerControl player = Helpers.playerById(playerId);
-            //if (Camouflager.camouflageTimer <= 0) player.setDefaultLook();
+            //if (Camouflager.camouflageTimer <= 0) player.setDefaultOutFit();
             Ninja.setStealthed(player, stealthed);
         }
 
@@ -1359,7 +1362,7 @@ namespace TheOtherRoles
             PlayerControl mimicA = Helpers.playerById(mimicAId);
             PlayerControl mimicB = Helpers.playerById(mimicBId);
             if (Camouflager.camouflageTimer <= 0f)
-                mimicA.setLook(mimicB.Data.PlayerName, mimicB.Data.DefaultOutfit.ColorId, mimicB.Data.DefaultOutfit.HatId, mimicB.Data.DefaultOutfit.VisorId, mimicB.Data.DefaultOutfit.SkinId, mimicB.Data.DefaultOutfit.PetId);
+                mimicA.setOutFit(mimicB.Data.PlayerName, mimicB.Data.DefaultOutfit.ColorId, mimicB.Data.DefaultOutfit.HatId, mimicB.Data.DefaultOutfit.VisorId, mimicB.Data.DefaultOutfit.SkinId, mimicB.Data.DefaultOutfit.PetId);
             MimicA.isMorph = true;
         }
 
@@ -1367,7 +1370,7 @@ namespace TheOtherRoles
         {
             PlayerControl mimicA = Helpers.playerById(mimicAId);
             if (Camouflager.camouflageTimer <= 0f)
-                mimicA.setDefaultLook();
+                mimicA.setDefaultOutFit();
             MimicA.isMorph = false;
         }
 

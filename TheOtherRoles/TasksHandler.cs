@@ -2,6 +2,7 @@ using HarmonyLib;
 using Hazel;
 using System;
 using System.Linq;
+using TheOtherRoles.Helpers;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
 using TheOtherRoles.Role;

@@ -14,6 +14,7 @@ using Reactor.Utilities;
 using AmongUs.QuickChat;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {

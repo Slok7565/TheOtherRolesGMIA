@@ -16,6 +16,7 @@ using Sentry.Internal.Extensions;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
 using TheOtherRoles.TheOtherRoles.Core.Interfaces;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {
@@ -1300,17 +1301,17 @@ namespace TheOtherRoles.Patches
                 Camouflager.resetCamouflage();
                 if (Morphling.morphTimer > 0f && Morphling.morphling != null && Morphling.morphTarget != null) {
                     PlayerControl target = Morphling.morphTarget;
-                    Morphling.morphling.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    Morphling.morphling.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (MimicK.mimicK != null && MimicK.victim != null)
                 {
                     PlayerControl target = MimicK.victim;
-                    MimicK.mimicK.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    MimicK.mimicK.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (MimicK.mimicK != null && MimicA.mimicA != null && MimicA.isMorph)
                 {
                     PlayerControl target = MimicK.mimicK;
-                    MimicA.mimicA.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    MimicA.mimicA.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
             }
 
@@ -1320,22 +1321,22 @@ namespace TheOtherRoles.Patches
                 if (Morphling.morphTimer > 0f && Morphling.morphling != null && Morphling.morphTarget != null)
                 {
                     PlayerControl target = Morphling.morphTarget;
-                    Morphling.morphling.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    Morphling.morphling.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (MimicK.mimicK != null && MimicK.victim != null)
                 {
                     PlayerControl target = MimicK.victim;
-                    MimicK.mimicK.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    MimicK.mimicK.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (MimicK.mimicK != null && MimicA.mimicA != null && MimicA.isMorph)
                 {
                     PlayerControl target = MimicK.mimicK;
-                    MimicA.mimicA.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    MimicA.mimicA.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (Camouflager.camouflageTimer > 0)
                 {
                     foreach (PlayerControl player in CachedPlayer.AllPlayers)
-                        player.setLook("", 6, "", "", "", "");
+                        player.setOutFit("", 6, "", "", "", "");
                 }
             }
 
@@ -1352,11 +1353,11 @@ namespace TheOtherRoles.Patches
             if (MimicK.mimicK == null || MimicK.mimicK.Data.IsDead)
             {
                 MimicA.isMorph = false;
-                MimicA.mimicA.setDefaultLook();
+                MimicA.mimicA.setDefaultOutFit();
                 return;
             }
-            if (MimicA.isMorph && !MimicK.mimicK.Data.IsDead && MimicK.mimicK != null) MimicA.mimicA.setLook(MimicK.name, MimicK.mimicK.Data.DefaultOutfit.ColorId, MimicK.mimicK.Data.DefaultOutfit.HatId, MimicK.mimicK.Data.DefaultOutfit.VisorId, MimicK.mimicK.Data.DefaultOutfit.SkinId, MimicK.mimicK.Data.DefaultOutfit.PetId);
-            else MimicA.mimicA.setDefaultLook();
+            if (MimicA.isMorph && !MimicK.mimicK.Data.IsDead && MimicK.mimicK != null) MimicA.mimicA.setOutFit(MimicK.name, MimicK.mimicK.Data.DefaultOutfit.ColorId, MimicK.mimicK.Data.DefaultOutfit.HatId, MimicK.mimicK.Data.DefaultOutfit.VisorId, MimicK.mimicK.Data.DefaultOutfit.SkinId, MimicK.mimicK.Data.DefaultOutfit.PetId);
+            else MimicA.mimicA.setDefaultOutFit();
         }*/
 
         static void evilHackerSetTarget()
@@ -1537,7 +1538,7 @@ namespace TheOtherRoles.Patches
         /*public static void ninjaUpdate()
         {
             if (Ninja.ninja == null) return;
-            if (Camouflager.camouflageTimer <= 0f && !Helpers.MushroomSabotageActive()) Ninja.ninja.setDefaultLook();
+            if (Camouflager.camouflageTimer <= 0f && !Helpers.MushroomSabotageActive()) Ninja.ninja.setDefaultOutFit();
             if (Ninja.stealthed && Ninja.invisibleTimer <= 0 && Camouflager.camouflageTimer <= 0f && Ninja.ninja == CachedPlayer.LocalPlayer.PlayerControl)
             {
                 MessageWriter invisibleWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.NinjaStealth, Hazel.SendOption.Reliable, -1);
@@ -1551,7 +1552,7 @@ namespace TheOtherRoles.Patches
         public static void sprinterUpdate()
         {
             if (Sprinter.sprinter == null) return;
-            if (Camouflager.camouflageTimer <= 0f && !Helpers.MushroomSabotageActive()) Sprinter.sprinter.setDefaultLook();
+            if (Camouflager.camouflageTimer <= 0f && !Helpers.MushroomSabotageActive()) Sprinter.sprinter.setDefaultOutFit();
             if (Sprinter.sprinting && Sprinter.invisibleTimer <= 0 && Sprinter.sprinter == CachedPlayer.LocalPlayer.PlayerControl)
             {
                 MessageWriter invisibleWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SprinterSprint, Hazel.SendOption.Reliable, -1);
@@ -2386,25 +2387,25 @@ namespace TheOtherRoles.Patches
 
                 // Block Mimic(Killer) from morphing if camo or mushroom is active
                 if (Camouflager.camouflageTimer <= 0f && !Helpers.MushroomSabotageActive())
-                    MimicK.mimicK.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
+                    MimicK.mimicK.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 MimicK.victim = target;
             }
 
             // Mimic morph and arrows
             if (MimicK.mimicK != null && target == MimicK.mimicK)
             {
-                MimicK.mimicK.setDefaultLook();
+                MimicK.mimicK.setDefaultOutFit();
                 MimicK.victim = null;
                 if (MimicA.mimicA != null)
                 {
-                    MimicA.mimicA.setDefaultLook();
+                    MimicA.mimicA.setDefaultOutFit();
                     MimicA.isMorph = false;
                 }
             }
 
             if (MimicA.mimicA != null && target == MimicA.mimicA)
             {
-                MimicA.mimicA.setDefaultLook();
+                MimicA.mimicA.setDefaultOutFit();
                 MimicA.isMorph = false;
             }
 

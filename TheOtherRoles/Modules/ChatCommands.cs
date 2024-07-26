@@ -5,6 +5,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using Hazel;
 using TheOtherRoles.Role;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Modules
 {

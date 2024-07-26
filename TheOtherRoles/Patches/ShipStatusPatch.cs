@@ -8,6 +8,7 @@ using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
 using TheOtherRoles.Players;
 using TheOtherRoles.Role;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {

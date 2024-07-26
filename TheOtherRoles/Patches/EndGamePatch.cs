@@ -11,6 +11,7 @@ using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {

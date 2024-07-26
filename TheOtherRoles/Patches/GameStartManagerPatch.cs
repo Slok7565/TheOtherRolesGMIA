@@ -8,6 +8,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using System.Linq;
 using Reactor.Utilities.Extensions;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {

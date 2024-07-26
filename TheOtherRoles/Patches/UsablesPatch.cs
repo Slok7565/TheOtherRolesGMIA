@@ -15,6 +15,7 @@ using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {
@@ -782,7 +783,7 @@ namespace TheOtherRoles.Patches
 
             if (isLightsOut && !nightVisionIsActive && nightVisionEnabled && !ignoreNightVision) {  // only update when something changed!
                 foreach (PlayerControl pc in CachedPlayer.AllPlayers) {
-                    pc.setLook("", 11, "", "", "", "", false);
+                    pc.setOutFit("", 11, "", "", "", "", false);
                 }
                 foreach (var overlayObject in nightVisionOverlays) {
                     overlayObject.SetActive(true);
@@ -809,23 +810,23 @@ namespace TheOtherRoles.Patches
                 nightVisionIsActive = false;
                 foreach (PlayerControl pc in CachedPlayer.AllPlayers) {
                     if (Camouflager.camouflageTimer > 0) {
-                        pc.setLook("", 6, "", "", "", "", false);
+                        pc.setOutFit("", 6, "", "", "", "", false);
                     } else if (pc == Morphling.morphling && Morphling.morphTimer > 0) {
                         PlayerControl target = Morphling.morphTarget;
-                        Morphling.morphling.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId, false);
+                        Morphling.morphling.setOutFit(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId, false);
                     }
                     else if (pc == MimicK.mimicK && MimicK.victim != null)
                     {
                         var victim = MimicK.victim;
-                        MimicK.mimicK.setLook(victim.Data.PlayerName, victim.Data.DefaultOutfit.ColorId, victim.Data.DefaultOutfit.HatId, victim.Data.DefaultOutfit.VisorId, victim.Data.DefaultOutfit.SkinId, victim.Data.DefaultOutfit.PetId, false);
+                        MimicK.mimicK.setOutFit(victim.Data.PlayerName, victim.Data.DefaultOutfit.ColorId, victim.Data.DefaultOutfit.HatId, victim.Data.DefaultOutfit.VisorId, victim.Data.DefaultOutfit.SkinId, victim.Data.DefaultOutfit.PetId, false);
                     }
                     else if (pc == MimicA.mimicA && MimicK.mimicK != null && MimicA.isMorph)
                     {
                         var victim = MimicK.mimicK;
-                        MimicA.mimicA.setLook(victim.Data.PlayerName, victim.Data.DefaultOutfit.ColorId, victim.Data.DefaultOutfit.HatId, victim.Data.DefaultOutfit.VisorId, victim.Data.DefaultOutfit.SkinId, victim.Data.DefaultOutfit.PetId, false);
+                        MimicA.mimicA.setOutFit(victim.Data.PlayerName, victim.Data.DefaultOutfit.ColorId, victim.Data.DefaultOutfit.HatId, victim.Data.DefaultOutfit.VisorId, victim.Data.DefaultOutfit.SkinId, victim.Data.DefaultOutfit.PetId, false);
                     }
                     else {
-                        Helpers.setDefaultLook(pc, false);
+                        Helpers.setDefaultOutFit(pc, false);
                     }
                     // Dead Bodies
                     foreach (DeadBody deadBody in GameObject.FindObjectsOfType<DeadBody>()) {
@@ -841,7 +842,7 @@ namespace TheOtherRoles.Patches
 
         public static void enforceNightVision(PlayerControl player) {
             if (isLightsOut && nightVisionOverlays != null && nightVisionIsActive) {
-                player.setLook("", 11, "", "", "", "", false);
+                player.setOutFit("", 11, "", "", "", "", false);
             }
         }
 

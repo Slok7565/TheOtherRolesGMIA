@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using TheOtherRoles.Helpers;
 using UnityEngine;
 
-namespace TheOtherRoles{
+namespace TheOtherRoles
+{
     static class TORMapOptions {
         // Set values
         public static int maxNumberOfMeetings = 10;

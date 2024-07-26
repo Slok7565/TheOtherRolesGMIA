@@ -5,6 +5,7 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
+using TheOtherRoles.Helpers;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
 using UnityEngine;

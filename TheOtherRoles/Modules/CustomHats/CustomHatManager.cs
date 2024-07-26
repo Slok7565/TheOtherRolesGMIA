@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.Reflection;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Modules.CustomHats;
 

@@ -15,6 +15,7 @@ using static UnityEngine.RemoteConfigSettingsHelper;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Role;
 using static TheOtherRoles.CustomOption;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.TheOtherRoles.Core
 {

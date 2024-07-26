@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
@@ -15,8 +15,10 @@ using BepInEx;
 using BepInEx.Unity.IL2CPP;
 using TMPro;
 using System.Text;
+using TheOtherRoles.Helpers;
 
-namespace TheOtherRoles.Modules {
+namespace TheOtherRoles.Modules
+{
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     public class MainMenuPatch {
         private static bool horseButtonState = TORMapOptions.enableHorseMode;

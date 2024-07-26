@@ -10,6 +10,7 @@ using TheOtherRoles.Utilities;
 using UnityEngine;
 using TheOtherRoles.Role;
 using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {
@@ -171,7 +172,7 @@ namespace TheOtherRoles.Patches
             var decidedwinner = false;
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                pc.GetRoleClass().OnWrapUp(exiled, );
+                pc.GetRoleClass().OnWrapUp(exiled, ref decidedwinner);
             }
 
             // Reset custom button timers where necessary
@@ -184,8 +185,8 @@ namespace TheOtherRoles.Patches
             }
 
             // Mimic(Assistant) and Mimic(Killer) reset outfit
-            if (MimicA.mimicA != null) MimicA.mimicA.setDefaultLook();
-            if (MimicK.mimicK != null) MimicK.mimicK.setDefaultLook();
+            if (MimicA.mimicA != null) MimicA.mimicA.setDefaultOutFit();
+            if (MimicK.mimicK != null) MimicK.mimicK.setDefaultOutFit();
 
             // Seer spawn souls
             if (Seer.deadBodyPositions != null && Seer.seer != null && CachedPlayer.LocalPlayer.PlayerControl == Seer.seer && (Seer.mode == 0 || Seer.mode == 2)) {

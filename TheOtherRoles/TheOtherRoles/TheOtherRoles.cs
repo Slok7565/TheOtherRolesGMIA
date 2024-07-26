@@ -7,7 +7,6 @@ using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
-using TheOtherRoles.Role.TheOtherRoles;
 using AmongUs.Data;
 using Hazel;
 using JetBrains.Annotations;
@@ -18,6 +17,7 @@ using UnityEngine.UIElements;
 using Reactor.Utilities.Extensions;
 using Types = TheOtherRoles.CustomOption.CustomOptionType;
 using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Role
 {
@@ -518,69 +518,6 @@ namespace TheOtherRoles.Role
         }
     }
 
-    public sealed class Lovers : RoleBase
-    {
-        public PlayerControl lover1;
-        public PlayerControl lover2;
-        public Color color = new Color32(232, 57, 185, byte.MaxValue);
-
-        public bool bothDie = true;
-        public bool enableChat = true;
-        // Lovers save if next to be exiled is a lover, because RPC of ending game comes before RPC of exiled
-        public bool notAckedExiledIsLover = false;
-
-        public bool existing()
-        {
-            return lover1 != null && lover2 != null && !lover1.Data.Disconnected && !lover2.Data.Disconnected;
-        }
-
-        public bool existingAndAlive()
-        {
-            return existing() && !lover1.Data.IsDead && !lover2.Data.IsDead && !notAckedExiledIsLover; // ADD NOT ACKED IS LOVER
-        }
-
-        public PlayerControl otherLover(PlayerControl oneLover)
-        {
-            if (!existingAndAlive()) return null;
-            if (oneLover == lover1) return lover2;
-            if (oneLover == lover2) return lover1;
-            return null;
-        }
-
-        public bool existingWithKiller()
-        {
-            return existing() && (lover1 == Jackal.jackal || lover2 == Jackal.jackal
-                               || lover1 == Sidekick.sidekick || lover2 == Sidekick.sidekick
-                               || lover1.Data.Role.IsImpostor || lover2.Data.Role.IsImpostor);
-        }
-
-        public bool hasAliveKillingLover(this PlayerControl player)
-        {
-            if (!Lovers.existingAndAlive() || !existingWithKiller())
-                return false;
-            return player != null && (player == lover1 || player == lover2);
-        }
-
-        public override void clearAndReload()
-        {
-            lover1 = null;
-            lover2 = null;
-            notAckedExiledIsLover = false;
-            bothDie = CustomOptionHolder.modifierLoverBothDie.getBool();
-            enableChat = CustomOptionHolder.modifierLoverEnableChat.getBool();
-        }
-
-        public PlayerControl getPartner(this PlayerControl player)
-        {
-            if (player == null)
-                return null;
-            if (lover1 == player)
-                return lover2;
-            if (lover2 == player)
-                return lover1;
-            return null;
-        }
-    }
 
     public sealed class Seer : RoleBase
     {
@@ -630,7 +567,7 @@ namespace TheOtherRoles.Role
             morphTarget = null;
             morphTimer = 0f;
             if (morphling == null) return;
-            morphling.setDefaultLook();
+            morphling.setDefaultOutFit();
         }
 
         public override void clearAndReload()
@@ -683,7 +620,7 @@ namespace TheOtherRoles.Role
             foreach (PlayerControl p in CachedPlayer.AllPlayers)
                 /*if ((p == Ninja.ninja && Ninja.stealthed) || (p == Sprinter.sprinter && Sprinter.sprinting))
                     continue;*/
-                p.setDefaultLook();
+                p.setDefaultOutFit();
         }
 
         public override void clearAndReload()
@@ -1825,11 +1762,11 @@ namespace TheOtherRoles.Role
 
         public void clearAndReload()
         {
-            mimicK?.setDefaultLook();
+            mimicK?.setDefaultOutFit();
             if (MimicA.mimicA != null)
             {
                 MimicA.isMorph = false;
-                MimicA.mimicA.setDefaultLook();
+                MimicA.mimicA.setDefaultOutFit();
             }
 
             mimicK = null;
@@ -1929,7 +1866,7 @@ namespace TheOtherRoles.Role
 
         public void clearAndReload()
         {
-            mimicA?.setDefaultLook();
+            mimicA?.setDefaultOutFit();
             mimicA = null;
             isMorph = false;
             if (arrows != null)
@@ -4535,88 +4472,4 @@ namespace TheOtherRoles.Role
         }
     }
 
-    /*public sealed class Shifter:RoleBase {
-        public  PlayerControl shifter;
-
-        public  PlayerControl futureShift;
-        public  PlayerControl currentTarget;
-
-        private  Sprite buttonSprite;
-        public  Sprite getButtonSprite() {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShiftButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public  void shiftRole (PlayerControl player1, PlayerControl player2, bool repeat = true) {
-            if (Mayor.mayor != null && Mayor.mayor == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Mayor.mayor = player1;
-            } else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Portalmaker.portalmaker = player1;
-            } else if (Engineer.engineer != null && Engineer.engineer == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Engineer.engineer = player1;
-            } else if (Sheriff.sheriff != null && Sheriff.sheriff == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                if (Sheriff.formerDeputy != null && Sheriff.formerDeputy == Sheriff.sheriff) Sheriff.formerDeputy = player1;  // Shifter also shifts info on promoted deputy (to get handcuffs)
-                Sheriff.sheriff = player1;
-            } else if (Deputy.deputy != null && Deputy.deputy == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Deputy.deputy = player1;
-            } else if (Lighter.lighter != null && Lighter.lighter == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Lighter.lighter = player1;
-            } else if (Detective.detective != null && Detective.detective == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Detective.detective = player1;
-            } else if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                TimeMaster.timeMaster = player1;
-            }  else if (Medic.medic != null && Medic.medic == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Medic.medic = player1;
-            } else if (Swapper.swapper != null && Swapper.swapper == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Swapper.swapper = player1;
-            } else if (Seer.seer != null && Seer.seer == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Seer.seer = player1;
-            } else if (Hacker.hacker != null && Hacker.hacker == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Hacker.hacker = player1;
-            } else if (Tracker.tracker != null && Tracker.tracker == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Tracker.tracker = player1;
-            } else if (Snitch.snitch != null && Snitch.snitch == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Snitch.snitch = player1;
-            } else if (Spy.spy != null && Spy.spy == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Spy.spy = player1;
-            } else if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                SecurityGuard.securityGuard = player1;
-            } else if (Guesser.niceGuesser != null && Guesser.niceGuesser == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Guesser.niceGuesser = player1;
-            } else if (Medium.medium != null && Medium.medium == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Medium.medium = player1;
-            } else if (Pursuer.pursuer != null && Pursuer.pursuer == player2) {
-                if (repeat) shiftRole(player2, player1, false);
-                Pursuer.pursuer = player1;
-            } //else if (Trapper.trapper != null && Trapper.trapper == player2) {
-                //if (repeat) shiftRole(player2, player1, false);
-                //Trapper.trapper = player1;
-            //}
-        }
-
-        public override void clearAndReload() {
-            shifter = null;
-            currentTarget = null;
-            futureShift = null;
-        }
-    }*/
 }
