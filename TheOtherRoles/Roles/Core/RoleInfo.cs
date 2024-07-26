@@ -2,7 +2,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using TheOtherRoles.Players;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using UnityEngine;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
@@ -13,11 +13,11 @@ using Epic.OnlineServices;
 using static RoleEffectAnimation;
 using static UnityEngine.RemoteConfigSettingsHelper;
 using TheOtherRoles.Modules;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using static TheOtherRoles.CustomOption;
 using TheOtherRoles.Helpers;
 
-namespace TheOtherRoles.TheOtherRoles.Core
+namespace TheOtherRoles.Roles.Core
 {
     //id规则：
     //内鬼：03_xxx00

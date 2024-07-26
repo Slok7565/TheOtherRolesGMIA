@@ -41,7 +41,7 @@ namespace TheOtherRoles.Objects
             var arrow = new GameObject("Arrow") { layer = 5 };
             npt.Arrow = arrow.AddComponent<ArrowBehaviour>();
             npt.Arrow.image = npt.Arrow.gameObject.AddComponent<SpriteRenderer>();
-            npt.Arrow.image.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Arrow.png", 200f);
+            npt.Arrow.image.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Arrow.png", 200f);
             npt.Arrow.image.color = new Color32(255, 255, 0, byte.MaxValue);
             npt.Arrow.gameObject.SetActive(false);
             npt.MinigamePrefab = task;

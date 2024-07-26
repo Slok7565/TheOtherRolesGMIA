@@ -481,9 +481,8 @@ namespace TheOtherRoles.Patches
                         __instance.RoleBlurbText.text += OtherHelper.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
                     else {
                         var pc = CachedPlayer.LocalPlayer.PlayerControl;
-                        PlayerControl otherLover =
-                            pc.GetModifierClasses().Select(mc => mc as Lovers).Where(lovers => lovers != null).Select(lovers => lovers.getPartner(pc)).FirstOrDefault();
-                        __instance.RoleBlurbText.text += "\n" + OtherHelper.cs(modifierInfo.color, String.Format(ModTranslation.getString("loversFlavor"), otherLover?.Data?.PlayerName ?? ""));
+                        PlayerControl otherLover =   == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
+                        __instance.RoleBlurbText.text += "\n" + OtherHelper.cs(Lovers.color, String.Format(ModTranslation.getString("loversFlavor"), otherLover?.Data?.PlayerName ?? ""));
                     }
                 }
                 if (Deputy.knowsSheriff && Deputy.deputy != null && Sheriff.sheriff != null) {

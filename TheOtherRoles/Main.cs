@@ -140,7 +140,7 @@ namespace TheOtherRoles
         }
         public static Sprite GetModStamp() {
             if (ModStamp) return ModStamp;
-            return ModStamp = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.ModStamp.png", 150f);
+            return ModStamp = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ModStamp.png", 150f);
         }
     }
 

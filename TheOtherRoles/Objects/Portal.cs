@@ -36,7 +36,7 @@ namespace TheOtherRoles.Objects
             if (portalFgAnimationSprites == null || portalFgAnimationSprites.Length == 0) return null;
             index = Mathf.Clamp(index, 0, portalFgAnimationSprites.Length - 1);
             if (portalFgAnimationSprites[index] == null)
-                portalFgAnimationSprites[index] = (ResourcesHelper.loadSpriteFromResources($"TheOtherRoles.Resources.PortalAnimation.portal_{(index):000}.png", 115f));
+                portalFgAnimationSprites[index] = (Helpers.loadSpriteFromResources($"TheOtherRoles.Resources.PortalAnimation.portal_{(index):000}.png", 115f));
             return portalFgAnimationSprites[index];
         }
 
@@ -161,7 +161,7 @@ namespace TheOtherRoles.Objects
             for (int i = 0; i < portalFgAnimationSprites.Length; i++) {
                 getFgAnimationSprite(i);
             }
-            portalSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PortalAnimation.plattform.png", 115f);
+            portalSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PortalAnimation.plattform.png", 115f);
         }
 
         public static void clearPortals() {

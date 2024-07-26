@@ -8,13 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Modules;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles.Core;
 using UnityEngine.Playables;
 using static TheOtherRoles.Helpers.EnumHelper;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.ParticleSystem.PlaybackState;
 
-namespace TheOtherRoles.TheOtherRoles.Core;
+namespace TheOtherRoles.Roles.Core;
 
 public static class CustomRoleManager
 {

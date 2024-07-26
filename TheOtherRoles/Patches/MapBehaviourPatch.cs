@@ -193,7 +193,7 @@ namespace TheOtherRoles.Patches
                 //if (!EvilHacker.canSeeDoorStatus) return;
                 if (doorClosedSprite == null)
                 {
-                    doorClosedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Cross.png", 500f);
+                    doorClosedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Cross.png", 500f);
                 }
                 if (doorMarks == null) doorMarks = new();
                 plainDoors = GameObject.FindObjectsOfType<PlainDoor>();

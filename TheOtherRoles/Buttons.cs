@@ -400,7 +400,7 @@ namespace TheOtherRoles
                 return true;
             },
             () => { },
-            ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
+            Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
             new Vector3(0.4f, 4.2f, 0),
             __instance,
             null
@@ -2220,7 +2220,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
+                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
                 new Vector3(-0.5f, 1f, 0f),
                 __instance,
                 null,
@@ -2239,7 +2239,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
+                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
                 new Vector3(0.1f, 1f, 0),
                 __instance,
                 null,
@@ -3798,7 +3798,7 @@ namespace TheOtherRoles
                 },
                 () => { return true; },
                 () => { return; },
-                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
+                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
                 new Vector3(0.4f, 2.8f, 0),
                 __instance,
                 KeyCode.KeypadPlus

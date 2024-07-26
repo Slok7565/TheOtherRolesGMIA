@@ -616,7 +616,7 @@ namespace TheOtherRoles.Patches
         private static float timer = 0f;
 
         public static List<GameObject> nightVisionOverlays = null;
-        private static Sprite overlaySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
+        private static Sprite overlaySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
         public static bool nightVisionIsActive = false;
         private static bool isLightsOut;
 

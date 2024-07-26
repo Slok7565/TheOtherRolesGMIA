@@ -18,18 +18,18 @@ using UnityEngine;
 
         public static Sprite getBombSprite() {
             if (bombSprite) return bombSprite;
-            bombSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Bomb.png", 300f);
+            bombSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb.png", 300f);
             return bombSprite;
         }
         public static Sprite getBackgroundSprite() {
             if (backgroundSprite) return backgroundSprite;
-            backgroundSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.BombBackground.png", 110f / Bomber.hearRange);
+            backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.BombBackground.png", 110f / Bomber.hearRange);
             return backgroundSprite;
         }
 
         public static Sprite getDefuseSprite() {
             if (defuseSprite) return defuseSprite;
-            defuseSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Defuse.png", 115f);
+            defuseSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Defuse.png", 115f);
             return defuseSprite;
         }
 
@@ -136,7 +136,7 @@ namespace TheOtherRoles
         public static Sprite getBombEffectSprite()
         {
             if (bombeffectSprite) return bombeffectSprite;
-            bombeffectSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.BombEffect.png", 300f);
+            bombeffectSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.BombEffect.png", 300f);
             return bombeffectSprite;
         }
 

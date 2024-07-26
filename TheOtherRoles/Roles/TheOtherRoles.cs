@@ -47,14 +47,14 @@ namespace TheOtherRoles.Roles
             public Sprite getPlacePortalButtonSprite()
             {
                 if (placePortalButtonSprite) return placePortalButtonSprite;
-                placePortalButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PlacePortalButton.png", 115f);
+                placePortalButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlacePortalButton.png", 115f);
                 return placePortalButtonSprite;
             }
 
             public Sprite getUsePortalButtonSprite()
             {
                 if (usePortalButtonSprite) return usePortalButtonSprite;
-                usePortalButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalButton.png", 115f);
+                usePortalButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalButton.png", 115f);
                 return usePortalButtonSprite;
             }
 
@@ -63,13 +63,13 @@ namespace TheOtherRoles.Roles
                 if (first)
                 {
                     if (usePortalSpecialButtonSprite1) return usePortalSpecialButtonSprite1;
-                    usePortalSpecialButtonSprite1 = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalSpecialButton1.png", 115f);
+                    usePortalSpecialButtonSprite1 = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalSpecialButton1.png", 115f);
                     return usePortalSpecialButtonSprite1;
                 }
                 else
                 {
                     if (usePortalSpecialButtonSprite2) return usePortalSpecialButtonSprite2;
-                    usePortalSpecialButtonSprite2 = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalSpecialButton2.png", 115f);
+                    usePortalSpecialButtonSprite2 = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalSpecialButton2.png", 115f);
                     return usePortalSpecialButtonSprite2;
                 }
             }
@@ -112,7 +112,7 @@ namespace TheOtherRoles.Roles
             public Sprite getMeetingSprite()
             {
                 if (emergencySprite) return emergencySprite;
-                emergencySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.EmergencyButton.png", 550f);
+                emergencySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.EmergencyButton.png", 550f);
                 return emergencySprite;
             }
 
@@ -143,7 +143,7 @@ namespace TheOtherRoles.Roles
             public Sprite getButtonSprite()
             {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.RepairButton.png", 115f);
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.RepairButton.png", 115f);
                 return buttonSprite;
             }
 
@@ -190,7 +190,7 @@ namespace TheOtherRoles.Roles
             public Sprite getButtonSprite()
             {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
                 return buttonSprite;
             }
 
@@ -257,14 +257,14 @@ namespace TheOtherRoles.Roles
             public Sprite getButtonSprite()
             {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffButton.png", 115f);
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffButton.png", 115f);
                 return buttonSprite;
             }
 
             public Sprite getHandcuffedButtonSprite()
             {
                 if (handcuffedSprite) return handcuffedSprite;
-                handcuffedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffed.png", 115f);
+                handcuffedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffed.png", 115f);
                 return handcuffedSprite;
             }
 
@@ -375,7 +375,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TimeShieldButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TimeShieldButton.png", 115f);
             return buttonSprite;
         }
 
@@ -413,7 +413,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.ShieldButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShieldButton.png", 115f);
             return buttonSprite;
         }
 
@@ -464,7 +464,7 @@ namespace TheOtherRoles.Roles
         public Sprite getCheckSprite()
         {
             if (CatchButton) return CatchButton;
-            CatchButton = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SwapperCheck.png", 150f);
+            CatchButton = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SwapperCheck.png", 150f);
             return CatchButton;
         }
 
@@ -501,7 +501,7 @@ namespace TheOtherRoles.Roles
         public Sprite getCheckSprite()
         {
             if (spriteCheck) return spriteCheck;
-            spriteCheck = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SwapperCheck.png", 150f);
+            spriteCheck = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SwapperCheck.png", 150f);
             return spriteCheck;
         }
 
@@ -533,7 +533,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSoulSprite()
         {
             if (soulSprite) return soulSprite;
-            soulSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Soul.png", 500f);
+            soulSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Soul.png", 500f);
             return soulSprite;
         }
 
@@ -585,14 +585,14 @@ namespace TheOtherRoles.Roles
         public Sprite getSampleSprite()
         {
             if (sampleSprite) return sampleSprite;
-            sampleSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SampleButton.png", 115f);
+            sampleSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SampleButton.png", 115f);
             return sampleSprite;
         }
 
         public Sprite getMorphSprite()
         {
             if (morphSprite) return morphSprite;
-            morphSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MorphButton.png", 115f);
+            morphSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MorphButton.png", 115f);
             return morphSprite;
         }
     }
@@ -610,7 +610,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CamoButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CamoButton.png", 115f);
             return buttonSprite;
         }
 
@@ -659,7 +659,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.HackerButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HackerButton.png", 115f);
             return buttonSprite;
         }
 
@@ -736,7 +736,7 @@ namespace TheOtherRoles.Roles
         public Sprite getTrackCorpsesButtonSprite()
         {
             if (trackCorpsesButtonSprite) return trackCorpsesButtonSprite;
-            trackCorpsesButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PathfindButton.png", 115f);
+            trackCorpsesButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PathfindButton.png", 115f);
             return trackCorpsesButtonSprite;
         }
 
@@ -744,7 +744,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
             return buttonSprite;
         }
 
@@ -802,7 +802,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.VampireButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.VampireButton.png", 115f);
             return buttonSprite;
         }
 
@@ -810,7 +810,7 @@ namespace TheOtherRoles.Roles
         public Sprite getGarlicButtonSprite()
         {
             if (garlicButtonSprite) return garlicButtonSprite;
-            garlicButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.GarlicButton.png", 115f);
+            garlicButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicButton.png", 115f);
             return garlicButtonSprite;
         }
 
@@ -891,7 +891,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSidekickButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SidekickButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SidekickButton.png", 115f);
             return buttonSprite;
         }
 
@@ -972,7 +972,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.EraserButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.EraserButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1021,21 +1021,21 @@ namespace TheOtherRoles.Roles
         public Sprite getPlaceBoxButtonSprite()
         {
             if (placeBoxButtonSprite) return placeBoxButtonSprite;
-            placeBoxButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PlaceJackInTheBoxButton.png", 115f);
+            placeBoxButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlaceJackInTheBoxButton.png", 115f);
             return placeBoxButtonSprite;
         }
 
         public Sprite getLightsOutButtonSprite()
         {
             if (lightOutButtonSprite) return lightOutButtonSprite;
-            lightOutButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LightsOutButton.png", 115f);
+            lightOutButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LightsOutButton.png", 115f);
             return lightOutButtonSprite;
         }
 
         public Sprite getTricksterVentButtonSprite()
         {
             if (tricksterVentButtonSprite) return tricksterVentButtonSprite;
-            tricksterVentButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TricksterVentButton.png", 115f);
+            tricksterVentButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TricksterVentButton.png", 115f);
             return tricksterVentButtonSprite;
         }
 
@@ -1062,7 +1062,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1092,14 +1092,14 @@ namespace TheOtherRoles.Roles
         public Sprite getCurseButtonSprite()
         {
             if (curseButtonSprite) return curseButtonSprite;
-            curseButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CurseButton.png", 115f);
+            curseButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CurseButton.png", 115f);
             return curseButtonSprite;
         }
 
         public Sprite getCurseKillButtonSprite()
         {
             if (curseKillButtonSprite) return curseKillButtonSprite;
-            curseKillButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CurseKillButton.png", 115f);
+            curseKillButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CurseKillButton.png", 115f);
             return curseKillButtonSprite;
         }
 
@@ -1148,7 +1148,7 @@ namespace TheOtherRoles.Roles
         public Sprite getCloseVentButtonSprite()
         {
             if (closeVentButtonSprite) return closeVentButtonSprite;
-            closeVentButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CloseVentButton.png", 115f);
+            closeVentButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CloseVentButton.png", 115f);
             return closeVentButtonSprite;
         }
 
@@ -1156,7 +1156,7 @@ namespace TheOtherRoles.Roles
         public Sprite getPlaceCameraButtonSprite()
         {
             if (placeCameraButtonSprite) return placeCameraButtonSprite;
-            placeCameraButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PlaceCameraButton.png", 115f);
+            placeCameraButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlaceCameraButton.png", 115f);
             return placeCameraButtonSprite;
         }
 
@@ -1172,7 +1172,7 @@ namespace TheOtherRoles.Roles
                 lastPPU = ppu;
             }
             if (animatedVentSealedSprite) return animatedVentSealedSprite;
-            animatedVentSealedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AnimatedVentSealed.png", ppu);
+            animatedVentSealedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AnimatedVentSealed.png", ppu);
             return animatedVentSealedSprite;
         }
 
@@ -1180,7 +1180,7 @@ namespace TheOtherRoles.Roles
         public Sprite getVentSealedSprite()
         {
             if (VentSealedSprite) return VentSealedSprite;
-            VentSealedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.VentSealed.png", 160f);
+            VentSealedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.VentSealed.png", 160f);
             return VentSealedSprite;
         }
 
@@ -1188,7 +1188,7 @@ namespace TheOtherRoles.Roles
         public Sprite getFungleVentSealedSprite()
         {
             if (fungleVentSealedSprite) return fungleVentSealedSprite;
-            fungleVentSealedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.FungleVentSealed.png", 160f);
+            fungleVentSealedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.FungleVentSealed.png", 160f);
             return fungleVentSealedSprite;
         }
 
@@ -1196,7 +1196,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSubmergedCentralUpperSealedSprite()
         {
             if (submergedCentralUpperVentSealedSprite) return submergedCentralUpperVentSealedSprite;
-            submergedCentralUpperVentSealedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CentralUpperBlocked.png", 145f);
+            submergedCentralUpperVentSealedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CentralUpperBlocked.png", 145f);
             return submergedCentralUpperVentSealedSprite;
         }
 
@@ -1204,7 +1204,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSubmergedCentralLowerSealedSprite()
         {
             if (submergedCentralLowerVentSealedSprite) return submergedCentralLowerVentSealedSprite;
-            submergedCentralLowerVentSealedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CentralLowerBlocked.png", 145f);
+            submergedCentralLowerVentSealedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CentralLowerBlocked.png", 145f);
             return submergedCentralLowerVentSealedSprite;
         }
 
@@ -1260,7 +1260,7 @@ namespace TheOtherRoles.Roles
         public Sprite getDouseSprite()
         {
             if (douseSprite) return douseSprite;
-            douseSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DouseButton.png", 115f);
+            douseSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DouseButton.png", 115f);
             return douseSprite;
         }
 
@@ -1268,7 +1268,7 @@ namespace TheOtherRoles.Roles
         public Sprite getIgniteSprite()
         {
             if (igniteSprite) return igniteSprite;
-            igniteSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.IgniteButton.png", 115f);
+            igniteSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.IgniteButton.png", 115f);
             return igniteSprite;
         }
 
@@ -1389,7 +1389,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.VultureButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.VultureButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1446,7 +1446,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSoulSprite()
         {
             if (soulSprite) return soulSprite;
-            soulSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Soul.png", 500f);
+            soulSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Soul.png", 500f);
             return soulSprite;
         }
 
@@ -1454,7 +1454,7 @@ namespace TheOtherRoles.Roles
         public Sprite getQuestionSprite()
         {
             if (question) return question;
-            question = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MediumButton.png", 115f);
+            question = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MediumButton.png", 115f);
             return question;
         }
 
@@ -1623,7 +1623,7 @@ namespace TheOtherRoles.Roles
         public Sprite getTargetSprite()
         {
             if (targetSprite) return targetSprite;
-            targetSprite = ResourcesHelper.loadSpriteFromResources("", 150f);
+            targetSprite = Helpers.loadSpriteFromResources("", 150f);
             return targetSprite;
         }
 
@@ -1665,7 +1665,7 @@ namespace TheOtherRoles.Roles
         public Sprite getTargetSprite()
         {
             if (blank) return blank;
-            blank = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PursuerButton.png", 115f);
+            blank = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PursuerButton.png", 115f);
             return blank;
         }
 
@@ -1798,7 +1798,7 @@ namespace TheOtherRoles.Roles
         public Sprite getMorphSprite()
         {
             if (morphButtonSprite) return morphButtonSprite;
-            morphButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MorphButton.png", 115f);
+            morphButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MorphButton.png", 115f);
             return morphButtonSprite;
         }
 
@@ -2080,7 +2080,7 @@ namespace TheOtherRoles.Roles
         public Sprite getTargetSprite(bool isImpostor)
         {
             if (targetSprite) return targetSprite;
-            targetSprite = ResourcesHelper.loadSpriteFromResources(isImpostor ? "TheOtherRoles.Resources.EvilYasunaTargetIcon.png" : "TheOtherRoles.Resources.YasunaTargetIcon.png", 150f);
+            targetSprite = Helpers.loadSpriteFromResources(isImpostor ? "TheOtherRoles.Resources.EvilYasunaTargetIcon.png" : "TheOtherRoles.Resources.YasunaTargetIcon.png", 150f);
             return targetSprite;
         }
 
@@ -2123,7 +2123,7 @@ namespace TheOtherRoles.Roles
         public Sprite getTrapButtonSprite()
         {
             if (trapButtonSprite) return trapButtonSprite;
-            trapButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TrapperButton.png", 115f);
+            trapButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrapperButton.png", 115f);
             return trapButtonSprite;
         }
 
@@ -2185,13 +2185,13 @@ namespace TheOtherRoles.Roles
         public Sprite getBomberButtonSprite()
         {
             if (bomberButtonSprite) return bomberButtonSprite;
-            bomberButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PlantBombButton.png", 115f);
+            bomberButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlantBombButton.png", 115f);
             return bomberButtonSprite;
         }
         public Sprite getReleaseButtonSprite()
         {
             if (releaseButtonSprite) return releaseButtonSprite;
-            releaseButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.ReleaseButton.png", 115f);
+            releaseButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ReleaseButton.png", 115f);
             return releaseButtonSprite;
         }
 
@@ -2432,13 +2432,13 @@ namespace TheOtherRoles.Roles
         public Sprite getBomberButtonSprite()
         {
             if (bomberButtonSprite) return bomberButtonSprite;
-            bomberButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PlantBombButton.png", 115f);
+            bomberButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlantBombButton.png", 115f);
             return bomberButtonSprite;
         }
         public Sprite getReleaseButtonSprite()
         {
             if (releaseButtonSprite) return releaseButtonSprite;
-            releaseButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.ReleaseButton.png", 115f);
+            releaseButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ReleaseButton.png", 115f);
             return releaseButtonSprite;
         }
 
@@ -2513,7 +2513,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (teleportButtonSprite) return teleportButtonSprite;
-            teleportButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TeleporterButton.png", 115f);
+            teleportButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TeleporterButton.png", 115f);
             return teleportButtonSprite;
         }
 
@@ -2560,7 +2560,7 @@ namespace TheOtherRoles.Roles
         public Sprite getMadmateButtonSprite()
         {
             if (madmateButtonSprite) return madmateButtonSprite;
-            madmateButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SidekickButton.png", 115f);
+            madmateButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SidekickButton.png", 115f);
             return madmateButtonSprite;
         }
 
@@ -2598,14 +2598,14 @@ namespace TheOtherRoles.Roles
         public Sprite getBlackmailOverlaySprite()
         {
             if (overlaySprite) return overlaySprite;
-            overlaySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.BlackmailerOverlay.png", 100f);
+            overlaySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.BlackmailerOverlay.png", 100f);
             return overlaySprite;
         }
 
         public Sprite getBlackmailButtonSprite()
         {
             if (blackmailButtonSprite) return blackmailButtonSprite;
-            blackmailButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.BlackmailerBlackmailButton.png", 115f);
+            blackmailButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.BlackmailerBlackmailButton.png", 115f);
             return blackmailButtonSprite;
         }
 
@@ -2642,13 +2642,13 @@ namespace TheOtherRoles.Roles
         public Sprite getInvestigateIcon()
         {
             if (investigateIcon) return investigateIcon;
-            investigateIcon = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SherlockInvestigate.png", 115f);
+            investigateIcon = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SherlockInvestigate.png", 115f);
             return investigateIcon;
         }
         public Sprite getWatchIcon()
         {
             if (watchIcon) return watchIcon;
-            watchIcon = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SherlockWatch.png", 115f);
+            watchIcon = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SherlockWatch.png", 115f);
             return watchIcon;
         }
 
@@ -2716,7 +2716,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AlertButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AlertButton.png", 115f);
             return buttonSprite;
         }
 
@@ -2858,14 +2858,14 @@ namespace TheOtherRoles.Roles
         public Sprite getDragButtonSprite()
         {
             if (dragButtonSprite) return dragButtonSprite;
-            dragButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DragButton.png", 115f);
+            dragButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DragButton.png", 115f);
             return dragButtonSprite;
         }
 
         public Sprite getDropButtonSprite()
         {
             if (dropButtonSprite) return dropButtonSprite;
-            dropButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DropButton.png", 115f);
+            dropButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DropButton.png", 115f);
             return dropButtonSprite;
         }
 
@@ -2904,7 +2904,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SeerButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SeerButton.png", 115f);
             return buttonSprite;
         }
 
@@ -2963,14 +2963,14 @@ namespace TheOtherRoles.Roles
         public Sprite getEvilTrackerButtonSprite()
         {
             if (trackerButtonSprite) return trackerButtonSprite;
-            trackerButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
+            trackerButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
             return trackerButtonSprite;
         }
 
         public Sprite getArrowSprite()
         {
             if (!arrowSprite)
-                arrowSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Arrow.png", 300f);
+                arrowSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Arrow.png", 300f);
             return arrowSprite;
         }
 
@@ -3120,7 +3120,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SpellButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SpellButton.png", 115f);
             return buttonSprite;
         }
 
@@ -3128,7 +3128,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSpelledOverlaySprite()
         {
             if (spelledOverlaySprite) return spelledOverlaySprite;
-            spelledOverlaySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SpellButtonMeeting.png", 225f);
+            spelledOverlaySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SpellButtonMeeting.png", 225f);
             return spelledOverlaySprite;
         }
 
@@ -3208,14 +3208,14 @@ namespace TheOtherRoles.Roles
         public Sprite getMarkButtonSprite()
         {
             if (markButtonSprite) return markButtonSprite;
-            markButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AssassinMarkButton.png", 115f);
+            markButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AssassinMarkButton.png", 115f);
             return markButtonSprite;
         }
 
         public Sprite getKillButtonSprite()
         {
             if (killButtonSprite) return killButtonSprite;
-            killButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AssassinAssassinateButton.png", 115f);
+            killButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AssassinAssassinateButton.png", 115f);
             return killButtonSprite;
         }
 
@@ -3265,7 +3265,7 @@ namespace TheOtherRoles.Roles
         public Sprite getBrainwashIcon()
         {
             if (brainwashIcon) return brainwashIcon;
-            brainwashIcon = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.BrainwashButton.png", 115f);
+            brainwashIcon = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.BrainwashButton.png", 115f);
             return brainwashIcon;
         }
 
@@ -3375,7 +3375,7 @@ namespace TheOtherRoles.Roles
         public Sprite getHonmeiSprite()
         {
             if (honmeiSprite) return honmeiSprite;
-            honmeiSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AkujoHonmeiButton.png", 115f);
+            honmeiSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AkujoHonmeiButton.png", 115f);
             return honmeiSprite;
         }
 
@@ -3383,7 +3383,7 @@ namespace TheOtherRoles.Roles
         public Sprite getKeepSprite()
         {
             if (keepSprite) return keepSprite;
-            keepSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AkujoKeepButton.png", 115f);
+            keepSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AkujoKeepButton.png", 115f);
             return keepSprite;
         }
 
@@ -3435,7 +3435,7 @@ namespace TheOtherRoles.Roles
         public Sprite getArrowSprite()
         {
             if (arrowSprite) return arrowSprite;
-            arrowSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CupidButton.png", 115f);
+            arrowSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CupidButton.png", 115f);
             return arrowSprite;
         }
 
@@ -3508,21 +3508,21 @@ namespace TheOtherRoles.Roles
         public Sprite getHideButtonSprite()
         {
             if (hideButtonSprite) return hideButtonSprite;
-            hideButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.FoxHideButton.png", 115f);
+            hideButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.FoxHideButton.png", 115f);
             return hideButtonSprite;
         }
 
         public Sprite getRepairButtonSprite()
         {
             if (repairButtonSprite) return repairButtonSprite;
-            repairButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.RepairButton.png", 115f);
+            repairButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.RepairButton.png", 115f);
             return repairButtonSprite;
         }
 
         public Sprite getImmoralistButtonSprite()
         {
             if (immoralistButtonSprite) return immoralistButtonSprite;
-            immoralistButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.FoxImmoralistButton.png", 115f);
+            immoralistButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.FoxImmoralistButton.png", 115f);
             return immoralistButtonSprite;
         }
 
@@ -3686,7 +3686,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
             return buttonSprite;
         }
 
@@ -3770,7 +3770,7 @@ namespace TheOtherRoles.Roles
         public Sprite getSyringeIcon()
         {
             if (plagueDoctorIcon) return plagueDoctorIcon;
-            plagueDoctorIcon = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.InfectButton.png", 115f);
+            plagueDoctorIcon = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.InfectButton.png", 115f);
             return plagueDoctorIcon;
         }
 
@@ -3882,7 +3882,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.NinjaButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NinjaButton.png", 115f);
             return buttonSprite;
         }
 
@@ -4010,7 +4010,7 @@ namespace TheOtherRoles.Roles
         public Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SprintButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SprintButton.png", 115f);
             return buttonSprite;
         }
 
@@ -4143,7 +4143,7 @@ namespace TheOtherRoles.Roles
 
     public  Sprite getButtonSprite() {
         if (trapButtonSprite) return trapButtonSprite;
-        trapButtonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Place_Button.png", 115f);
+        trapButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Place_Button.png", 115f);
         return trapButtonSprite;
     }
 
@@ -4180,7 +4180,7 @@ namespace TheOtherRoles.Roles
 
         public  Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Plant.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Plant.png", 115f);
             return buttonSprite;
         }
 
