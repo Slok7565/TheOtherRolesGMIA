@@ -1,6 +1,6 @@
 
 using HarmonyLib;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -9,8 +9,8 @@ using System.Text;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
@@ -529,8 +529,8 @@ namespace TheOtherRoles.Patches
                 foreach(var data in AdditionalTempData.playerRoles) {
                     if (data.PlayerName != winningPlayerData2.PlayerName) continue;
                     var roles =
-                    //poolablePlayer.cosmetics.nameText.text += $"\n{string.Join("\n", data.Roles.Select(x => Helpers.cs(x.color, x.name)))}";
-                    poolablePlayer.cosmetics.nameText.text += $"\n{string.Join("\n", data.Roles.Select(x => Helpers.cs((data.IsMadmate && !x.isModifier) ? Madmate.color : x.color, 
+                    //poolablePlayer.cosmetics.nameText.text += $"\n{string.Join("\n", data.Roles.Select(x => OtherHelper.cs(x.color, x.name)))}";
+                    poolablePlayer.cosmetics.nameText.text += $"\n{string.Join("\n", data.Roles.Select(x => OtherHelper.cs((data.IsMadmate && !x.isModifier) ? Madmate.color : x.color, 
                     (data.IsMadmate && !x.isModifier) ? (x == RoleInfo.crewmate ? Madmate.fullName : (Madmate.prefix + x.name)) : x.name)))}";
                 }
             }
@@ -661,13 +661,13 @@ namespace TheOtherRoles.Patches
 
             foreach (WinCondition cond in AdditionalTempData.additionalWinConditions) {
                 if (cond == WinCondition.AdditionalLawyerBonusWin) {
-                    textRenderer.text += $"\n{Helpers.cs(Lawyer.color, ModTranslation.getString("lawyerExtraBonus"))}";
+                    textRenderer.text += $"\n{OtherHelper.cs(Lawyer.color, ModTranslation.getString("lawyerExtraBonus"))}";
                 } else if (cond == WinCondition.AdditionalAlivePursuerWin) {
-                    textRenderer.text += $"\n{Helpers.cs(Pursuer.color, ModTranslation.getString("pursuerExtraBonus"))}";
+                    textRenderer.text += $"\n{OtherHelper.cs(Pursuer.color, ModTranslation.getString("pursuerExtraBonus"))}";
                 }
                 else if (cond == WinCondition.AdditionalLawyerStolenWin)
                 {
-                    textRenderer.text += $"\n{Helpers.cs(Lawyer.color, ModTranslation.getString("lawyerExtraStolen"))}";
+                    textRenderer.text += $"\n{OtherHelper.cs(Lawyer.color, ModTranslation.getString("lawyerExtraStolen"))}";
                 }
             }
 
@@ -686,7 +686,7 @@ namespace TheOtherRoles.Patches
                 roleSummaryText.AppendLine(ModTranslation.getString("roleSummaryText"));
                 bool plagueExists = AdditionalTempData.playerRoles.Any(x => x.Roles.Contains(RoleInfo.plagueDoctor));
                 foreach (var data in AdditionalTempData.playerRoles) {
-                    //var roles = string.Join(" ", data.Roles.Select(x => Helpers.cs(x.color, x.name)));
+                    //var roles = string.Join(" ", data.Roles.Select(x => OtherHelper.cs(x.color, x.name)));
                     string roles = data.RoleNames;
                     //if (data.IsGuesser) roles += " (Guesser)";
                     var taskInfo = data.TasksTotal > 0 ? $" - <color=#FAD934FF>({data.TasksCompleted}/{data.TasksTotal})</color>" : "";
@@ -697,7 +697,7 @@ namespace TheOtherRoles.Patches
                     {                        
                         if (AdditionalTempData.plagueDoctorInfected.ContainsKey(data.PlayerId))
                         {
-                            infectionInfo += " - " + Helpers.cs(Color.red, ModTranslation.getString("plagueDoctorInfectedText"));
+                            infectionInfo += " - " + OtherHelper.cs(Color.red, ModTranslation.getString("plagueDoctorInfectedText"));
                         }
                         else
                         {
@@ -705,7 +705,7 @@ namespace TheOtherRoles.Patches
                             infectionInfo += " - " + PlagueDoctor.getProgressString(progress);
                         }
                     }
-                    roleSummaryText.AppendLine($"{Helpers.cs(data.IsAlive ? Color.white : new Color(.7f,.7f,.7f), data.PlayerName)} - {roles}{taskInfo}{exTaskInfo}{infectionInfo}"); 
+                    roleSummaryText.AppendLine($"{OtherHelper.cs(data.IsAlive ? Color.white : new Color(.7f,.7f,.7f), data.PlayerName)} - {roles}{taskInfo}{exTaskInfo}{infectionInfo}"); 
                 }
                 TMPro.TMP_Text roleSummaryTextMesh = roleSummary.GetComponent<TMPro.TMP_Text>();
                 roleSummaryTextMesh.alignment = TMPro.TextAlignmentOptions.TopLeft;

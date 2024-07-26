@@ -5,7 +5,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 using System;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using HarmonyLib;
 using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;
@@ -121,7 +121,7 @@ namespace TheOtherRoles.Objects
             public static Sprite getAccelSprite()
             {
                 if (accelTrapSprite) return accelTrapSprite;
-                accelTrapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AccelerateButton.png", 300);
+                accelTrapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AccelerateButton.png", 300);
                 return accelTrapSprite;
             }
 
@@ -215,7 +215,7 @@ namespace TheOtherRoles.Objects
             public static Sprite getDecelSprite()
             {
                 if (decelTrapSprite) return decelTrapSprite;
-                decelTrapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DecelerateButton.png", 300);
+                decelTrapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DecelerateButton.png", 300);
                 return decelTrapSprite;
             }
 

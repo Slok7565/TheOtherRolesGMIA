@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -32,9 +32,9 @@ namespace TheOtherRoles.Objects
         public static void loadSprite()
         {
             if (trapSprite == null)
-                trapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trap.png", 300f);
+                trapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Trap.png", 300f);
             if (trapActiveSprite == null)
-                trapActiveSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrapActive.png", 300f);
+                trapActiveSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TrapActive.png", 300f);
 
         }
 
@@ -316,7 +316,7 @@ namespace TheOtherRoles.Objects
         private static Sprite trapSprite;
         public static Sprite getTrapSprite() {
             if (trapSprite) return trapSprite;
-            trapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Trap_Ingame.png", 300f);
+            trapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Trap_Ingame.png", 300f);
             return trapSprite;
         }
 
@@ -363,7 +363,7 @@ namespace TheOtherRoles.Objects
 
         public static void triggerTrap(byte playerId, byte trapId) {            
             Trap t = traps.FirstOrDefault(x => x.instanceId == (int)trapId);
-            PlayerControl player = Helpers.playerById(playerId);
+            PlayerControl player = PlayerHelper.playerById(playerId);
             if (Trapper.trapper == null || t == null || player == null) return;
             bool localIsTrapper = CachedPlayer.LocalPlayer.PlayerId == Trapper.trapper.PlayerId;
             if (!trapPlayerIdMap.ContainsKey(playerId)) trapPlayerIdMap.Add(playerId, t);

@@ -2,15 +2,16 @@ using HarmonyLib;
 using Hazel;
 using System.Collections.Generic;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Roles.Modifier;
 
 namespace TheOtherRoles.Patches
 {
@@ -53,12 +54,16 @@ namespace TheOtherRoles.Patches
             }
 
             // Activate portals.
-            Portal.meetingEndsUpdate();            
-
+            Portal.meetingEndsUpdate();
+            var exiledId = exiled.PlayerId;
             // Witch execute casted spells
             if (Witch.witch != null && Witch.futureSpelled != null && AmongUsClient.Instance.AmHost) {
-                bool exiledIsWitch = exiled != null && exiled.PlayerId == Witch.witch.PlayerId;
-                bool witchDiesWithExiledLover = exiled != null && Lovers.existing() && Lovers.bothDie && (Lovers.lover1.PlayerId == Witch.witch.PlayerId || Lovers.lover2.PlayerId == Witch.witch.PlayerId) && (exiled.PlayerId == Lovers.lover1.PlayerId || exiled.PlayerId == Lovers.lover2.PlayerId);
+                var witchPlayer = PlayerHelper.playerById(exiledId);
+                bool exiledIsWitch = exiled != null && witchPlayer.GetRoleClass() is Witch;
+                bool witchDiesWithExiledLover = exiled != null && Lovers.bothDie
+                    && witchPlayer.GetModifierClasses().Any(mc =>
+                    (mc as Lovers)?.Player?.GetRoleClass() is Witch
+                    || ((mc as Lovers)?.getPartner((mc as Lovers)?.Player)?.GetRoleClass() is Witch));
 
                 if ((witchDiesWithExiledLover || exiledIsWitch) && Witch.witchVoteSavesTargets) Witch.futureSpelled = new List<PlayerControl>();
                 foreach (PlayerControl target in Witch.futureSpelled) {
@@ -537,7 +542,7 @@ namespace TheOtherRoles.Patches
         static void Postfix(ref string __result, [HarmonyArgument(0)]StringNames id) {
             try {
                 if (ExileController.Instance != null && ExileController.Instance.exiled != null) {
-                    PlayerControl player = Helpers.playerById(ExileController.Instance.exiled.Object.PlayerId);
+                    PlayerControl player = PlayerHelper.playerById(ExileController.Instance.exiled.Object.PlayerId);
                     if (player == null) return;
                     foreach (var pc in PlayerControl.AllPlayerControls)
                     {

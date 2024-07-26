@@ -1,6 +1,6 @@
 using HarmonyLib;
 using System;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,10 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Objects;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Roles.Modifier;
 
 namespace TheOtherRoles.Patches
 {
@@ -54,7 +55,7 @@ namespace TheOtherRoles.Patches
                         if (HideNSeek.isHunted() && p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.25f, 0.4f, 0) + Vector3.right * playerCounter++ * 0.6f;
                             player.transform.localScale = Vector3.one * 0.3f;
-                            player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, $" ({ModTranslation.getString("hunter")})")}";
+                            player.cosmetics.nameText.text += $"{OtherHelper.cs(Color.red, $" ({ModTranslation.getString("hunter")})")}";
                             player.gameObject.SetActive(true);
                         } else if (!p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.35f, -0.25f, 0) + Vector3.right * hideNSeekCounter++ * 0.35f;
@@ -477,17 +478,19 @@ namespace TheOtherRoles.Patches
 
                 if (modifierInfo != null) {
                     if (modifierInfo.roleId != RoleId.Lover)
-                        __instance.RoleBlurbText.text += Helpers.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
+                        __instance.RoleBlurbText.text += OtherHelper.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
                     else {
-                        PlayerControl otherLover = CachedPlayer.LocalPlayer.PlayerControl == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
-                        __instance.RoleBlurbText.text += "\n" + Helpers.cs(Lovers.color, String.Format(ModTranslation.getString("loversFlavor"), otherLover?.Data?.PlayerName ?? ""));
+                        var pc = CachedPlayer.LocalPlayer.PlayerControl;
+                        PlayerControl otherLover =
+                            pc.GetModifierClasses().Select(mc => mc as Lovers).Where(lovers => lovers != null).Select(lovers => lovers.getPartner(pc)).FirstOrDefault();
+                        __instance.RoleBlurbText.text += "\n" + OtherHelper.cs(modifierInfo.color, String.Format(ModTranslation.getString("loversFlavor"), otherLover?.Data?.PlayerName ?? ""));
                     }
                 }
                 if (Deputy.knowsSheriff && Deputy.deputy != null && Sheriff.sheriff != null) {
                     if (infos.Any(info => info.roleId == RoleId.Sheriff))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, string.Format(ModTranslation.getString("deputyIntroLine"), Deputy.deputy?.Data?.PlayerName ?? ""));
+                        __instance.RoleBlurbText.text += OtherHelper.cs(Sheriff.color, string.Format(ModTranslation.getString("deputyIntroLine"), Deputy.deputy?.Data?.PlayerName ?? ""));
                     else if (infos.Any(info => info.roleId == RoleId.Deputy))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, string.Format(ModTranslation.getString("sheriffIntroLine"), Sheriff.sheriff?.Data?.PlayerName ?? ""));
+                        __instance.RoleBlurbText.text += OtherHelper.cs(Sheriff.color, string.Format(ModTranslation.getString("sheriffIntroLine"), Sheriff.sheriff?.Data?.PlayerName ?? ""));
                 }
             }
             public static bool Prefix(IntroCutscene __instance) {

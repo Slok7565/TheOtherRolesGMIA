@@ -10,12 +10,12 @@ using System.Reflection;
 using System.Text;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using static TheOtherRoles.CustomOption;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles
@@ -330,7 +330,7 @@ namespace TheOtherRoles
             copyButton.transform.localPosition += Vector3.down * 0.8f;
             var copyButtonPassive = copyButton.GetComponent<PassiveButton>();
             var copyButtonRenderer = copyButton.GetComponent<SpriteRenderer>();
-            copyButtonRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CopyButton.png", 175f);
+            copyButtonRenderer.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CopyButton.png", 175f);
             copyButtonPassive.OnClick.RemoveAllListeners();
             copyButtonPassive.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
             copyButtonPassive.OnClick.AddListener((System.Action)(() => {
@@ -345,7 +345,7 @@ namespace TheOtherRoles
             pasteButton.transform.localPosition += Vector3.down * 1.6f;
             var pasteButtonPassive = pasteButton.GetComponent<PassiveButton>();
             var pasteButtonRenderer = pasteButton.GetComponent<SpriteRenderer>();
-            pasteButtonRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PasteButton.png", 175f);
+            pasteButtonRenderer.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PasteButton.png", 175f);
             pasteButtonPassive.OnClick.RemoveAllListeners();
             pasteButtonPassive.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
             pasteButtonPassive.OnClick.AddListener((System.Action)(() => {
@@ -747,7 +747,7 @@ namespace TheOtherRoles
 
         private static SpriteRenderer getTabHighlight (GameObject tab, string tabName, string tabSpritePath) {
             var tabHighlight = tab.transform.FindChild("Hat Button").FindChild("Tab Background").GetComponent<SpriteRenderer>();
-            tab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = Helpers.loadSpriteFromResources(tabSpritePath, 100f);
+            tab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = ResourcesHelper.loadSpriteFromResources(tabSpritePath, 100f);
             tab.name = "tabName";
 
             return tabHighlight;
@@ -931,13 +931,13 @@ namespace TheOtherRoles
                 }
                 else if (option.parent.getSelection() > 0) {
                     if (option.id == 103) //Deputy
-                        sb.AppendLine($"- {Helpers.cs(Deputy.color, ModTranslation.getString("deputy"))}: {option.getString()}");
+                        sb.AppendLine($"- {OtherHelper.cs(Deputy.color, ModTranslation.getString("deputy"))}: {option.getString()}");
                     else if (option.id == 224) //Sidekick
-                        sb.AppendLine($"- {Helpers.cs(Sidekick.color, ModTranslation.getString("sidekick"))}: {option.getString()}");
+                        sb.AppendLine($"- {OtherHelper.cs(Sidekick.color, ModTranslation.getString("sidekick"))}: {option.getString()}");
                     else if (option.id == 8000) // Created Madmate
-                        sb.AppendLine($"- {Helpers.cs(Madmate.color, Madmate.fullName)}: {option.getString()}");
+                        sb.AppendLine($"- {OtherHelper.cs(Madmate.color, Madmate.fullName)}: {option.getString()}");
                     //else if (option.id == 358) //Prosecutor
-                    //sb.AppendLine($"- {Helpers.cs(Lawyer.color, "Prosecutor")}: {option.selections[option.selection].ToString()}");
+                    //sb.AppendLine($"- {OtherHelper.cs(Lawyer.color, "Prosecutor")}: {option.selections[option.selection].ToString()}");
                 }
             }
             if (headerOnly) return sb.ToString();
@@ -950,7 +950,7 @@ namespace TheOtherRoles
 
                     Color c = isIrrelevant ? Color.grey : Color.white;  // No use for now
                     if (isIrrelevant) continue;
-                    sb.AppendLine(Helpers.cs(c, $"{option.getName()}: {option.getString()}"));
+                    sb.AppendLine(OtherHelper.cs(c, $"{option.getName()}: {option.getString()}"));
                 } else {
                     if (option == CustomOptionHolder.crewmateRolesCountMin) {
                         var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.getString("crewmateRoles"));
@@ -1007,7 +1007,7 @@ namespace TheOtherRoles
             if (vanillaSettings == "")
                 vanillaSettings = GameOptionsManager.Instance.CurrentGameOptions.ToHudString(PlayerControl.AllPlayerControls.Count);
             int counter = TheOtherRolesPlugin.optionsPage;
-            string hudString = counter != 0 && !hideExtras ? Helpers.cs(DateTime.Now.Second % 2 == 0 ? Color.white : Color.red, $"{ModTranslation.getString("useScrollWheel")}\n\n") : "";
+            string hudString = counter != 0 && !hideExtras ? OtherHelper.cs(DateTime.Now.Second % 2 == 0 ? Color.white : Color.red, $"{ModTranslation.getString("useScrollWheel")}\n\n") : "";
             int maxPage = 7;
             if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
                 if (TheOtherRolesPlugin.optionsPage > 1) TheOtherRolesPlugin.optionsPage = 0;
@@ -1262,7 +1262,7 @@ namespace TheOtherRoles
                 toggleSettingsButtonObject = GameObject.Instantiate(__instance.MapButton.gameObject, __instance.MapButton.transform.parent);
                 toggleSettingsButtonObject.transform.localPosition = __instance.MapButton.transform.localPosition + new Vector3(0, -0.66f, -500f);
                 SpriteRenderer renderer = toggleSettingsButtonObject.GetComponent<SpriteRenderer>();
-                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CurrentSettingsButton.png", 180f);
+                renderer.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.CurrentSettingsButton.png", 180f);
                 toggleSettingsButton = toggleSettingsButtonObject.GetComponent<PassiveButton>();
                 toggleSettingsButton.OnClick.RemoveAllListeners();
                 toggleSettingsButton.OnClick.AddListener((Action)(() => ToggleSettings(__instance)));

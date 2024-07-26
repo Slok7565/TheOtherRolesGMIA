@@ -20,11 +20,14 @@ public abstract class ModifierBase : IDisposable
     public PlayerControl Player { get; set; }
 
     public ModifierBase(
+        RoleInfo roleInfo,
+
         PlayerControl player
 
     )
     {
         Player = player;
+        CustomRoleManager.AllActiveModifiers[Player.PlayerId].Add(this);
 
     }
 #pragma warning disable CA1816
@@ -138,6 +141,10 @@ public abstract class ModifierBase : IDisposable
     /// 设置按钮冷却
     /// </summary>
     public virtual void setCustomButtonCooldowns() { }
+    /// <summary>
+    /// 隐藏玩家名称
+    /// </summary>
+    public virtual bool HidePlayerName(PlayerControl target) => false;
     protected enum GeneralOption
     {
         Cooldown,
@@ -157,3 +164,4 @@ public abstract class ModifierBase : IDisposable
         SkillLimit,
     }
 }
+

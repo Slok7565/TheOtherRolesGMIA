@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 

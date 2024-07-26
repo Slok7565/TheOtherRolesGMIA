@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.Role.TheOtherRoles;
-using TheOtherRoles.Role;
+using static TheOtherRoles.Roles.TheOtherRoles;
+using TheOtherRoles.Roles;
 
 namespace TheOtherRoles.Objects
 {
@@ -36,7 +36,7 @@ namespace TheOtherRoles.Objects
             if (portalFgAnimationSprites == null || portalFgAnimationSprites.Length == 0) return null;
             index = Mathf.Clamp(index, 0, portalFgAnimationSprites.Length - 1);
             if (portalFgAnimationSprites[index] == null)
-                portalFgAnimationSprites[index] = (Helpers.loadSpriteFromResources($"TheOtherRoles.Resources.PortalAnimation.portal_{(index):000}.png", 115f));
+                portalFgAnimationSprites[index] = (ResourcesHelper.loadSpriteFromResources($"TheOtherRoles.Resources.PortalAnimation.portal_{(index):000}.png", 115f));
             return portalFgAnimationSprites[index];
         }
 
@@ -45,7 +45,7 @@ namespace TheOtherRoles.Objects
             isTeleporting = true;
             
             // Generate log info
-            PlayerControl playerControl = Helpers.playerById(playerId);
+            PlayerControl playerControl = PlayerHelper.playerById(playerId);
             bool flip = playerControl.cosmetics.currentBodySprite.BodySprite.flipX; // use the original player control here, not the morhpTarget.
             firstPortal.animationFgRenderer.flipX = flip;
             secondPortal.animationFgRenderer.flipX = flip;
@@ -161,7 +161,7 @@ namespace TheOtherRoles.Objects
             for (int i = 0; i < portalFgAnimationSprites.Length; i++) {
                 getFgAnimationSprite(i);
             }
-            portalSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PortalAnimation.plattform.png", 115f);
+            portalSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.PortalAnimation.plattform.png", 115f);
         }
 
         public static void clearPortals() {

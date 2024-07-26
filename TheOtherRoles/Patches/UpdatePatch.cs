@@ -1,7 +1,7 @@
 using HarmonyLib;
 using System;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,8 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
@@ -270,7 +270,7 @@ namespace TheOtherRoles.Patches
 
             // Lovers
             if (Lovers.lover1 != null && Lovers.lover2 != null && (Lovers.lover1 == CachedPlayer.LocalPlayer.PlayerControl || Lovers.lover2 == CachedPlayer.LocalPlayer.PlayerControl)) {
-                string suffix = Helpers.cs(Lovers.color, " ♥");
+                string suffix = OtherHelper.cs(Lovers.color, " ♥");
                 Lovers.lover1.cosmetics.nameText.text += suffix;
                 Lovers.lover2.cosmetics.nameText.text += suffix;
 
@@ -283,7 +283,7 @@ namespace TheOtherRoles.Patches
             // Cupid
             if (Cupid.lovers1 != null && Cupid.lovers2 != null && (Cupid.lovers1 == CachedPlayer.LocalPlayer.PlayerControl || Cupid.lovers2 == CachedPlayer.LocalPlayer.PlayerControl || (Cupid.cupid != null && CachedPlayer.LocalPlayer.PlayerControl == Cupid.cupid)))
             {
-                string suffix = Helpers.cs(Cupid.color, " ♥");
+                string suffix = OtherHelper.cs(Cupid.color, " ♥");
                 Cupid.lovers1.cosmetics.nameText.text += suffix;
                 Cupid.lovers2.cosmetics.nameText.text += suffix;
 
@@ -300,21 +300,21 @@ namespace TheOtherRoles.Patches
                 {
                     foreach (PlayerControl p in Akujo.keeps)
                     {
-                        if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.akujo) p.cosmetics.nameText.text += Helpers.cs(Color.gray, " ♥");
+                        if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.akujo) p.cosmetics.nameText.text += OtherHelper.cs(Color.gray, " ♥");
                         if (CachedPlayer.LocalPlayer.PlayerControl == p)
                         {
-                            Akujo.akujo.cosmetics.nameText.text += Helpers.cs(Akujo.color, " ♥");
-                            p.cosmetics.nameText.text += Helpers.cs(Akujo.color, " ♥");
+                            Akujo.akujo.cosmetics.nameText.text += OtherHelper.cs(Akujo.color, " ♥");
+                            p.cosmetics.nameText.text += OtherHelper.cs(Akujo.color, " ♥");
                         }
                     }
                 }
                 if (Akujo.honmei != null)
                 {
-                    if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.akujo) Akujo.honmei.cosmetics.nameText.text += Helpers.cs(Akujo.color, " ♥");
+                    if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.akujo) Akujo.honmei.cosmetics.nameText.text += OtherHelper.cs(Akujo.color, " ♥");
                     if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.honmei)
                     {
-                        Akujo.akujo.cosmetics.nameText.text += Helpers.cs(Akujo.color, " ♥");
-                        Akujo.honmei.cosmetics.nameText.text += Helpers.cs(Akujo.color, " ♥");
+                        Akujo.akujo.cosmetics.nameText.text += OtherHelper.cs(Akujo.color, " ♥");
+                        Akujo.honmei.cosmetics.nameText.text += OtherHelper.cs(Akujo.color, " ♥");
                     }
                 }
 
@@ -323,11 +323,11 @@ namespace TheOtherRoles.Patches
                     foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                     {
                         if (player.TargetPlayerId == Akujo.akujo.PlayerId && ((Akujo.honmei != null && Akujo.honmei == CachedPlayer.LocalPlayer.PlayerControl) || (Akujo.keeps != null && Akujo.keeps.Any(x => x.PlayerId == CachedPlayer.LocalPlayer.PlayerControl.PlayerId))))
-                            player.NameText.text += Helpers.cs(Akujo.color, " ♥");
+                            player.NameText.text += OtherHelper.cs(Akujo.color, " ♥");
                         if (CachedPlayer.LocalPlayer.PlayerControl == Akujo.akujo)
                         {
-                            if (player.TargetPlayerId == Akujo.honmei?.PlayerId) player.NameText.text += Helpers.cs(Akujo.color, " ♥");
-                            if (Akujo.keeps != null && Akujo.keeps.Any(x => x.PlayerId == player.TargetPlayerId)) player.NameText.text += Helpers.cs(Color.gray, " ♥");
+                            if (player.TargetPlayerId == Akujo.honmei?.PlayerId) player.NameText.text += OtherHelper.cs(Akujo.color, " ♥");
+                            if (Akujo.keeps != null && Akujo.keeps.Any(x => x.PlayerId == player.TargetPlayerId)) player.NameText.text += OtherHelper.cs(Color.gray, " ♥");
                         }
                     }
                 }
@@ -340,7 +340,7 @@ namespace TheOtherRoles.Patches
             if (localIsLawyer || (localIsKnowingTarget && !Lawyer.lawyer.Data.IsDead)) {
                 Color color = Lawyer.color;
                 PlayerControl target = Lawyer.target;
-                string suffix = Helpers.cs(color, " §");
+                string suffix = OtherHelper.cs(color, " §");
                 target.cosmetics.nameText.text += suffix;
 
                 if (MeetingHud.Instance != null)
@@ -351,7 +351,7 @@ namespace TheOtherRoles.Patches
 
             // Former Thief
             if (Thief.formerThief != null && (Thief.formerThief == CachedPlayer.LocalPlayer.PlayerControl || CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead)) {
-                string suffix = Helpers.cs(Thief.color, " $");
+                string suffix = OtherHelper.cs(Thief.color, " $");
                 Thief.formerThief.cosmetics.nameText.text += suffix;
                 if (MeetingHud.Instance != null)
                     foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
@@ -362,7 +362,7 @@ namespace TheOtherRoles.Patches
             // Display lighter / darker color for all alive players
             if (CachedPlayer.LocalPlayer != null && MeetingHud.Instance != null && TORMapOptions.showLighterDarker) {
                 foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates) {
-                    var target = Helpers.playerById(player.TargetPlayerId);
+                    var target = PlayerHelper.playerById(player.TargetPlayerId);
                     if (target != null)  player.NameText.text += $" ({(Helpers.isLighterColor(target.Data.DefaultOutfit.ColorId) ? ModTranslation.getString("detectiveLightLabel") : ModTranslation.getString("detectiveDarkLabel"))})";
                 }
             }
@@ -373,7 +373,7 @@ namespace TheOtherRoles.Patches
                 foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                     if (player.TargetPlayerId == Medic.shielded.PlayerId)
                     {
-                        player.NameText.text = Helpers.cs(Medic.color, "[") + player.NameText.text + Helpers.cs(Medic.color, "]");
+                        player.NameText.text = OtherHelper.cs(Medic.color, "[") + player.NameText.text + OtherHelper.cs(Medic.color, "]");
                         // player.HighlightedFX.color = Medic.color;
                         // player.HighlightedFX.enabled = true;
                     }

@@ -3,7 +3,7 @@ using Hazel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
@@ -13,10 +13,12 @@ using TheOtherRoles.CustomGameModes;
 using static UnityEngine.GraphicsBuffer;
 using AmongUs.GameOptions;
 using Sentry.Internal.Extensions;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
+using TheOtherRoles.Roles.Core.Interfaces;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Modules;
+using TheOtherRoles.Roles.Roles.Modifier;
 
 namespace TheOtherRoles.Patches
 {
@@ -639,7 +641,7 @@ namespace TheOtherRoles.Patches
                     text += $"{p.Data.PlayerName}: ";
                     if (PlagueDoctor.infected.ContainsKey(p.PlayerId))
                     {
-                        text += Helpers.cs(Color.red, ModTranslation.getString("plagueDoctorInfectedText"));
+                        text += OtherHelper.cs(Color.red, ModTranslation.getString("plagueDoctorInfectedText"));
                     }
                     else
                     {
@@ -900,7 +902,7 @@ namespace TheOtherRoles.Patches
                     if (p == CachedPlayer.LocalPlayer.PlayerControl) {
                         if (p.Data.IsDead) roleNames = roleText;
                         playerInfoText = $"{roleNames}";
-                        if (p == Swapper.swapper) playerInfoText = $"{roleNames}" + Helpers.cs((p.Data.Role.IsImpostor || Madmate.madmate.Any(x => x.PlayerId == p.PlayerId)) ? Palette.ImpostorRed : Swapper.color, $" ({Swapper.charges})");
+                        if (p == Swapper.swapper) playerInfoText = $"{roleNames}" + OtherHelper.cs((p.Data.Role.IsImpostor || Madmate.madmate.Any(x => x.PlayerId == p.PlayerId)) ? Palette.ImpostorRed : Swapper.color, $" ({Swapper.charges})");
                         if (HudManager.Instance.TaskPanel != null) {
                             TMPro.TextMeshPro tabText = HudManager.Instance.TaskPanel.tab.transform.FindChild("TabText_TMP").GetComponent<TMPro.TextMeshPro>();
                             //tabText.SetText($"Tasks {taskInfo}");
@@ -1793,8 +1795,8 @@ namespace TheOtherRoles.Patches
         static void bloodyUpdate() {
             if (!Bloody.active.Any()) return;
             foreach (KeyValuePair<byte, float> entry in new Dictionary<byte, float>(Bloody.active)) {
-                PlayerControl player = Helpers.playerById(entry.Key);
-                PlayerControl bloodyPlayer = Helpers.playerById(Bloody.bloodyKillerMap[player.PlayerId]);      
+                PlayerControl player = PlayerHelper.playerById(entry.Key);
+                PlayerControl bloodyPlayer = PlayerHelper.playerById(Bloody.bloodyKillerMap[player.PlayerId]);      
 
                 Bloody.active[entry.Key] = entry.Value - Time.fixedDeltaTime;
                 if (entry.Value <= 0 || player.Data.IsDead) {
@@ -2618,7 +2620,7 @@ namespace TheOtherRoles.Patches
                     {
                         if (pva.VotedFor != killer.PlayerId) continue;
                         pva.UnsetVote();
-                        var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                        var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                         if (!voteAreaPlayer.AmOwner) continue;
                         MeetingHud.Instance.ClearVote();
                     }
@@ -2629,8 +2631,8 @@ namespace TheOtherRoles.Patches
             }
 
             // Lover suicide trigger on exile
-            if ((Lovers.lover1 != null && __instance == Lovers.lover1) || (Lovers.lover2 != null && __instance == Lovers.lover2)) {
-                PlayerControl otherLover = __instance == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
+            if (__instance.isLover()) {
+                PlayerControl otherLover = LoverPair.GetPartner(__instance);
                 if (otherLover != null && !otherLover.Data.IsDead && Lovers.bothDie) {
                     if (NekoKabocha.nekoKabocha != null && otherLover == NekoKabocha.nekoKabocha) NekoKabocha.otherKiller = otherLover; // Can put other non-null values here
                     otherLover.Exiled();
@@ -2656,7 +2658,7 @@ namespace TheOtherRoles.Patches
                     {
                         if (pva.VotedFor != otherLover.PlayerId) continue;
                         pva.UnsetVote();
-                        var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                        var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                         if (!voteAreaPlayer.AmOwner) continue;
                         MeetingHud.Instance.ClearVote();
                     }
@@ -2667,7 +2669,7 @@ namespace TheOtherRoles.Patches
                         {
                             if (pva.VotedFor != Cupid.cupid.PlayerId) continue;
                             pva.UnsetVote();
-                            var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                            var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                             if (!voteAreaPlayer.AmOwner) continue;
                             MeetingHud.Instance.ClearVote();
                         }
@@ -2701,7 +2703,7 @@ namespace TheOtherRoles.Patches
                     {
                         if (pva.VotedFor != otherMimic.PlayerId) continue;
                         pva.UnsetVote();
-                        var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                        var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                         if (!voteAreaPlayer.AmOwner) continue;
                         MeetingHud.Instance.ClearVote();
                     }
@@ -2727,7 +2729,7 @@ namespace TheOtherRoles.Patches
                     {
                         if (pva.VotedFor != otherBomber.PlayerId) continue;
                         pva.UnsetVote();
-                        var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                        var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                         if (!voteAreaPlayer.AmOwner) continue;
                         MeetingHud.Instance.ClearVote();
                     }
@@ -2753,7 +2755,7 @@ namespace TheOtherRoles.Patches
                     {
                         if (pva.VotedFor != akujoPartner.PlayerId) continue;
                         pva.UnsetVote();
-                        var voteAreaPlayer = Helpers.playerById(pva.TargetPlayerId);
+                        var voteAreaPlayer = PlayerHelper.playerById(pva.TargetPlayerId);
                         if (!voteAreaPlayer.AmOwner) continue;
                         MeetingHud.Instance.ClearVote();
                     }

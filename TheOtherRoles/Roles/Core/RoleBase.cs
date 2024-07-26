@@ -150,6 +150,10 @@ public abstract class RoleBase : IDisposable
     /// 设置按钮冷却
     /// </summary>
     public virtual void setCustomButtonCooldowns() { }
+    /// <summary>
+    /// 隐藏玩家名称
+    /// </summary>
+    public virtual bool HidePlayerName(PlayerControl target) => false;
     protected enum GeneralOption
     {
         Cooldown,

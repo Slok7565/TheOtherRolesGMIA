@@ -3,7 +3,7 @@ using System;
 using Hazel;
 using UnityEngine;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using static TheOtherRoles.TORMapOptions;
 using System.Collections.Generic;
@@ -13,8 +13,8 @@ using TheOtherRoles.Objects;
 using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
@@ -616,7 +616,7 @@ namespace TheOtherRoles.Patches
         private static float timer = 0f;
 
         public static List<GameObject> nightVisionOverlays = null;
-        private static Sprite overlaySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
+        private static Sprite overlaySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
         public static bool nightVisionIsActive = false;
         private static bool isLightsOut;
 

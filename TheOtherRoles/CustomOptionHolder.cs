@@ -3,10 +3,10 @@ using Epic.OnlineServices.RTCAudio;
 using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using Types = TheOtherRoles.CustomOption.CustomOptionType;
 
 namespace TheOtherRoles
@@ -449,11 +449,6 @@ namespace TheOtherRoles
         public static CustomOption modifierBaitReportDelayMax;
         public static CustomOption modifierBaitShowKillFlash;*/
         // Bait is no longer a modifier
-
-        public static CustomOption modifierLover;
-        public static CustomOption modifierLoverImpLoverRate;
-        public static CustomOption modifierLoverBothDie;
-        public static CustomOption modifierLoverEnableChat;
 
         public static CustomOption modifierBloody;
         public static CustomOption modifierBloodyQuantity;
@@ -1051,11 +1046,6 @@ namespace TheOtherRoles
             modifierBaitReportDelayMin = CustomOption.Create(1032, Types.Modifier, "Bait Report Delay Min", 0f, 0f, 10f, 1f, modifierBait);
             modifierBaitReportDelayMax = CustomOption.Create(1033, Types.Modifier, "Bait Report Delay Max", 0f, 0f, 10f, 1f, modifierBait);
             modifierBaitShowKillFlash = CustomOption.Create(1034, Types.Modifier, "Warn The Killer With A Flash", true, modifierBait);*/
-
-            modifierLover = CustomOption.Create(1040, Types.Modifier, cs(Color.yellow, "lovers"), rates, null, true);
-            modifierLoverImpLoverRate = CustomOption.Create(1041, Types.Modifier, "loversImpLoverRate", rates, modifierLover);
-            modifierLoverBothDie = CustomOption.Create(1042, Types.Modifier, "loversBothDie", true, modifierLover);
-            modifierLoverEnableChat = CustomOption.Create(1043, Types.Modifier, "loversEnableChat", true, modifierLover);
 
             modifierSunglasses = CustomOption.Create(1050, Types.Modifier, cs(Color.yellow, "sunglasses"), rates, null, true);
             modifierSunglassesQuantity = CustomOption.Create(1051, Types.Modifier, cs(Color.yellow, "sunglassesQuantity"), ratesModifier, modifierSunglasses);

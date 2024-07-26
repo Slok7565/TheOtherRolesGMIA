@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Helpers;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 
 namespace TheOtherRoles.Objects
 {
@@ -16,9 +17,9 @@ namespace TheOtherRoles.Objects
 
         public static List<Sprite> getBloodySprites() {
             if (sprites.Count > 0) return sprites;
-            sprites.Add(Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Blood1.png", 700));
-            sprites.Add(Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Blood2.png", 500));
-            sprites.Add(Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Blood3.png", 300));
+            sprites.Add(ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Blood1.png", 700));
+            sprites.Add(ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Blood2.png", 500));
+            sprites.Add(ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Blood3.png", 300));
             return sprites;
         }
 
@@ -48,7 +49,7 @@ namespace TheOtherRoles.Objects
 
             FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(10f, new Action<float>((p) => {
             Color c = color;
-            if (Camouflager.camouflageTimer > 0 || Helpers.MushroomSabotageActive()) c = Palette.PlayerColors[6];
+            if (Camouflager.camouflageTimer > 0 || SabotageHelper.MushroomSabotageActive()) c = Palette.PlayerColors[6];
             if (spriteRenderer) spriteRenderer.color = new Color(c.r, c.g, c.b, Mathf.Clamp01(1 - p));
 
             if (p == 1f && blood != null) {

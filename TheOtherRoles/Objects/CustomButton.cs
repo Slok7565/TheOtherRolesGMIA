@@ -5,7 +5,7 @@ using TheOtherRoles.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 
 namespace TheOtherRoles.Objects
 {

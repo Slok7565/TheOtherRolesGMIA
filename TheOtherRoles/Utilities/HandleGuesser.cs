@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Helpers;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using UnityEngine;
 
 namespace TheOtherRoles.Utilities
@@ -18,7 +18,7 @@ namespace TheOtherRoles.Utilities
 
         public static Sprite getTargetSprite() {
             if (targetSprite) return targetSprite;
-            targetSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TargetIcon.png", 150f);
+            targetSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TargetIcon.png", 150f);
             return targetSprite;
         }
 

@@ -2,7 +2,7 @@ using HarmonyLib;
 using Hazel;
 using System;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ using TheOtherRoles.Patches;
 using static UnityEngine.GraphicsBuffer;
 using System.Diagnostics.Metrics;
 using UnityEngine.SocialPlatforms;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles
@@ -400,7 +400,7 @@ namespace TheOtherRoles
                 return true;
             },
             () => { },
-            Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
+            ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
             new Vector3(0.4f, 4.2f, 0),
             __instance,
             null
@@ -2220,7 +2220,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
                 new Vector3(-0.5f, 1f, 0f),
                 __instance,
                 null,
@@ -2239,7 +2239,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
                 new Vector3(0.1f, 1f, 0),
                 __instance,
                 null,
@@ -2550,8 +2550,8 @@ namespace TheOtherRoles
                         float distance = Vector3.Distance(item.Item2.Item2, CachedPlayer.LocalPlayer.PlayerControl.transform.position);
                         if (distance < Sherlock.investigateDistance)
                         {
-                            PlayerControl killer = Helpers.playerById(item.Item1);
-                            PlayerControl target = Helpers.playerById(item.Item2.Item1);
+                            PlayerControl killer = PlayerHelper.playerById(item.Item1);
+                            PlayerControl target = PlayerHelper.playerById(item.Item2.Item1);
                             string killerTeam = RoleInfo.GetRolesString(killer, useColors: true, showModifier: false, includeHidden: true);
                             message += string.Format(ModTranslation.getString("sherlockMessage2"), target.Data.PlayerName, killerTeam) + "\n";
                         }
@@ -3229,7 +3229,7 @@ namespace TheOtherRoles
                 {
                     if (PlayerControl.LocalPlayer.CanMove && FortuneTeller.numUsed < 1 && FortuneTeller.canDivine(index))
                     {
-                        PlayerControl p = Helpers.playerById(index);
+                        PlayerControl p = PlayerHelper.playerById(index);
                         FortuneTeller.divine(p);
                     }
                 };
@@ -3798,7 +3798,7 @@ namespace TheOtherRoles
                 },
                 () => { return true; },
                 () => { return; },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
                 new Vector3(0.4f, 2.8f, 0),
                 __instance,
                 KeyCode.KeypadPlus

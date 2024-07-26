@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using TheOtherRoles.Modules;
 using HarmonyLib;
 using Hazel;
@@ -22,9 +22,8 @@ using System.Globalization;
 using TheOtherRoles.Patches;
 using System.Collections;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
+using TheOtherRoles.Roles;
+using static TheOtherRoles.Helpers.ResourcesHelper;
 
 namespace TheOtherRoles.Helpers
 {
@@ -64,7 +63,10 @@ namespace TheOtherRoles.Helpers
         // Intersteing Color Gradient Feature :)
 
 
-
+        public static string cs(Color c, string s)
+        {
+            return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b), ToByte(c.a), s);
+        }
         public static bool isLighterColor(int colorId)
         {
             return CustomColors.lighterColors.Contains(colorId);

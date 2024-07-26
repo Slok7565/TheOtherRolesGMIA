@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -193,7 +193,7 @@ namespace TheOtherRoles.Patches
                 //if (!EvilHacker.canSeeDoorStatus) return;
                 if (doorClosedSprite == null)
                 {
-                    doorClosedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Cross.png", 500f);
+                    doorClosedSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Cross.png", 500f);
                 }
                 if (doorMarks == null) doorMarks = new();
                 plainDoors = GameObject.FindObjectsOfType<PlainDoor>();

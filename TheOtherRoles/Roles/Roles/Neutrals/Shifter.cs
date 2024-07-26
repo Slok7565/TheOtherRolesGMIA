@@ -52,9 +52,8 @@ public sealed class Shifter : RoleBase
     CustomButton shifterShiftButton;
     void SendRpc()
     {
-        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.RoleIdSync, Hazel.SendOption.Reliable, -1);
-        writer.Write(futureShift.PlayerId);
-        AmongUsClient.Instance.FinishRpcImmediately(writer);
+        var sender = CreateSender();
+        sender.Writer.Write(futureShift.PlayerId);
     }
     public override void ReceiveRPC(MessageReader reader)
     {
@@ -325,7 +324,7 @@ public sealed class Shifter : RoleBase
             blockShift = new List<PlayerControl>();
             foreach (var playerId in pastShifters)
             {
-                blockShift.Add(Helpers.playerById((byte)playerId));
+                blockShift.Add(PlayerHelper.playerById((byte)playerId));
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace TONEX.Attributes;
+namespace TheOtherRoles.Attributes;
 
 /// <summary>
 /// 用于在 <see cref="AmongUsClient.CoStartGame"/> 的后期修饰中，用于每次游戏初始化的方法

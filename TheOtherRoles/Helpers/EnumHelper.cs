@@ -1,6 +1,6 @@
 using System;
 
-namespace TheOtherRoles;
+namespace TheOtherRoles.Helpers;
 
 public static class EnumHelper
 {

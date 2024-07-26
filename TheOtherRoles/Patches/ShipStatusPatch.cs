@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using HarmonyLib;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using UnityEngine;
 using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches

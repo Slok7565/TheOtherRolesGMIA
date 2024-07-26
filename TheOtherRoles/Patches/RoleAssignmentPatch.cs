@@ -7,11 +7,11 @@ using System;
 using AmongUs.GameOptions;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using TheOtherRoles.CustomGameModes;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
-using TheOtherRoles.TheOtherRoles.Roles.Neutral;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
+using TheOtherRoles.Roles.Roles.Neutral;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches

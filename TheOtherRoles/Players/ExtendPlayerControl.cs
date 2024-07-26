@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheOtherRoles.Patches;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core.Interfaces;
+using TheOtherRoles.Roles.Core;
 using UnityEngine;
 
 namespace TheOtherRoles.Players;

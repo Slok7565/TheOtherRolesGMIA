@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using Object = UnityEngine.Object;
 
 namespace TheOtherRoles.Patches
@@ -75,19 +75,19 @@ namespace TheOtherRoles.Patches
                 switch (Teams[i])
                 {
                     case "Impostors":
-                        team = Helpers.cs(Palette.ImpostorRed, ModTranslation.getString("lobbyInfoImpostor"));
+                        team = OtherHelper.cs(Palette.ImpostorRed, ModTranslation.getString("lobbyInfoImpostor"));
                         teamid = Team.Impostor;
                         break;
                     case "Neutrals":
-                        team = Helpers.cs(new Color32(76, 84, 78, 255), ModTranslation.getString("roleIntroNeutral"));
+                        team = OtherHelper.cs(new Color32(76, 84, 78, 255), ModTranslation.getString("roleIntroNeutral"));
                         teamid = Team.Neutral;
                         break;
                     case "Crewmates":
-                        team = Helpers.cs(Palette.CrewmateBlue, ModTranslation.getString("lobbyInfoCrewmate"));
+                        team = OtherHelper.cs(Palette.CrewmateBlue, ModTranslation.getString("lobbyInfoCrewmate"));
                         teamid = Team.Crewmate;
                         break;
                     case "Modifiers":
-                        team = Helpers.cs(Color.yellow, ModTranslation.getString("lobbyInfoModifier"));
+                        team = OtherHelper.cs(Color.yellow, ModTranslation.getString("lobbyInfoModifier"));
                         teamid = Team.Modifier;
                         break;
                 }
@@ -95,7 +95,7 @@ namespace TheOtherRoles.Patches
                 Transform buttonTransform = Object.Instantiate(buttonTemplate, container.transform);
                 buttonTransform.name = team + " Button";
                 buttonTransform.GetComponent<BoxCollider2D>().size = new Vector2(2.5f, 0.55f);
-                buttonTransform.GetComponent<SpriteRenderer>().sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.RolePlate.png", 215f);
+                buttonTransform.GetComponent<SpriteRenderer>().sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.RolePlate.png", 215f);
                 buttons.Add(buttonTransform);
                 buttonTransform.localPosition = new Vector3(0, 2.2f - i * 1f, -5);
                 buttonTransform.localScale = new Vector3(2f, 1.5f, 1f);
@@ -158,15 +158,15 @@ namespace TheOtherRoles.Patches
                 else if ((roleInfo.color != Palette.ImpostorRed || roleInfo == RoleInfo.spy) && !roleInfo.isModifier && !roleInfo.isNeutral && teamId != Team.Crewmate) continue;
 
                 Transform buttonTransform = Object.Instantiate(buttonTemplate, container.transform);
-                buttonTransform.name = Helpers.cs(roleInfo.color, roleInfo.name) + " Button";
+                buttonTransform.name = OtherHelper.cs(roleInfo.color, roleInfo.name) + " Button";
                 buttonTransform.GetComponent<BoxCollider2D>().size = new Vector2(2.5f, 0.55f);
                 TextMeshPro label = Object.Instantiate(textTemplate, buttonTransform);
-                buttonTransform.GetComponent<SpriteRenderer>().sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.RolePlate2.png", 215f);
+                buttonTransform.GetComponent<SpriteRenderer>().sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.RolePlate2.png", 215f);
                 buttons.Add(buttonTransform);
                 int row = count / 3, col = count % 3;
                 buttonTransform.localPosition = new Vector3(-3.205f + col * 3.2f, 2.9f - row * 0.75f, -5);
                 buttonTransform.localScale = new Vector3(1.125f, 1.125f, 1f);
-                label.text = Helpers.cs(roleInfo.color, roleInfo.name);
+                label.text = OtherHelper.cs(roleInfo.color, roleInfo.name);
                 label.alignment = TextAlignmentOptions.Center;
                 label.transform.localPosition = new Vector3(0, 0, label.transform.localPosition.z);
                 label.transform.localScale *= 1.55f;
@@ -191,7 +191,7 @@ namespace TheOtherRoles.Patches
         static void AddInfoCard(RoleInfo roleInfo)
         {
             string roleSettingDescription = roleInfo.fullDescription != "" ? roleInfo.fullDescription : roleInfo.shortDescription;
-            string coloredHelp = Helpers.cs(Color.white, roleSettingDescription);
+            string coloredHelp = OtherHelper.cs(Color.white, roleSettingDescription);
 
             GameObject roleCard = Object.Instantiate(new GameObject("RoleCard"), HudManager.Instance.transform);
             SpriteRenderer roleCardRend = roleCard.AddComponent<SpriteRenderer>();
@@ -200,7 +200,7 @@ namespace TheOtherRoles.Patches
             roleCard.transform.localScale = new Vector3(0.68f, 0.68f, 1f);
             RolesSummaryUI = roleCard.gameObject;
 
-            roleCardRend.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.SummaryScreen.png", 110f);
+            roleCardRend.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LobbyRoleInfo.SummaryScreen.png", 110f);
 
             infoButtonText = Object.Instantiate(HudManager.Instance.TaskPanel.taskText, roleCard.transform);
             infoButtonText.color = Color.white;
@@ -213,7 +213,7 @@ namespace TheOtherRoles.Patches
 
             infoTitleText = Object.Instantiate(HudManager.Instance.TaskPanel.taskText, roleCard.transform);
             infoTitleText.color = Color.white;
-            infoTitleText.text = Helpers.cs(roleInfo.color, roleInfo.name);
+            infoTitleText.text = OtherHelper.cs(roleInfo.color, roleInfo.name);
             infoTitleText.enableWordWrapping = false;
             infoTitleText.transform.localScale = Vector3.one * 3f;
             infoTitleText.transform.localPosition = new Vector3(0f, 2.4f, -50f);

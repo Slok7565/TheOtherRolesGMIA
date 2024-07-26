@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace TheOtherRoles.Objects
         private static Sprite TraceSprite;
         public static Sprite getTraceSprite() {
             if (TraceSprite) return TraceSprite;
-            TraceSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AssassinTraceW.png", 225f);
+            TraceSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AssassinTraceW.png", 225f);
             return TraceSprite;
         }
 

@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using System;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 
 namespace TheOtherRoles.Patches
 {

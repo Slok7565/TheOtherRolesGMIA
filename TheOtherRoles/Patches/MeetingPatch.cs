@@ -2,7 +2,7 @@ using HarmonyLib;
 using Hazel;
 using System.Collections.Generic;
 using System.Linq;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 using static TheOtherRoles.TORMapOptions;
 using TheOtherRoles.Objects;
 using System;
@@ -12,8 +12,8 @@ using UnityEngine;
 using Innersloth.Assets;
 using Reactor.Utilities;
 using AmongUs.QuickChat;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
@@ -47,8 +47,8 @@ namespace TheOtherRoles.Patches
                 foreach (var playerState in __instance.playerStates)
                 {
                     if (NonPlayerVotes.Contains(playerState.VotedFor)) continue;
-                    if (Helpers.playerById((byte)playerState.TargetPlayerId) == MimicA.mimicA && MimicK.mimicK != null && MimicK.hasOneVote && !MimicK.mimicK.Data.IsDead) continue;
-                    if (Helpers.playerById((byte)playerState.TargetPlayerId) == BomberB.bomberB && BomberA.bomberA != null && BomberA.hasOneVote && !BomberA.bomberA.Data.IsDead) continue;
+                    if (PlayerHelper.playerById((byte)playerState.TargetPlayerId) == MimicA.mimicA && MimicK.mimicK != null && MimicK.hasOneVote && !MimicK.mimicK.Data.IsDead) continue;
+                    if (PlayerHelper.playerById((byte)playerState.TargetPlayerId) == BomberB.bomberB && BomberA.bomberA != null && BomberA.hasOneVote && !BomberA.bomberA.Data.IsDead) continue;
                     var amMayorEnabled = Mayor.mayor != null && Mayor.mayor.PlayerId == playerState.TargetPlayerId &&
                                          Mayor.voteTwice;
                     var voteCount = amMayorEnabled ? 2 : 1;
@@ -322,13 +322,13 @@ namespace TheOtherRoles.Patches
                 } else {
                     selections[i] = true;
                     renderer.color = Color.yellow;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.yellow, ModTranslation.getString("swapperConfirmSwap"));
+                    meetingExtraButtonLabel.text = OtherHelper.cs(Color.yellow, ModTranslation.getString("swapperConfirmSwap"));
                 }
             } else if (selectedCount == 2) {
                 if (selections[i]) {
                     renderer.color = Color.red;
                     selections[i] = false;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
+                    meetingExtraButtonLabel.text = OtherHelper.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
                 }
             }
         }
@@ -361,7 +361,7 @@ namespace TheOtherRoles.Patches
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
 
                 RPCProcedure.swapperSwap((byte)firstPlayer.TargetPlayerId, (byte)secondPlayer.TargetPlayerId);
-                meetingExtraButtonLabel.text = Helpers.cs(Color.green, ModTranslation.getString("swapperSwapping"));
+                meetingExtraButtonLabel.text = OtherHelper.cs(Color.green, ModTranslation.getString("swapperSwapping"));
                 Swapper.charges--;
                 meetingExtraButtonText.text = string.Format(ModTranslation.getString("swapperRemainingSwaps"), Swapper.charges);
             }
@@ -403,7 +403,7 @@ namespace TheOtherRoles.Patches
                 swapperButtonList[i].OnClick.AddListener((System.Action)(() => swapperOnClick(copyI, __instance)));
             }
             meetingExtraButtonText.text = string.Format(ModTranslation.getString("swapperRemainingSwaps"), Swapper.charges);
-            meetingExtraButtonLabel.text = Helpers.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
+            meetingExtraButtonLabel.text = OtherHelper.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
 
         }
 
@@ -424,7 +424,7 @@ namespace TheOtherRoles.Patches
             writer.Write(Mayor.voteTwice);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
 
-            meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? Helpers.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : Helpers.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
+            meetingExtraButtonLabel.text = OtherHelper.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? OtherHelper.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : OtherHelper.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
         }
 
         public static GameObject guesserUI;
@@ -504,19 +504,19 @@ namespace TheOtherRoles.Patches
                 int row = i/5, col = i%5;
                 buttonParent.localPosition = new Vector3(-3.47f + 1.55f * col, 1.5f - 0.35f * row, -5);
                 buttonParent.localScale = new Vector3(0.45f, 0.45f, 1f);
-                label.text = Helpers.cs(roleInfo.color, roleInfo.name);
+                label.text = OtherHelper.cs(roleInfo.color, roleInfo.name);
                 label.alignment = TMPro.TextAlignmentOptions.Center;
                 label.transform.localPosition = new Vector3(0, 0, label.transform.localPosition.z);
                 label.transform.localScale *= 1.7f;
                 int copiedIndex = i;
 
                 button.GetComponent<PassiveButton>().OnClick.RemoveAllListeners();
-                if (!CachedPlayer.LocalPlayer.Data.IsDead && !Helpers.playerById((byte)__instance.playerStates[buttonTarget].TargetPlayerId).Data.IsDead) button.GetComponent<PassiveButton>().OnClick.AddListener((System.Action)(() => {
+                if (!CachedPlayer.LocalPlayer.Data.IsDead && !PlayerHelper.playerById((byte)__instance.playerStates[buttonTarget].TargetPlayerId).Data.IsDead) button.GetComponent<PassiveButton>().OnClick.AddListener((System.Action)(() => {
                     if (selectedButton != button) {
                         selectedButton = button;
                         buttons.ForEach(x => x.GetComponent<SpriteRenderer>().color = x == selectedButton ? Color.red : Color.white);
                     } else {
-                        PlayerControl focusedTarget = Helpers.playerById((byte)__instance.playerStates[buttonTarget].TargetPlayerId);
+                        PlayerControl focusedTarget = PlayerHelper.playerById((byte)__instance.playerStates[buttonTarget].TargetPlayerId);
                         if (!(__instance.state == MeetingHud.VoteStates.Voted || __instance.state == MeetingHud.VoteStates.NotVoted) || focusedTarget == null || HandleGuesser.remainingShots(CachedPlayer.LocalPlayer.PlayerId) <= 0 ) return;
 
                         if (!HandleGuesser.killsThroughShield && focusedTarget == Medic.shielded) { // Depending on the options, shooting the shielded player will not allow the guess, notifiy everyone about the kill attempt and close the window
@@ -590,7 +590,7 @@ namespace TheOtherRoles.Patches
             }
             if (AmongUsClient.Instance.AmHost)
             {
-                PlayerControl target = Helpers.playerById(targetId);
+                PlayerControl target = PlayerHelper.playerById(targetId);
                 if (target != null)
                     MeetingHud.Instance.CmdCastVote(CachedPlayer.LocalPlayer.PlayerControl.PlayerId, target.PlayerId);
             }
@@ -669,10 +669,10 @@ namespace TheOtherRoles.Patches
                 meetingExtraButtonLabel.transform.localPosition = new Vector3(0, 0, meetingExtraButtonLabel.transform.localPosition.z);
                 if (addSwapperButtons) {
                     meetingExtraButtonLabel.transform.localScale *= 1.7f;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
+                    meetingExtraButtonLabel.text = OtherHelper.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
                 } else if (addMayorButton) {
                     meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
-                    meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? Helpers.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : Helpers.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
+                    meetingExtraButtonLabel.text = OtherHelper.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? OtherHelper.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : OtherHelper.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
                 }
                 PassiveButton passiveButton = meetingExtraButton.GetComponent<PassiveButton>();
                 passiveButton.OnClick.RemoveAllListeners();
@@ -735,7 +735,7 @@ namespace TheOtherRoles.Patches
                     int copiedIndex = i;
                     button.OnClick.AddListener((System.Action)(() =>
                     {
-                        PlayerControl focusedTarget = Helpers.playerById((byte)__instance.playerStates[copiedIndex].TargetPlayerId);
+                        PlayerControl focusedTarget = PlayerHelper.playerById((byte)__instance.playerStates[copiedIndex].TargetPlayerId);
                         EvilTracker.futureTarget = EvilTracker.target = focusedTarget;
                         // Reset the GUI
                         __instance.playerStates.ToList().ForEach(x => { if (x.transform.FindChild("EvilTrackerButton") != null) UnityEngine.Object.Destroy(x.transform.FindChild("EvilTrackerButton").gameObject); });

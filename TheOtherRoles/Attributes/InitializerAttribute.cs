@@ -1,17 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TONEX.Modules;
 
-namespace TONEX.Attributes;
+namespace TheOtherRoles.Attributes;
 
 [AttributeUsage(AttributeTargets.Method)]
 public abstract class InitializerAttribute<T> : Attribute
 {
     /// <summary>所有初始化方法</summary>
     private static MethodInfo[] allInitializers = null;
-    private static LogHandler logger = Logger.Handler(nameof(InitializerAttribute<T>));
 
     public InitializerAttribute() : this(InitializePriority.Normal) { }
     public InitializerAttribute(InitializePriority priority)
@@ -60,7 +58,6 @@ public abstract class InitializerAttribute<T> : Attribute
         }
         foreach (var initializer in allInitializers)
         {
-            logger.Info($"初始化: {initializer.DeclaringType.Name}.{initializer.Name}");
             initializer.Invoke(null, null);
         }
     }

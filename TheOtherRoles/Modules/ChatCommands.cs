@@ -4,14 +4,16 @@ using System.Linq;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using Hazel;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Roles.Modifier;
+using TheOtherRoles.Roles.Core;
 
 namespace TheOtherRoles.Modules
 {
     [HarmonyPatch]
     public static class ChatCommands {
-        public static bool isLover(this PlayerControl player) => !(player == null) && (player == Lovers.lover1 || player == Lovers.lover2);
+        public static bool isLover(this PlayerControl player) => player.GetModifierClasses().Any(mc => mc is Lovers );
 
         [HarmonyPatch(typeof(ChatController), nameof(ChatController.SendChat))]
         private static class SendChatPatch {

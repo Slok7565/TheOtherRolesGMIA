@@ -10,7 +10,7 @@ using System.Linq;
 using TheOtherRoles.Modules;
 using TheOtherRoles.TheOtherRoles.Core;
 using UnityEngine.Playables;
-using static TheOtherRoles.ModTranslation;
+using static TheOtherRoles.Helpers.EnumHelper;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.ParticleSystem.PlaybackState;
 
@@ -19,20 +19,25 @@ namespace TheOtherRoles.TheOtherRoles.Core;
 public static class CustomRoleManager
 {
     /// <summary>所有角色（不包括附加）</summary>
-    public static readonly RoleId[] AllRoles = EnumHelper.GetAllValues<RoleId>().Where(role => role < RoleId.NotAssigned).ToArray();
+    public static readonly RoleId[] AllRoles = GetAllValues<RoleId>().Where(role => role < RoleId.NotAssigned).ToArray();
     /// <summary>所有附加</summary>
-    public static readonly RoleId[] AllAddOns = EnumHelper.GetAllValues<RoleId>().Where(role => role > RoleId.NotAssigned).ToArray();
+    public static readonly RoleId[] AllModifiers = GetAllValues<RoleId>().Where(role => role > RoleId.NotAssigned).ToArray();
     /// <summary>可以在标准模式下出现的所有角色</summary>
-    public static readonly RoleId[] AllStandardRoles = AllRoles.Concat(AllAddOns).ToList().ToArray();
+    public static readonly RoleId[] AllStandardRoles = AllRoles.Concat(AllModifiers).ToList().ToArray();
     /// <summary>所有职业类型</summary>
 
     public static Type[] AllRolesClassType;
     public static Dictionary<RoleId, RoleInfo> AllRolesInfo = new(AllRoles.Length);
+    public static Dictionary<RoleId, RoleInfo> AllModifiersInfo = new(AllModifiers.Length);
     public static Dictionary<byte, RoleBase> AllActiveRoles = new();
+    public static Dictionary<byte, List<ModifierBase>> AllActiveModifiers = new();
 
     public static RoleInfo GetRoleInfo(this RoleId role) => AllRolesInfo.ContainsKey(role) ? AllRolesInfo[role] : null;
+
     public static RoleBase GetRoleClass(this PlayerControl player) => GetByPlayerId(player.PlayerId);
     public static RoleBase GetByPlayerId(byte playerId) => AllActiveRoles.TryGetValue(playerId, out var roleBase) ? roleBase : null;
+    public static List<ModifierBase> GetModifierClasses(this PlayerControl player) => GetMByPlayerId(player.PlayerId);
+    public static List<ModifierBase> GetMByPlayerId(byte playerId) => AllActiveModifiers.TryGetValue(playerId, out var roleBase) ? roleBase : null;
     public static void Do<T>(this List<T> list, Action<T> action) => list.ToArray().Do(action);
 
 
@@ -41,16 +46,13 @@ public static class CustomRoleManager
     {
         if (AllRolesInfo.TryGetValue(role, out var roleInfo))
         {
-            roleInfo.CreateInstance(player).Add();
-            roleInfo.CreateInstance(player).Add();
+            roleInfo.CreateRoleInstance(player).Add();
+            roleInfo.CreateRoleInstance(player).clearAndReload();
         }
-        else
+        else if (AllModifiersInfo.TryGetValue(role, out var roleInfo1))
         {
-            OtherRolesAdd(player);
+            roleInfo1.CreateModifierInstance(player).clearAndReload();
         }
-    }
-    public static void OtherRolesAdd(PlayerControl pc)
-    {
     }
     public static void DispatchRpc(MessageReader reader)
     {

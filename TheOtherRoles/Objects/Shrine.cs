@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using TheOtherRoles.Modules;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 
 
 namespace TheOtherRoles.Objects

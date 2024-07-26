@@ -33,14 +33,14 @@ namespace TheOtherRoles.Patches
                     string gameModeText = $"";
                     if (HideNSeek.isHideNSeekGM) gameModeText = ModTranslation.getString("gamemodeHideNSeek");
                     else if (HandleGuesser.isGuesserGm) gameModeText = ModTranslation.getString("gamemodeGuesser");
-                    if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
+                    if (gameModeText != "") gameModeText = OtherHelper.cs(Color.yellow, gameModeText) + "\n";
                     __instance.text.text = $"<size=130%>{Helpers.GradientColorText("FFD700", "FF0000", $"TheOtherRoles GM IA")}</size>" + $" v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n{gameModeText}" + __instance.text.text;
                     position.DistanceFromEdge = new Vector3(2.25f, 0.11f, 0);
                 } else {
                     string gameModeText = $"";
                     if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) gameModeText = ModTranslation.getString("gamemodeHideNSeek");
                     else if (TORMapOptions.gameMode == CustomGamemodes.Guesser) gameModeText = ModTranslation.getString("gamemodeGuesser");
-                    if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
+                    if (gameModeText != "") gameModeText = OtherHelper.cs(Color.yellow, gameModeText) + "\n";
 
                     __instance.text.text = $"{fullCredentialsVersion}\n  {gameModeText + ModTranslation.getString(fullCredentials)}\n {__instance.text.text}";
                     position.DistanceFromEdge = new Vector3(3.5f, 0.1f, 0);
@@ -67,7 +67,7 @@ namespace TheOtherRoles.Patches
 
                 renderer = torLogo.AddComponent<SpriteRenderer>();
                 loadSprites();
-                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                renderer.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
 
                 instance = __instance;
                 loadSprites();
@@ -102,9 +102,9 @@ namespace TheOtherRoles.Patches
             }
 
             public static void loadSprites() {
-                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
-                if (banner2Sprite == null) banner2Sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
-                if (horseBannerSprite == null) horseBannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
+                if (bannerSprite == null) bannerSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                if (banner2Sprite == null) banner2Sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
+                if (horseBannerSprite == null) horseBannerSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
             }
 
             public static void updateSprite() {

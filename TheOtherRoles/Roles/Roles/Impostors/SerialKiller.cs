@@ -55,9 +55,8 @@ public sealed class SerialKiller : RoleBase, IImpostor
     }
     void SendRPC(byte targetId)
     {
-        MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.RoleIdSync, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
-        killWriter.Write(targetId);
-        AmongUsClient.Instance.FinishRpcImmediately(killWriter);
+        var sender = CreateSender();
+        sender.Writer.Write(targetId);
     }
     public override void ReceiveRPC(MessageReader reader = null)
     {

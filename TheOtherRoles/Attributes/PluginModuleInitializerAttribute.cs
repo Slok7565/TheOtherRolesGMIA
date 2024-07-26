@@ -1,5 +1,4 @@
-﻿namespace TONEX.Attributes;
-
+namespace TheOtherRoles.Attributes;
 /// <summary>
 /// 用于在 <see cref="Main.Load"/> 中启动时初始化的方法
 /// 在静态方法前面加上 [PluginModuleInitializer]，可以在启动时自动调用

@@ -5,10 +5,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
 
 namespace TheOtherRoles.Objects
 {
@@ -27,7 +27,7 @@ namespace TheOtherRoles.Objects
         }
 
         private static Sprite _footprintSprite;
-        private static Sprite FootprintSprite => _footprintSprite ??= Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Footprint.png", 600f);
+        private static Sprite FootprintSprite => _footprintSprite ??= ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Footprint.png", 600f);
 
         private static bool AnonymousFootprints => TheOtherRoles.Detective.anonymousFootprints;
         private static float FootprintDuration => TheOtherRoles.Detective.footprintDuration;

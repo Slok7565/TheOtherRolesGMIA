@@ -3,7 +3,7 @@ using Il2CppSystem.Collections.Generic;
 using System;
 using UnityEngine.Windows.Speech;
 using static UnityEngine.GraphicsBuffer;
-using TheOtherRoles.Role;
+using TheOtherRoles.Roles;
 
 namespace TheOtherRoles.Patches
 {

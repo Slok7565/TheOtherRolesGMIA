@@ -8,11 +8,13 @@ using Hazel;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using static TheOtherRoles.Role.TheOtherRoles;
+using static TheOtherRoles.Roles.TheOtherRoles;
+using static TheOtherRoles.Helpers.OtherHelper;
+using static TheOtherRoles.Helpers.ResourcesHelper;
 
 namespace TheOtherRoles.Helpers;
 
