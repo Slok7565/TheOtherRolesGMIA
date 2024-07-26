@@ -16,6 +16,7 @@ using TheOtherRoles.Role;
 using AmongUs.GameOptions;
 using static TheOtherRoles.Role.TheOtherRoles;
 using TheOtherRoles.Utilities;
+using TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.TheOtherRoles.Roles.Neutral;
 public sealed class Shifter : RoleBase
@@ -63,44 +64,50 @@ public sealed class Shifter : RoleBase
     void DoShift(byte targetId){
         
         PlayerControl oldShifter = Player;
-        PlayerControl player = Helpers.playerById(targetId);
-        if (player == null || oldShifter == null) return;
-
-
+        PlayerControl target = PlayerHelper.playerById(targetId);
+        if (target == null || oldShifter == null) return;
         futureShift = null;
-        if (!isNeutral) clearAndReload();
-
-        // Suicide (exile) when impostor or impostor variants
-        if (!isNeutral && (player.Data.Role.IsImpostor
-            || Helpers.isNeutral(player)
-            || Madmate.madmate.Any(x => x.PlayerId == player.PlayerId)
-            || player == CreatedMadmate.createdMadmate) && !oldShifter.Data.IsDead)
+        if (!isNeutral)
         {
-            oldShifter.Exiled();
-            GameHistory.overrideDeathReasonAndKiller(oldShifter, DeadPlayer.CustomDeathReason.Shift, player);
-            if (PlayerControl.AllPlayerControls.ToArray().Any(p => )oldShifter == Lawyer.target && AmongUsClient.Instance.AmHost && Lawyer.lawyer != null)
+            Dispose();
+            if ((target.Data.Role.IsImpostor || target.isNeutral()|| Madmate.madmate.Any(x => x.PlayerId == target.PlayerId)
+                || target == CreatedMadmate.createdMadmate) && !oldShifter.Data.IsDead)
             {
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.LawyerPromotesToPursuer, Hazel.SendOption.Reliable, -1);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.lawyerPromotesToPursuer();
+                oldShifter.Exiled();
+                GameHistory.overrideDeathReasonAndKiller(oldShifter, DeadPlayer.CustomDeathReason.Shift, target);
+                if (PlayerControl.AllPlayerControls.ToArray().Any(p => )oldShifter == Lawyer.target && AmongUsClient.Instance.AmHost && Lawyer.lawyer != null)
+                {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.LawyerPromotesToPursuer, Hazel.SendOption.Reliable, -1);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.lawyerPromotesToPursuer();
+                }
+                return;
             }
-            return;
+            
         }
+        var ownrc = Player.GetRoleClass();
+        var tarrc = target.GetRoleClass();
+
+        tarrc.Player = oldShifter;
+        CustomRoleManager.AllActiveRoles.Remove(Player.PlayerId);
+        CustomRoleManager.AllActiveRoles.Add(Player.PlayerId, tarrc);
+        CustomRoleManager.AllActiveRoles.Remove(targetId);
+        CustomRoleManager.AllActiveRoles.Add(targetId, ownrc);
 
         // Switch shield
-        if (Medic.shielded != null && Medic.shielded == player)
+        if (Medic.shielded != null && Medic.shielded == target)
         {
             Medic.shielded = oldShifter;
         }
         else if (Medic.shielded != null && Medic.shielded == oldShifter)
         {
-            Medic.shielded = player;
+            Medic.shielded = target;
         }
 
-        if (Madmate.madmate.Any(x => x.PlayerId == player.PlayerId))
+        if (Madmate.madmate.Any(x => x.PlayerId == target.PlayerId))
         {
             Madmate.madmate.Add(oldShifter);
-            Madmate.madmate.Remove(player);
+            Madmate.madmate.Remove(target);
         }
 
         if (Shifter.shiftModifiers)
@@ -108,139 +115,82 @@ public sealed class Shifter : RoleBase
 
 
             // Switch Lovers
-            if (Lovers.lover1 != null && oldShifter == Lovers.lover1) Lovers.lover1 = player;
-            else if (Lovers.lover1 != null && player == Lovers.lover1) Lovers.lover1 = oldShifter;
+            if (Lovers.lover1 != null && oldShifter == Lovers.lover1) Lovers.lover1 = target;
+            else if (Lovers.lover1 != null && target == Lovers.lover1) Lovers.lover1 = oldShifter;
 
-            if (Lovers.lover2 != null && oldShifter == Lovers.lover2) Lovers.lover2 = player;
-            else if (Lovers.lover2 != null && player == Lovers.lover2) Lovers.lover2 = oldShifter;
+            if (Lovers.lover2 != null && oldShifter == Lovers.lover2) Lovers.lover2 = target;
+            else if (Lovers.lover2 != null && target == Lovers.lover2) Lovers.lover2 = oldShifter;
 
-            if (Cupid.lovers1 != null && oldShifter == Cupid.lovers1) Cupid.lovers1 = player;
-            else if (Cupid.lovers1 != null && player == Cupid.lovers1) Cupid.lovers1 = oldShifter;
+            if (Cupid.lovers1 != null && oldShifter == Cupid.lovers1) Cupid.lovers1 = target;
+            else if (Cupid.lovers1 != null && target == Cupid.lovers1) Cupid.lovers1 = oldShifter;
 
-            if (Cupid.lovers2 != null && oldShifter == Cupid.lovers2) Cupid.lovers2 = player;
-            else if (Cupid.lovers2 != null && player == Cupid.lovers2) Cupid.lovers2 = oldShifter;
+            if (Cupid.lovers2 != null && oldShifter == Cupid.lovers2) Cupid.lovers2 = target;
+            else if (Cupid.lovers2 != null && target == Cupid.lovers2) Cupid.lovers2 = oldShifter;
 
             // Switch Anti-Teleport
-            if (AntiTeleport.antiTeleport.Any(x => x.PlayerId == player.PlayerId))
+            if (AntiTeleport.antiTeleport.Any(x => x.PlayerId == target.PlayerId))
             {
                 AntiTeleport.antiTeleport.Add(oldShifter);
-                AntiTeleport.antiTeleport.Remove(player);
+                AntiTeleport.antiTeleport.Remove(target);
             }
             // Switch Bloody
-            if (Bloody.bloody.Any(x => x.PlayerId == player.PlayerId))
+            if (Bloody.bloody.Any(x => x.PlayerId == target.PlayerId))
             {
                 Bloody.bloody.Add(oldShifter);
-                Bloody.bloody.Remove(player);
+                Bloody.bloody.Remove(target);
             }
             // Switch Mini
-            if (Mini.mini == player) Mini.mini = oldShifter;
+            if (Mini.mini == target) Mini.mini = oldShifter;
             // Switch Tiebreaker
-            if (Tiebreaker.tiebreaker == player) Tiebreaker.tiebreaker = oldShifter;
+            if (Tiebreaker.tiebreaker == target) Tiebreaker.tiebreaker = oldShifter;
             // Switch Chameleon
-            if (Chameleon.chameleon.Any(x => x.PlayerId == player.PlayerId))
+            if (Chameleon.chameleon.Any(x => x.PlayerId == target.PlayerId))
             {
                 Chameleon.chameleon.Add(oldShifter);
-                Chameleon.chameleon.Remove(player);
+                Chameleon.chameleon.Remove(target);
             }
             // Switch Sunglasses
-            if (Sunglasses.sunglasses.Any(x => x.PlayerId == player.PlayerId))
+            if (Sunglasses.sunglasses.Any(x => x.PlayerId == target.PlayerId))
             {
                 Sunglasses.sunglasses.Add(oldShifter);
-                Sunglasses.sunglasses.Remove(player);
+                Sunglasses.sunglasses.Remove(target);
             }
-            if (Vip.vip.Any(x => x.PlayerId == player.PlayerId))
+            if (Vip.vip.Any(x => x.PlayerId == target.PlayerId))
             {
                 Vip.vip.Add(oldShifter);
-                Vip.vip.Remove(player);
+                Vip.vip.Remove(target);
             }
-            if (Invert.invert.Any(x => x.PlayerId == player.PlayerId))
+            if (Invert.invert.Any(x => x.PlayerId == target.PlayerId))
             {
                 Invert.invert.Add(oldShifter);
-                Invert.invert.Remove(player);
+                Invert.invert.Remove(target);
             }
         }
 
         // Shift role
-
-        if (Mayor.mayor != null && Mayor.mayor == player)
-            Mayor.mayor = oldShifter;
-        if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player)
-            Portalmaker.portalmaker = oldShifter;
-        if (Engineer.engineer != null && Engineer.engineer == player)
-            Engineer.engineer = oldShifter;
-        if (Sheriff.sheriff != null && Sheriff.sheriff == player)
+        if (Sheriff.sheriff != null && Sheriff.sheriff == target)
         {
             if (Sheriff.formerDeputy != null && Sheriff.formerDeputy == Sheriff.sheriff) Sheriff.formerDeputy = oldShifter;  // Shifter also shifts info on promoted deputy (to get handcuffs)
             Sheriff.sheriff = oldShifter;
         }
-        if (Deputy.deputy != null && Deputy.deputy == player)
-            Deputy.deputy = oldShifter;
-        if (Lighter.lighter != null && Lighter.lighter == player)
-            Lighter.lighter = oldShifter;
-        if (Detective.detective != null && Detective.detective == player)
-            Detective.detective = oldShifter;
-        if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player)
-            TimeMaster.timeMaster = oldShifter;
-        if (Medic.medic != null && Medic.medic == player)
-            Medic.medic = oldShifter;
-        if (Swapper.swapper != null && Swapper.swapper == player)
-            Swapper.swapper = oldShifter;
-        if (Seer.seer != null && Seer.seer == player)
-            Seer.seer = oldShifter;
-        if (Hacker.hacker != null && Hacker.hacker == player)
-            Hacker.hacker = oldShifter;
-        if (Tracker.tracker != null && Tracker.tracker == player)
-            Tracker.tracker = oldShifter;
-        if (Snitch.snitch != null && Snitch.snitch == player)
-            Snitch.snitch = oldShifter;
-        if (Spy.spy != null && Spy.spy == player)
-            Spy.spy = oldShifter;
-        if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player)
-            SecurityGuard.securityGuard = oldShifter;
-        if (Guesser.niceGuesser != null && Guesser.niceGuesser == player)
-            Guesser.niceGuesser = oldShifter;
-        if (Bait.bait != null && Bait.bait == player)
+        if (Bait.bait != null && Bait.bait == target)
         {
             Bait.bait = oldShifter;
             if (Bait.bait.Data.IsDead) Bait.reported = true;
         }
-        if (Medium.medium != null && Medium.medium == player)
-            Medium.medium = oldShifter;
-        if (Watcher.nicewatcher != null && Watcher.nicewatcher == player)
-            Watcher.nicewatcher = oldShifter;
-        if (FortuneTeller.fortuneTeller != null && FortuneTeller.fortuneTeller == player)
-            FortuneTeller.fortuneTeller = oldShifter;
-        if (Sherlock.sherlock != null && Sherlock.sherlock == player)
-            Sherlock.sherlock = oldShifter;
-        if (Sprinter.sprinter != null && Sprinter.sprinter == player)
-            Sprinter.sprinter = oldShifter;
-        if (Veteran.veteran != null && Veteran.veteran == player)
-            Veteran.veteran = oldShifter;
-        if (Yasuna.yasuna != null && Yasuna.yasuna == player)
-            Yasuna.yasuna = oldShifter;
-        if (player == TaskMaster.taskMaster)
-            TaskMaster.taskMaster = oldShifter;
-        if (Teleporter.teleporter != null && Teleporter.teleporter == player)
-            Teleporter.teleporter = oldShifter;
 
-        if (Prophet.prophet != null && Prophet.prophet == player)
-            Prophet.prophet = oldShifter;
-
-
-        if (Lawyer.lawyer != null && Lawyer.target == player)
+        if (Lawyer.lawyer != null && Lawyer.target == target)
         {
             Lawyer.target = oldShifter;
         }
 
-        player.GetRoleClass().Player = oldShifter;
-
         if (isNeutral)
         {
-            Player = player;
+            Player = target;
             pastShifters.Add(oldShifter.PlayerId);
-            if (player.Data.Role.IsImpostor)
+            if (target.Data.Role.IsImpostor)
             {
-                FastDestroyableSingleton<RoleManager>.Instance.SetRole(player, RoleTypes.Crewmate);
+                FastDestroyableSingleton<RoleManager>.Instance.SetRole(target, RoleTypes.Crewmate);
                 FastDestroyableSingleton<RoleManager>.Instance.SetRole(oldShifter, RoleTypes.Impostor);
                 if (deathReason != DeadPlayer.CustomDeathReason.Disconnect && !oldShifter.Data.IsDead) // In case the Chain-Shifter revives
                 {
@@ -249,9 +199,11 @@ public sealed class Shifter : RoleBase
                 }
             }
         }
+        else
+            Dispose();
 
         // Set cooldowns to max for both players
-        if (CachedPlayer.LocalPlayer.PlayerControl == oldShifter || CachedPlayer.LocalPlayer.PlayerControl == player)
+        if (CachedPlayer.LocalPlayer.PlayerControl == oldShifter || CachedPlayer.LocalPlayer.PlayerControl == target)
             CustomButton.ResetAllCooldowns();
 
 

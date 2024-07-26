@@ -245,7 +245,7 @@ namespace TheOtherRoles
                     byte playerId = (byte) reader.ReadPackedUInt32();
                     byte roleId = (byte) reader.ReadPackedUInt32();
                     try {
-                        setRole(roleId, playerId);
+                        setCustomRole(roleId, playerId);
                     } catch (Exception e) {
                         TheOtherRolesPlugin.Logger.LogError("Error while deserializing roles: " + e.Message);
                     }
@@ -253,8 +253,8 @@ namespace TheOtherRoles
 
         }
 
-        public static void setRole(byte roleId, byte playerId) {
-            PlayerControl player = Helpers.playerById(playerId);
+        public static void setCustomRole(byte roleId, byte playerId) {
+            PlayerControl player = PlayerHelper.playerById(playerId);
 
             player.GetRoleClass()?.Dispose();
             CustomRoleManager.CreateInstance((RoleId)roleId, player);
@@ -2148,7 +2148,7 @@ namespace TheOtherRoles
                 case (byte)CustomRPC.SetRole:
                     byte roleId = reader.ReadByte();
                     byte playerId = reader.ReadByte();
-                    RPCProcedure.setRole(roleId, playerId);
+                    RPCProcedure.setCustomRole(roleId, playerId);
                     break;
                 case (byte)CustomRPC.SetModifier:
                     byte modifierId = reader.ReadByte();

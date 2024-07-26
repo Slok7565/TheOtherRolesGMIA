@@ -667,7 +667,7 @@ namespace TheOtherRoles.Patches
             writer.Write(roleId);
             writer.Write(playerId);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
-            RPCProcedure.setRole(roleId, playerId);
+            RPCProcedure.setCustomRole(roleId, playerId);
             return playerId;
         }
 
