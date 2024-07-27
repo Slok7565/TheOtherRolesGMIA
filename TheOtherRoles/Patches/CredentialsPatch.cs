@@ -67,7 +67,7 @@ namespace TheOtherRoles.Patches
 
                 renderer = torLogo.AddComponent<SpriteRenderer>();
                 loadSprites();
-                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                renderer.sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
 
                 instance = __instance;
                 loadSprites();
@@ -102,9 +102,9 @@ namespace TheOtherRoles.Patches
             }
 
             public static void loadSprites() {
-                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
-                if (banner2Sprite == null) banner2Sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
-                if (horseBannerSprite == null) horseBannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
+                if (bannerSprite == null) bannerSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                if (banner2Sprite == null) banner2Sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
+                if (horseBannerSprite == null) horseBannerSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
             }
 
             public static void updateSprite() {

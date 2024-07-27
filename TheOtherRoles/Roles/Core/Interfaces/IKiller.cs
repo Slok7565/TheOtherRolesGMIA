@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace TheOtherRoles.TheOtherRoles.Core.Interfaces;
+namespace TheOtherRoles.Roles.Core.Interfaces;
 /// <summary>
 /// 带有击杀按钮的职业的接口
 /// </summary>

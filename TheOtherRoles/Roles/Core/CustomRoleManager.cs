@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Roles.Core;
+using TheOtherRoles.Roles.Core.Bases;
 using UnityEngine.Playables;
 using static TheOtherRoles.Helpers.EnumHelper;
 using static UnityEngine.GraphicsBuffer;

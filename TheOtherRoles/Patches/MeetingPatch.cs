@@ -15,6 +15,7 @@ using AmongUs.QuickChat;
 using TheOtherRoles.Roles;
 using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Crewmates;
 
 namespace TheOtherRoles.Patches
 {
@@ -26,7 +27,7 @@ namespace TheOtherRoles.Patches
         private const float scale = 0.65f;
         private static TMPro.TextMeshPro meetingExtraButtonText;
         private static PassiveButton[] swapperButtonList;
-        private static TMPro.TextMeshPro meetingExtraButtonLabel;
+        public static TMPro.TextMeshPro meetingExtraButtonLabel;
         private static PlayerVoteArea swapped1 = null;
         private static PlayerVoteArea swapped2 = null;
         static TMPro.TextMeshPro[] meetingInfoText = new TMPro.TextMeshPro[4];
@@ -163,7 +164,7 @@ namespace TheOtherRoles.Patches
                 var spriteRenderer = UnityEngine.Object.Instantiate<SpriteRenderer>(__instance.PlayerVotePrefab);
                 var showVoteColors = !GameManager.Instance.LogicOptions.GetAnonymousVotes() ||
                                      (CachedPlayer.LocalPlayer.Data.IsDead && TORMapOptions.ghostsSeeVotes) ||
-                                     (Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl && Mayor.canSeeVoteColors && TasksHandler.taskInfo(CachedPlayer.LocalPlayer.Data).Item1 >= Mayor.tasksNeededToSeeVoteColors ||
+                                     ( CachedPlayer.LocalPlayer.PlayerControl && Mayor.canSeeVoteColors && TasksHandler.taskInfo(CachedPlayer.LocalPlayer.Data).Item1 >= Mayor.tasksNeededToSeeVoteColors ||
                                      CachedPlayer.LocalPlayer.PlayerControl == Watcher.nicewatcher ||
                                      CachedPlayer.LocalPlayer.PlayerControl == Watcher.evilwatcher);
                 if (showVoteColors)
@@ -407,25 +408,6 @@ namespace TheOtherRoles.Patches
 
         }
 
-        static void mayorToggleVoteTwice(MeetingHud __instance) {
-            __instance.playerStates[0].Cancel();  // This will stop the underlying buttons of the template from showing up
-            if (__instance.state == MeetingHud.VoteStates.Results || Mayor.mayor.Data.IsDead) return;
-            if (Mayor.mayorChooseSingleVote == 1) { // Only accept changes until the mayor voted
-                var mayorPVA = __instance.playerStates.FirstOrDefault(x => x.TargetPlayerId == Mayor.mayor.PlayerId);
-                if (mayorPVA != null && mayorPVA.DidVote) {
-                    SoundEffectsManager.play("fail");
-                    return;
-                }
-            }
-
-            Mayor.voteTwice = !Mayor.voteTwice;
-
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.MayorSetVoteTwice, Hazel.SendOption.Reliable, -1);
-            writer.Write(Mayor.voteTwice);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-
-            meetingExtraButtonLabel.text = OtherHelper.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? OtherHelper.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : OtherHelper.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
-        }
 
         public static GameObject guesserUI;
         public static PassiveButton guesserUIExitButton;
@@ -672,7 +654,7 @@ namespace TheOtherRoles.Patches
                     meetingExtraButtonLabel.text = OtherHelper.cs(Color.red, ModTranslation.getString("swapperConfirmSwap"));
                 } else if (addMayorButton) {
                     meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
-                    meetingExtraButtonLabel.text = OtherHelper.cs(Mayor.color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? OtherHelper.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : OtherHelper.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
+                    meetingExtraButtonLabel.text = OtherHelper.cs(CustomRoleManager.GetRoleInfo(RoleId.Mayor).color, ModTranslation.getString("mayorDoubleVote") + (Mayor.voteTwice ? OtherHelper.cs(Color.green, ModTranslation.getString("mayorDoubleVoteOn")) : OtherHelper.cs(Color.red, ModTranslation.getString("mayorDoubleVoteOff"))));
                 }
                 PassiveButton passiveButton = meetingExtraButton.GetComponent<PassiveButton>();
                 passiveButton.OnClick.RemoveAllListeners();
@@ -680,7 +662,7 @@ namespace TheOtherRoles.Patches
                     if (addSwapperButtons)
                         passiveButton.OnClick.AddListener((Action)(() => swapperConfirm(__instance)));
                     else if (addMayorButton)
-                        passiveButton.OnClick.AddListener((Action)(() => mayorToggleVoteTwice(__instance)));
+                        passiveButton.OnClick.AddListener((Action)(() => (CachedPlayer.LocalPlayer.PlayerControl.GetRoleClass() as Mayor).mayorToggleVoteTwice(__instance)));
                 }
                 meetingExtraButton.parent.gameObject.SetActive(false);
                 __instance.StartCoroutine(Effects.Lerp(7.27f, new Action<float>((p) => { // Button appears delayed, so that its visible in the voting screen only!

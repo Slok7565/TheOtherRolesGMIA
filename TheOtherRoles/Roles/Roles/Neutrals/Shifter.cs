@@ -1,25 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheOtherRoles.Patches;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles.Core;
+using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Core.Interfaces;
+using TheOtherRoles.Roles.Neutral;
 using UnityEngine;
-using TheOtherRoles.Objects;
-
 using static TheOtherRoles.CustomOption;
+using TheOtherRoles.Objects;
 using Hazel;
 using TheOtherRoles.Players;
-using TheOtherRoles.Role;
-using AmongUs.GameOptions;
-using static TheOtherRoles.Role.TheOtherRoles;
-using TheOtherRoles.Utilities;
-using TheOtherRoles.Helpers;
+using System.Xml.Serialization;
+using TheOtherRoles.Roles.Core.Bases;
 
-namespace TheOtherRoles.TheOtherRoles.Roles.Neutral;
-public sealed class Shifter : RoleBase
+namespace TheOtherRoles.Roles.Neutral;
+public sealed class Shifter : RoleBase, INeutral
 {
     public static readonly RoleInfo Info =
     RoleInfo.Create(

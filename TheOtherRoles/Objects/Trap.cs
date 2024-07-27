@@ -32,9 +32,9 @@ namespace TheOtherRoles.Objects
         public static void loadSprite()
         {
             if (trapSprite == null)
-                trapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trap.png", 300f);
+                trapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Trap.png", 300f);
             if (trapActiveSprite == null)
-                trapActiveSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrapActive.png", 300f);
+                trapActiveSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.TrapActive.png", 300f);
 
         }
 
@@ -316,7 +316,7 @@ namespace TheOtherRoles.Objects
         private static Sprite trapSprite;
         public static Sprite getTrapSprite() {
             if (trapSprite) return trapSprite;
-            trapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Trap_Ingame.png", 300f);
+            trapSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Trap_Ingame.png", 300f);
             return trapSprite;
         }
 

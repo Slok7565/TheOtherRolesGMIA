@@ -152,13 +152,6 @@ namespace TheOtherRoles
         public static CustomOption ninjaCanVent;
         public static CustomOption ninjaCanBeTargeted;
 
-        public static CustomOption mayorSpawnRate;
-        public static CustomOption mayorCanSeeVoteColors;
-        public static CustomOption mayorTasksNeededToSeeVoteColors;
-        public static CustomOption mayorMeetingButton;
-        public static CustomOption mayorMaxRemoteMeetings;
-        public static CustomOption mayorChooseSingleVote;
-
         public static CustomOption portalmakerSpawnRate;
         public static CustomOption portalmakerCooldown;
         public static CustomOption portalmakerUsePortalCooldown;
@@ -850,13 +843,6 @@ namespace TheOtherRoles
             foxNumRepairs = CustomOption.Create(920, Types.Neutral, "foxNumRepair", 1f, 0f, 10f, 1f, foxSpawnRate, false, "unitShots");
 
             sortedRoleInfo.Where(role => role.types == Types.Crewmate).Do(SetupRoleOptions);
-
-            mayorSpawnRate = CustomOption.Create(80, Types.Crewmate, cs(Mayor.color, "mayor"), rates, null, true);
-            mayorCanSeeVoteColors = CustomOption.Create(81, Types.Crewmate, "mayorCanSeeVoteColor", false, mayorSpawnRate);
-            mayorTasksNeededToSeeVoteColors = CustomOption.Create(82, Types.Crewmate, "mayorTasksNeededToSeeVoteColors", 5f, 0f, 20f, 1f, mayorCanSeeVoteColors, false, "unitScrews");
-            mayorMeetingButton = CustomOption.Create(83, Types.Crewmate, "mayorMeetingButton", true, mayorSpawnRate);
-            mayorMaxRemoteMeetings = CustomOption.Create(84, Types.Crewmate, "mayorMaxRemoteMeetings", 1f, 1f, 5f, 1f, mayorMeetingButton, false, "unitShots");
-            mayorChooseSingleVote = CustomOption.Create(85, Types.Crewmate, "mayorChooseSingleVote", new string[] { "optionOff", "mayorBeforeVoting", "mayorUntilMeetingEnd" }, mayorSpawnRate);
 
             engineerSpawnRate = CustomOption.Create(90, Types.Crewmate, cs(Engineer.color, "engineer"), rates, null, true);
             engineerNumberOfFixes = CustomOption.Create(91, Types.Crewmate, "engineerNumberOfFixes", 1f, 1f, 6f, 1f, engineerSpawnRate, false, "unitShots");

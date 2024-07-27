@@ -9,7 +9,7 @@ using TheOtherRoles.Modules;
 using UnityEngine;
 using static TheOtherRoles.ModTranslation;
 
-namespace TheOtherRoles.TheOtherRoles.Core;
+namespace TheOtherRoles.Roles.Core.Bases;
 
 public abstract class ModifierBase : IDisposable
 {

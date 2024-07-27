@@ -9,7 +9,7 @@ using TheOtherRoles.Modules;
 using UnityEngine;
 using static TheOtherRoles.ModTranslation;
 
-namespace TheOtherRoles.TheOtherRoles.Core;
+namespace TheOtherRoles.Roles.Core.Bases;
 
 public abstract class RoleBase : IDisposable
 {
@@ -109,7 +109,7 @@ public abstract class RoleBase : IDisposable
     /// <summary>
     /// 是否允许在管道移动
     /// </summary>
-    public virtual bool CanMoveInVents() =>  false;
+    public virtual bool CanMoveInVents() => false;
     /// <summary>
     /// 是否用于内鬼视野
     /// </summary>
@@ -129,7 +129,7 @@ public abstract class RoleBase : IDisposable
     /// <summary>
     /// 驱逐时的处理
     /// </summary>
-    public virtual void OnExile(ExileController __instance, GameData.PlayerInfo exiled, bool tie) {}
+    public virtual void OnExile(ExileController __instance, GameData.PlayerInfo exiled, bool tie) { }
     /// <summary>
     /// 覆盖驱逐文本
     /// </summary>
@@ -145,7 +145,7 @@ public abstract class RoleBase : IDisposable
     /// <summary>
     /// 创建按钮
     /// </summary>
-    public virtual void CreateButton(HudManager __instance) {}
+    public virtual void CreateButton(HudManager __instance) { }
     /// <summary>
     /// 设置按钮冷却
     /// </summary>

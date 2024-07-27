@@ -16,6 +16,7 @@ using TheOtherRoles.Modules;
 using TheOtherRoles.Roles;
 using static TheOtherRoles.CustomOption;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Core.Bases;
 
 namespace TheOtherRoles.Roles.Core
 {

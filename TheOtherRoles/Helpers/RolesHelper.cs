@@ -37,6 +37,14 @@ public static class RolesHelper
         AmongUsClient.Instance.FinishRpcImmediately(writer);
         RPCProcedure.trapperMeetingFlag();
     }
+    public static void HandleUndertakerDropOnBodyReport()
+    {
+        if (Undertaker.undertaker == null) return;
+        var position = Undertaker.DraggedBody != null
+            ? Undertaker.DraggedBody.transform.position
+            : Vector3.zero;
+        Undertaker.DropBody(position);
+    }
 
     public static IEnumerator BlackmailShhh()
     {

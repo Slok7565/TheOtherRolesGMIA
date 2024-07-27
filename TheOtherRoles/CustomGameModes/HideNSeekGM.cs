@@ -86,13 +86,13 @@ namespace TheOtherRoles.CustomGameModes
 
         public static Sprite getArrowSprite() {
             if (buttonSpriteArrow) return buttonSpriteArrow;
-            buttonSpriteArrow = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HideNSeekArrowButton.png", 115f);
+            buttonSpriteArrow = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.HideNSeekArrowButton.png", 115f);
             return buttonSpriteArrow;
         }
 
         public static Sprite getLightSprite() {
             if (buttonSpriteLight) return buttonSpriteLight;
-            buttonSpriteLight = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LighterButton.png", 115f);
+            buttonSpriteLight = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LighterButton.png", 115f);
             return buttonSpriteLight;
         }
 

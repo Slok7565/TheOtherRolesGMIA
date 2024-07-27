@@ -63,13 +63,5 @@ public static class DeadBodyHelper
         return result;
     }
 
-    public static void HandleUndertakerDropOnBodyReport()
-    {
-        if (Undertaker.undertaker == null) return;
-        var position = Undertaker.DraggedBody != null
-            ? Undertaker.DraggedBody.transform.position
-            : Vector3.zero;
-        Undertaker.DropBody(position);
-    }
 
 }

@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Iced.Intel;
-using TheOtherRoles.Role;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Core.Interfaces;
+using TheOtherRoles.Roles.Neutral;
 using UnityEngine;
-using System.Linq.Expressions;
 using static TheOtherRoles.CustomOption;
-using TheOtherRoles.TheOtherRoles.Roles.Impostor;
+using TheOtherRoles.Objects;
+using Hazel;
+using TheOtherRoles.Players;
+using System.Xml.Serialization;
+using TheOtherRoles.Roles.Core.Bases;
 
-namespace TheOtherRoles.TheOtherRoles.Roles.Modifier;
+namespace TheOtherRoles.Roles.Modifier;
 
 public sealed class Lovers : ModifierBase
 {

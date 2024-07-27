@@ -317,7 +317,7 @@ TheEpicRoles - Idea for the first kill shield (partly) and the tabbed option men
 
         public static void loadSprite()
         {
-            if (sprite == null) sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LogoButton.png", 100f);
+            if (sprite == null) sprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.LogoButton.png", 100f);
         }
     }
 

@@ -16,6 +16,7 @@ using AmongUs.GameOptions;
 using TheOtherRoles.Roles;
 using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
+using TheOtherRoles.Roles.Crewmates;
 
 namespace TheOtherRoles.Patches
 {
@@ -298,7 +299,7 @@ namespace TheOtherRoles.Patches
             if (__instance.state == 1) {
                 int localRemaining = CachedPlayer.LocalPlayer.PlayerControl.RemainingEmergencies;
                 int teamRemaining = Mathf.Max(0, maxNumberOfMeetings - meetingsCount);
-                int remaining = Mathf.Min(localRemaining, (Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl) ? 1 : teamRemaining);
+                int remaining = Mathf.Min(localRemaining, (CachedPlayer.LocalPlayer.PlayerControl.GetRoleClass() is Mayor) ? 1 : teamRemaining);
                 __instance.NumberText.text = String.Format(ModTranslation.getString("meetingCount"), localRemaining.ToString(), teamRemaining.ToString());
                 __instance.ButtonActive = remaining > 0;
                 __instance.ClosedLid.gameObject.SetActive(!__instance.ButtonActive);
@@ -616,7 +617,7 @@ namespace TheOtherRoles.Patches
         private static float timer = 0f;
 
         public static List<GameObject> nightVisionOverlays = null;
-        private static Sprite overlaySprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
+        private static Sprite overlaySprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
         public static bool nightVisionIsActive = false;
         private static bool isLightsOut;
 

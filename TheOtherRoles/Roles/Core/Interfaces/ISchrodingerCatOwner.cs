@@ -1,6 +1,6 @@
 using AmongUs.GameOptions;
 
-namespace TheOtherRoles.TheOtherRoles.Core.Interfaces;
+namespace TheOtherRoles.Roles.Core.Interfaces;
 
 /// <summary>
 /// 可以杀死薛定谔的猫并将其引入自己阵营的角色接口。

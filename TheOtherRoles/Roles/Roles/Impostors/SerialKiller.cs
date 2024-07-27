@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheOtherRoles.TheOtherRoles.Core;
+using TheOtherRoles.Roles.Core;
 using TheOtherRoles.Helpers;
-using TheOtherRoles.TheOtherRoles.Core.Interfaces;
-using TheOtherRoles.TheOtherRoles.Roles.Neutral;
+using TheOtherRoles.Roles.Core.Interfaces;
+using TheOtherRoles.Roles.Neutral;
 using UnityEngine;
 using static TheOtherRoles.CustomOption;
 using TheOtherRoles.Objects;
 using Hazel;
 using TheOtherRoles.Players;
 using System.Xml.Serialization;
+using TheOtherRoles.Roles.Core.Bases;
 
-namespace TheOtherRoles.TheOtherRoles.Roles.Impostor;
+namespace TheOtherRoles.Roles.Impostor;
 public sealed class SerialKiller : RoleBase, IImpostor
 {
     public static readonly RoleInfo Info =
@@ -50,7 +51,7 @@ public sealed class SerialKiller : RoleBase, IImpostor
     public Sprite getButtonSprite()
     {
         if (buttonSprite) return buttonSprite;
-        buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+        buttonSprite = ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
         return buttonSprite;
     }
     void SendRPC(byte targetId)

@@ -61,7 +61,6 @@ namespace TheOtherRoles
         public static CustomButton pursuerButton;
         public static CustomButton witchSpellButton;
         public static CustomButton assassinButton;
-        public static CustomButton mayorMeetingButton;
         public static CustomButton thiefKillButton;
         public static CustomButton ninjaButton;
         public static CustomButton evilTrackerButton;
@@ -190,7 +189,6 @@ namespace TheOtherRoles
             witchSpellButton.MaxTimer = Witch.cooldown;
             assassinButton.MaxTimer = Assassin.cooldown;
             thiefKillButton.MaxTimer = Thief.cooldown;
-            mayorMeetingButton.MaxTimer = GameManager.Instance.LogicOptions.GetEmergencyCooldown();
             ninjaButton.MaxTimer = Ninja.stealthCooldown;
             //serialKillerButton.MaxTimer = 0f;
             evilTrackerButton.MaxTimer = EvilTracker.cooldown;
@@ -400,7 +398,7 @@ namespace TheOtherRoles
                 return true;
             },
             () => { },
-            Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
+            ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.HelpButton.png", 150f),
             new Vector3(0.4f, 4.2f, 0),
             __instance,
             null
@@ -2220,7 +2218,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.AccelAttribute.png", 250f),
                 new Vector3(-0.5f, 1f, 0f),
                 __instance,
                 null,
@@ -2239,7 +2237,7 @@ namespace TheOtherRoles
                     return true;
                 },
                 () => { },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.DecelAttribute.png", 250f),
                 new Vector3(0.1f, 1f, 0),
                 __instance,
                 null,
@@ -3593,42 +3591,6 @@ namespace TheOtherRoles
                 KeyCode.F
             );
 
-            mayorMeetingButton = new CustomButton(
-               () => {
-                   CachedPlayer.LocalPlayer.NetTransform.Halt(); // Stop current movement
-                   Mayor.remoteMeetingsLeft--;
-	               Helpers.handleVampireBiteOnBodyReport(); // Manually call Vampire handling, since the CmdReportDeadBody Prefix won't be called
-                   Helpers.HandleUndertakerDropOnBodyReport();
-                   Helpers.handleTrapperTrapOnBodyReport();
-                   RPCProcedure.uncheckedCmdReportDeadBody(CachedPlayer.LocalPlayer.PlayerId, Byte.MaxValue);
-
-                   MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.UncheckedCmdReportDeadBody, Hazel.SendOption.Reliable, -1);
-                   writer.Write(CachedPlayer.LocalPlayer.PlayerId);
-                   writer.Write(Byte.MaxValue);
-                   AmongUsClient.Instance.FinishRpcImmediately(writer);
-                   mayorMeetingButton.Timer = 1f;
-               },
-               () => { return Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl && !CachedPlayer.LocalPlayer.Data.IsDead && Mayor.meetingButton; },
-               () => {
-                   mayorMeetingButton.actionButton.OverrideText(ModTranslation.getString("mayorEmergencyLeftText") + " (" + Mayor.remoteMeetingsLeft + ")");
-                   bool sabotageActive = false;
-                   foreach (PlayerTask task in CachedPlayer.LocalPlayer.PlayerControl.myTasks.GetFastEnumerator())
-                       if (task.TaskType == TaskTypes.FixLights || task.TaskType == TaskTypes.RestoreOxy || task.TaskType == TaskTypes.ResetReactor || task.TaskType == TaskTypes.ResetSeismic || task.TaskType == TaskTypes.FixComms || task.TaskType == TaskTypes.StopCharles
-                           || SubmergedCompatibility.IsSubmerged && task.TaskType == SubmergedCompatibility.RetrieveOxygenMask)
-                           sabotageActive = true;
-                   return !sabotageActive && CachedPlayer.LocalPlayer.PlayerControl.CanMove && (Mayor.remoteMeetingsLeft > 0);
-               },
-               () => { mayorMeetingButton.Timer = mayorMeetingButton.MaxTimer; },
-               Mayor.getMeetingSprite(),
-               CustomButton.ButtonPositions.lowerRowRight,
-               __instance,
-               KeyCode.F,
-               true,
-               0f,
-               () => {},
-               false,
-               ModTranslation.getString("mayorEmergencyMeetingText")
-           );
 
             // Trapper button
             //trapperButton = new CustomButton(
@@ -3798,7 +3760,7 @@ namespace TheOtherRoles
                 },
                 () => { return true; },
                 () => { return; },
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
+                ResourcesHelper.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f),  // Invisible button!
                 new Vector3(0.4f, 2.8f, 0),
                 __instance,
                 KeyCode.KeypadPlus

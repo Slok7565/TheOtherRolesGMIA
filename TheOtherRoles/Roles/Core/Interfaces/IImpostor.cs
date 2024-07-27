@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AmongUs.GameOptions;
 
-namespace TheOtherRoles.TheOtherRoles.Core.Interfaces;
+namespace TheOtherRoles.Roles.Core.Interfaces;
 /// <summary>
 /// 内鬼的接口<br/>
 /// <see cref="IKiller"/>的继承
