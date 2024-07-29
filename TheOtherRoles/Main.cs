@@ -3,7 +3,7 @@ global using Il2CppInterop.Runtime.Attributes;
 global using Il2CppInterop.Runtime.InteropTypes;
 global using Il2CppInterop.Runtime.InteropTypes.Arrays;
 global using Il2CppInterop.Runtime.Injection;
-
+using TheOtherRoles.Helpers;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Unity.IL2CPP;
@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using System.Reflection;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
@@ -23,6 +24,8 @@ using Reactor.Networking.Attributes;
 using AmongUs.Data;
 using TheOtherRoles.Modules.CustomHats;
 using TheOtherRoles.Objects;
+using TheOtherRoles.Roles.Core.Bases;
+using TheOtherRoles.Roles.Core;
 
 namespace TheOtherRoles
 {
@@ -96,7 +99,7 @@ namespace TheOtherRoles
             Logger = Log;
             Instance = this;
   
-            _ = Helpers.checkBeta(); // Exit if running an expired beta
+            _ = OtherHelper.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
 
             DebugMode = Config.Bind("Custom", "Enable Debug Mode", "false");
@@ -130,7 +133,27 @@ namespace TheOtherRoles
                 AddComponent<BepInExUpdater>();
                 return;
             }
+            try
+            {
+                var roletype = typeof(RoleBase);
+                var roleClassArray = Assembly.GetAssembly(roletype)
+                    .GetTypes()
+                    .Where(x => x.IsSubclassOf(roletype)).ToArray();
 
+                foreach (var roleClassType in roleClassArray)
+                    roleClassType.GetField("RoleInfo")?.GetValue(roletype);
+
+                var addontype = typeof(ModifierBase);
+                var addonClassArray = Assembly.GetAssembly(addontype)
+                    .GetTypes()
+                    .Where(x => x.IsSubclassOf(addontype)).ToArray();
+
+                foreach (var addonClassType in addonClassArray)
+                    addonClassType.GetField("RoleInfo")?.GetValue(addontype);
+
+                CustomRoleManager.AllRolesClassType = roleClassArray.Concat(addonClassArray).ToArray();
+            }
+            catch { }
             EventUtility.Load();
             SubmergedCompatibility.Initialize();
             AddComponent<ModUpdateBehaviour>();
