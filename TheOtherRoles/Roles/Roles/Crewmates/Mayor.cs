@@ -83,7 +83,7 @@ public sealed class Mayor : RoleBase
         mayorMeetingButton = new CustomButton(
    () => {
        CachedPlayer.LocalPlayer.NetTransform.Halt(); // Stop current movement
-        remoteMeetingsLeft--;
+       remoteMeetingsLeft--;
        RolesHelper.handleVampireBiteOnBodyReport(); // Manually call Vampire handling, since the CmdReportDeadBody Prefix won't be called
        RolesHelper.HandleUndertakerDropOnBodyReport();
        RolesHelper.handleTrapperTrapOnBodyReport();
